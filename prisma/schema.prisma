@@ -27,8 +27,16 @@ model User {
 	emailVerified DateTime?
 	image String?
 	password String?
-  role UserRole @default(USER)
+    role UserRole @default(USER)
 	accounts Account[]
+	isTwoFactorEnabled Boolean @default(false)
+	twoFactorConfirmation TwoFactorConfirmation?
+	personal			 Personal? 
+	contact Contact?
+	skills Skills?
+	bio Bio?
+	workedu	Workedu?
+public Public?
 }
 
 model Account {
@@ -58,4 +66,102 @@ model VerificationToken {
 
   //only one unique token per specific email 
   @@unique([email, token])
+}
+
+model PasswordResetToken {
+	id String @id @default(cuid())
+	email String
+	token String @unique
+	expires DateTime
+
+	@@unique([email, token])
+}
+
+model TwoFactorToken {
+	id String @id @default(cuid())
+	email String
+	token String @unique
+	expires DateTime
+
+	@@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+	id String @id @default(cuid())
+	userId String
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+	@@unique([userId])
+}
+
+model Personal {
+	id String @id @default(cuid())
+	userId String
+	name String
+	surname String
+	address String?
+	dateOfBirth String?
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+
+}
+
+model Contact {
+	id String @id @default(cuid())
+	userId String
+	phone String?
+	email String
+	linkedin String?
+	github String?
+	dribble String?
+	website String?
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+
+}
+
+model Skills {
+	id String @id @default(cuid())
+	userId String
+	hardSkills String[]
+	softSkills String[]
+	languages String[]
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+
+}
+
+model Bio {
+	id String @id @default(cuid())
+	userId String
+	bio String?
+	desiredJob String
+	desiredRal Int
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+}
+
+model Workedu {
+	id String @id @default(cuid())
+	userId String
+	experience String[]
+	experienceYears String[]
+	education String[]
+	educationYears String[]
+
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+}
+
+model Public {
+	id String @id @default(cuid())
+	userId String
+	showImage Boolean @default(true)
+	showAddress Boolean @default(true)
+	showDateOfBirth Boolean @default(true)
+	showBio Boolean @default(true)
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+
 }
