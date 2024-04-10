@@ -80,3 +80,24 @@ body,
     @apply bg-background text-foreground;
   }
 }
+.customBtnCol {
+	@apply bg-gradient-to-r from-violet-600 to-indigo-600 text-white
+   }
+
+.formTitle {
+	@apply bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-left text-lg font-medium 
+}
+
+.formLabel {
+	@apply block text-sm font-medium leading-6 text-gray-900 mt-3 mb-1
+}
+.textArea{
+	@apply block w-full rounded-md border-0 p-1.5  text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+}
+
+.inputField {
+	@apply	block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+}
+.inputFieldArray {
+	@apply	block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+}
