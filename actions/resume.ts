@@ -21,6 +21,8 @@ interface Data{
         eyears: string;
         edu: string;
     }[] | undefined;
+	skillss: String[] | undefined;
+	softSkillss: String[] | undefined;
 
 }
 export const resume = async (values: Data) => {
