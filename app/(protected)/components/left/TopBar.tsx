@@ -11,15 +11,22 @@ import {
     FieldProps,
 } from "formik";
 import { resume } from "@/actions/resume";
-import React, { useState, useId } from "react";
+import React, { useState, useId, useEffect, useTransition, ChangeEvent } from "react";
 import Select from "react-select";
+import { getInitialData } from "@/data/InitialData";
+import { FormSchema } from "@/schemas";
+import * as z from "zod";
 
 const TopBar = () => {
     const [inputValue, setInputValue] = useState<string>("");
     const [skills, setSkills] = useState<string[]>([]);
-
     const [softInputValue, setSoftInputValue] = useState<string>("");
     const [softSkills, setSoftSkills] = useState<string[]>([]);
+    const [langInputValue, setLangInputValue] = useState<string>("");
+    const [langSkills, setLangSkills] = useState<string[]>([]);
+    const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState<string | undefined>("");
+	const [relocate, setRelocate] = useState<boolean | undefined>();
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter" || event.key === ",") {
@@ -31,11 +38,30 @@ const TopBar = () => {
         }
     };
 
-    const preventSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
+	const handleRelocate = (event: ChangeEvent<HTMLSelectElement>) => {
+		if (event.target.value == "0"){
+			setRelocate(false)
+		} else {
+			setRelocate(true)
+		}
+
+	}
+
+	const handleLangKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter" || event.key === ",") {
+            event.preventDefault();
+            if (langInputValue.trim() !== "") {
+                setLangSkills((prevLangSkills) => [...prevLangSkills, langInputValue.trim()]);
+                setLangInputValue("");
             }
-    }
+        }
+    };
+
+    const preventSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
+    };
 
     const handleSoftKeyDown = (
         event: React.KeyboardEvent<HTMLInputElement>
@@ -61,6 +87,11 @@ const TopBar = () => {
         );
     };
 
+	const handleDeleteLangSkill = (index: number) => {
+        setLangSkills((prevLangSkills) =>
+            prevLangSkills.filter((_, idx) => idx !== index)
+        );
+    };
     const customStyles = {
         control: (provided: any) => ({
             ...provided,
@@ -72,11 +103,13 @@ const TopBar = () => {
             },
         }),
     };
-    const initialValues = {
+
+    const [initialValues, setInitialValues] = useState({
         name: "",
         surname: "",
         address: "",
         dateOfBirth: "",
+		relocation: false,
         phone: "",
         email: "",
         linkedin: "",
@@ -100,23 +133,81 @@ const TopBar = () => {
         ],
         skillss: [""],
         softSkillss: [""],
+		langSkillss: [""],
+    });
+
+    useEffect(() => {
+        const fetchInitialValues = async () => {
+            const data = await getInitialData();
+            if (data) {
+                setInitialValues({
+                    name: data.name || "",
+                    surname: data.surname || "",
+                    address: data.address || "",
+                    dateOfBirth: data.dateOfBirth || "",
+					relocation: data.relocation || false,
+                    phone: data.phone || "",
+
+                    email: data.email || "",
+                    linkedin: data.linkedin || "",
+                    github: data.github || "",
+                    dribble: data.dribble || "",
+                    website: data.website || "",
+                    bio: data.bio || "",
+                    desiredJob: data.desiredJob || "",
+                    ral: data.ral || "",
+                    experience: data.experience,
+                    education: data.education,
+                    skillss: data.skillss || [""],
+                    softSkillss: data.softSkillss || [""],
+					langSkillss: data.langSkillss || [""],
+                });
+                setSkills(data.skillss || [""]);
+                setSoftSkills(data.softSkillss || [""]);
+				setLangSkills(data.langSkillss || [""]);
+
+            }
+        };
+
+        fetchInitialValues();
+    }, []);
+
+    const SubmitHandler = (values: z.infer<typeof FormSchema>) => {
+        values.skillss = [...skills];
+        values.softSkillss = [...softSkills];
+		values.langSkillss = [...langSkills];
+		values.relocation = relocate;
+		console.log(values)
+        setError("");
+
+        startTransition(() => {
+            resume(values)
+                .then((data) => {
+                    if (data?.error) {
+                        setError(data.error);
+                    }
+                })
+                .catch(() => setError("Something went wrong"));
+        });
     };
 
     return (
         <div>
             <Formik
+                enableReinitialize={true}
                 initialValues={initialValues}
-                onSubmit={(values) => {
-                    values.skillss = [...skills];
-                    values.softSkillss = [...softSkills];
+                // onSubmit={(values) => {
+                //     values.skillss = [...skills];
+                //     values.softSkillss = [...softSkills];
 
-                    console.log(values);
-                    resume(values);
-                }}
+                //     console.log(values);
+                //     resume(values);
+                // }}
+                onSubmit={SubmitHandler}
             >
                 {({ values, setFieldValue }) => (
                     <Form>
-                        <div className="flex justify-between items-center border-b-2 border-slate-200">
+                        <div className="flex sticky top-0 bg-[#f8f8ff] justify-between items-center z-50 border-b-2 border-slate-200 ">
                             <h3 className="text-start m-4 formTitle">
                                 Build your resume
                             </h3>
@@ -124,6 +215,7 @@ const TopBar = () => {
                                 className="gap-x-2 customBtnCol m-4"
                                 size="lg"
                                 type="submit"
+                                disabled={isPending}
                             >
                                 <RiSave3Fill />
                                 Save
@@ -145,6 +237,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -158,7 +251,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div className="col-span-2">
@@ -172,7 +265,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -189,8 +282,27 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor="relocation"
+                                    className="formLabel "
+                                >
+                                    Willing to relocate?
+                                </label>
+                                <Field
+                                    as="select"
+                                    id="relocation"
+                                    name="relocation"
+                                    multiple={false}
+                                    className="inputField"
+									onChange={handleRelocate}
+                                >
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </Field>
                             </div>
                         </div>
                         <h3 className="text-start m-4 formTitle">Contacts</h3>
@@ -206,7 +318,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -220,7 +332,7 @@ const TopBar = () => {
                                     type="email"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -237,7 +349,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -251,7 +363,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -265,7 +377,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div>
@@ -279,7 +391,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                         </div>
@@ -296,6 +408,7 @@ const TopBar = () => {
                                     rows="4"
                                     type="text"
                                     className="textArea"
+                                    disabled={isPending}
                                 />
                             </div>
                             <div className="col-span-3">
@@ -312,7 +425,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                             <div className="col-span-1">
@@ -326,7 +439,7 @@ const TopBar = () => {
                                     type="text"
                                     className="inputField"
                                     onKeyDown={preventSubmit}
-
+                                    disabled={isPending}
                                 />
                             </div>
                         </div>
@@ -334,7 +447,11 @@ const TopBar = () => {
                             Hard Skills
                         </h3>
                         <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
-                            <Field name="skills" instanceId={useId()}>
+                            <Field
+                                name="skills"
+                                instanceId={useId()}
+                                disabled={isPending}
+                            >
                                 {(props: FieldProps) => (
                                     <div>
                                         <Select
@@ -389,7 +506,11 @@ const TopBar = () => {
                         </h3>
 
                         <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
-                            <Field name="softSkills" instanceId={useId()}>
+                            <Field
+                                name="softSkills"
+                                instanceId={useId()}
+                                disabled={isPending}
+                            >
                                 {(props: FieldProps) => (
                                     <div>
                                         <Select
@@ -441,7 +562,64 @@ const TopBar = () => {
                                 )}
                             </Field>
                         </div>
-
+						<h3 className="text-start m-4 formTitle">
+                            Languages
+                        </h3>
+                        <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
+                            <Field
+                                name="languages"
+                                instanceId={useId()}
+                                disabled={isPending}
+                            >
+                                {(props: FieldProps) => (
+                                    <div>
+                                        <Select
+                                            {...props.field}
+                                            instanceId={useId()}
+                                            components={{
+                                                DropdownIndicator: () => null,
+                                                IndicatorSeparator: () => null,
+                                            }}
+                                            options={[]}
+                                            isMulti
+                                            placeholder="Which languages do you know?"
+                                            inputValue={langInputValue}
+                                            onInputChange={(value) =>
+                                                setLangInputValue(value)
+                                            }
+                                            onKeyDown={handleLangKeyDown}
+                                            styles={customStyles}
+                                            menuIsOpen={false}
+                                        />
+                                        <div className="flex flex-wrap p-2 mt-2 gap-x-2">
+                                            {langSkills.map((lang, lindex) => (
+                                                <div
+                                                    className="ring-1 rounded-sm ring-slate-200"
+                                                    key={lindex}
+                                                >
+                                                    <div
+                                                        key={lindex}
+                                                        className="flex p-2 "
+                                                    >
+                                                        {lang}
+                                                        <button
+                                                            onClick={() =>
+                                                                handleDeleteLangSkill(
+                                                                    lindex
+                                                                )
+                                                            }
+                                                            className=" text-red-500 text-xl"
+                                                        >
+                                                            <MdDelete className="ml-2" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </Field>
+                        </div>
                         <h3 className="text-start m-4 formTitle">Experience</h3>
 
                         <FieldArray name="experience">
@@ -481,8 +659,12 @@ const TopBar = () => {
                                                                 name={`experience.${expindex}.years`}
                                                                 placeholder="2020-2024"
                                                                 type="text"
-                                                                onKeyDown={preventSubmit}
-
+                                                                onKeyDown={
+                                                                    preventSubmit
+                                                                }
+                                                                disabled={
+                                                                    isPending
+                                                                }
                                                             />
                                                             <ErrorMessage
                                                                 name={`experience.${expindex}.years`}
@@ -507,6 +689,9 @@ const TopBar = () => {
                                                                 placeholder="I've worked for google as a..."
                                                                 type="text"
                                                                 rows="4"
+                                                                disabled={
+                                                                    isPending
+                                                                }
                                                             />
                                                             <ErrorMessage
                                                                 name={`experience.${expindex}.exps`}
@@ -576,8 +761,12 @@ const TopBar = () => {
                                                                 name={`education.${eduindex}.eyears`}
                                                                 placeholder="2020-2024"
                                                                 type="text"
-                                                                onKeyDown={preventSubmit}
-
+                                                                onKeyDown={
+                                                                    preventSubmit
+                                                                }
+                                                                disabled={
+                                                                    isPending
+                                                                }
                                                             />
                                                             <ErrorMessage
                                                                 name={`education.${eduindex}.eyears`}
@@ -602,6 +791,9 @@ const TopBar = () => {
                                                                 placeholder="I've worked for google as a..."
                                                                 type="text"
                                                                 rows="4"
+                                                                disabled={
+                                                                    isPending
+                                                                }
                                                             />
                                                             <ErrorMessage
                                                                 name={`education.${eduindex}.edu`}
@@ -637,6 +829,7 @@ const TopBar = () => {
                             className="gap-x-2 customBtnCol m-4"
                             size="lg"
                             type="submit"
+                            disabled={isPending}
                         >
                             <RiSave3Fill />
                             Save

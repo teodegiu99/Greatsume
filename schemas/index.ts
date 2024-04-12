@@ -33,3 +33,32 @@ export const NewPasswordSchema = z.object({
         message: "Minimum of 6 characters required"
     }),
 });
+
+
+export const FormSchema = z.object({
+    name: z.string().optional(),
+    surname: z.string().optional(),
+    address: z.string().optional(),
+    dateOfBirth: z.string().optional(),
+	relocation: z.boolean().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    linkedin: z.string().optional(),
+    github: z.string().optional(),
+    dribble: z.string().optional(),
+    website: z.string().optional(),
+    bio: z.string().optional(),
+    desiredJob: z.string().optional(),
+    ral: z.string().optional(),
+    experience: z.array(z.object({
+        years: z.string(),
+        exps: z.string(),
+    })).optional(),
+    education: z.array(z.object({
+        eyears: z.string(),
+        edu: z.string(),
+    })).optional(),
+    skillss: z.array(z.string()).optional(),
+    softSkillss: z.array(z.string()).optional(),
+	langSkillss: z.array(z.string()).optional(),
+});

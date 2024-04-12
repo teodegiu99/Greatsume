@@ -4,7 +4,7 @@ import TopBar from '../components/left/TopBar'
 const ResumePage = () => {
   return (
 	<div className='grid grid-cols-6 gap-4 h-[100dvh]'>
-		<div className='col-span-2 shadow-2xl '>
+		<div className='col-span-2 shadow-2xl overflow-auto scrollbar-hide'>
 <TopBar />
 
 </div>
