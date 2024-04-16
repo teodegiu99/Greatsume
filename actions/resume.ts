@@ -4,31 +4,7 @@ import * as z from "zod";
 import { auth } from "@/auth";
 import { updateBio, updateContact, updatePersonal, updateSkills, updateWorkEdu } from "./resumeFieldUpdate";
 
-// interface Data{
-// 	name: String | undefined,
-// 	surname: String | undefined,
-// 	address: String | undefined,
-// 	dateOfBirth: String | undefined,
-// 	phone: String | undefined,
-// 	email: String | undefined,
-// 	linkedin: String | undefined,
-// 	github: String | undefined,
-// 	dribble: String | undefined,
-// 	website: String | undefined,
-// 	bio: String | undefined,
-// 	desiredJob: String | undefined,
-// 	ral: String | undefined,
-	// experience: {
-    //     years: string;
-    //     exps: string;
-    // }[] | undefined;
-    // education: {
-    //     eyears: string;
-    //     edu: string;
-    // }[] | undefined;
-// 	skillss: String[] | undefined;
-// 	softSkillss: String[] | undefined;
-// }
+
 
 
 export const resume = async (values: z.infer<typeof FormSchema>) => {
@@ -95,22 +71,22 @@ const notEmpty = (...variables: (string | null | undefined)[]): boolean => {
     return false;
 };
 
-const removeEmptyExperience = (experience: { years: string; exps: string }[] | undefined): void => {
+const removeEmptyExperience = (experience: { years: string; exps: string; title: string }[] | undefined): void => {
     if (!experience) {
         return; // Se l'array experience è undefined o null, non c'è nulla da rimuovere
     }
 
-    const filteredExperience = experience.filter(exp => exp.years.trim() !== '' || exp.exps.trim() !== '');
+    const filteredExperience = experience.filter(exp => exp.years.trim() !== '' || exp.exps.trim() !== '' || exp.title.trim() !== '');
 
     experience.splice(0, experience.length, ...filteredExperience);
 };
 
-const removeEmptyEducation = (education: { eyears: string; edu: string }[] | undefined): void => {
+const removeEmptyEducation = (education: { eyears: string; edu: string; etitle: string; }[] | undefined): void => {
     if (!education) {
         return; // Se l'array experience è undefined o null, non c'è nulla da rimuovere
     }
 
-    const filteredEducation = education.filter(exp => exp.eyears.trim() !== '' || exp.edu.trim() !== '');
+    const filteredEducation = education.filter(exp => exp.eyears.trim() !== '' || exp.edu.trim() !== '' || exp.etitle.trim() !== '');
 
     education.splice(0, education.length, ...filteredEducation);
 };

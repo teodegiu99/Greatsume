@@ -100,7 +100,7 @@ model Personal {
 	surname String?
 	address String?
 	dateOfBirth String?
-	relocation Boolean?
+	relocation String?
 	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([userId])
 
