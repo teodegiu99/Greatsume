@@ -228,6 +228,13 @@ const LeftBar = () => {
               </Button>
             </div>
 
+
+
+
+
+
+
+
             <h3 className="text-start m-4 formTitle">Personal Informations</h3>
             <div className="grid grid-cols-2 gap-4  p-4 m-2 border-2 border-slate-200 rounded-md">
               <div>

@@ -17,6 +17,8 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@reduxjs/toolkit": "^2.2.3",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@types/react-redux": "^7.1.33",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

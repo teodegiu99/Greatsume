@@ -36,7 +36,8 @@ model User {
 	skills Skills?
 	bio Bio?
 	workedu	Workedu?
-public Public?
+	public Public?
+	profilepic ProfilePic?
 }
 
 model Account {
@@ -164,6 +165,15 @@ model Public {
 	showAddress Boolean @default(true)
 	showDateOfBirth Boolean @default(true)
 	showBio Boolean @default(true)
+	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId])
+
+}
+
+model ProfilePic {
+	id String @id @default(cuid())
+	userId String
+	image Bytes[]
 	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([userId])
 

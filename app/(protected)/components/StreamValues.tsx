@@ -72,7 +72,7 @@ export const StreamValues: React.FC<StreamValuesProps> = ({ langSkills, softSkil
     // const {name, surname, address, relocation} = values;
     useEffect(() => {
       handleUpdateValues()
-        console.log(values)
+        // console.log(values)
 
 
 
