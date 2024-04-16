@@ -1,41 +1,17 @@
-import React from 'react'
-import {
-    Formik,
-    Field,
-    Form,
-    ErrorMessage,
-    FieldArray,
-    FieldProps,
-    useFormikContext
-} from "formik";
+"use client"
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../state/store';
 
 
 const CvHandler = () => {
-    // const {values} = useFormikContext();
+    const object = useSelector((state: RootState) => state.updateValues);
+    console.log('Contenuto di object:', object);
 
-    // console.log("formik context", values)
   return (
-    <div>
-      <p id="cvName">
-      </p>
-      <p id="cvSurname">
-      </p>
-      <p id="cvAddress">
-      </p>
-      <p id="cvDateOfBirth">
-      </p>
-      <p id="cvRelocate">
-      </p>
-      <p id="cvPhone">
-      </p>
-      <p id="cvEmail">
-      </p>
-      <p id="cvLinkedin">
-      </p>
-      <p id="cvGithub">
-      </p>
-      <p id="cvWebsite">
-      </p>
+    <div className='text-center text-white text-3xl z-200'>
+        <p>{object?.state?.skillss}</p>
+        {object?.state?.bio}
+      
     </div>
   )
 }

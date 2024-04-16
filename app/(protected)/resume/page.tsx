@@ -8,7 +8,7 @@ const ResumePage = () => {
       <div className="col-span-2 shadow-2xl overflow-auto scrollbar-hide">
         <TopBar />
       </div>
-      <div className="col-span-3 customBtnCol">
+      <div className="col-span-3 customBtnCol text-white">
         <CvHandler />
       </div>
       <div className="col-span-1 ">dghh</div>
