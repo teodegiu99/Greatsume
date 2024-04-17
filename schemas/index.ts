@@ -34,6 +34,8 @@ export const NewPasswordSchema = z.object({
   }),
 });
 
+
+
 export const FormSchema = z.object({
   name: z.string().optional(),
   surname: z.string().optional(),

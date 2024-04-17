@@ -183,3 +183,24 @@ export const updateWorkEdu = async (
     });
   }
 };
+
+export const updateImage = async (
+  id?: string,
+  compressedImage?: string
+) => {
+  console.log("UPDATE IMAGE=", id, );
+
+  if (id) {
+    await db.profilePic.upsert({
+      where: { userId: id },
+      update: {
+        image: compressedImage
+      },
+      create: {
+        userId: id,
+        image: compressedImage
+
+      },
+    });
+  }
+}

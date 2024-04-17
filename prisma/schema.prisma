@@ -173,7 +173,7 @@ model Public {
 model ProfilePic {
 	id String @id @default(cuid())
 	userId String
-	image Bytes[]
+	image String?
 	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([userId])
 

@@ -1,8 +1,8 @@
 "use client"
 
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-interface ValuesState {
+export interface ValuesState {
     name: string,
     surname: string,
     address: string,
@@ -34,6 +34,7 @@ interface ValuesState {
     skillss: string[],
     softSkillss: string[],
     langSkillss: string[],
+    image: string,
   };
 
   const initialState: ValuesState = {
@@ -68,13 +69,14 @@ interface ValuesState {
     skillss: [""],
     softSkillss: [""],
     langSkillss: [""],
+    image: "",
   }
 
   const updateValuesSlice = createSlice({
     name: "updateValues",
     initialState,
     reducers: {
-        setUpdateValues: (state, action) => {
+        setUpdateValues: (state, action: PayloadAction<ValuesState>) => {
           return { ...state, ...action.payload };
         }
     }

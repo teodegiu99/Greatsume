@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../state/store';
 import { setUpdateValues } from '../../state/values/valuesSlice';
+import { ValuesState } from "../../state/values/valuesSlice";
 
 interface StreamValuesProps {
     langSkills: string[];
@@ -43,6 +44,7 @@ interface StreamValuesProps {
     skillss: string[],
     softSkillss: string[],
     langSkillss: string[],
+    image: string,
   };
   
 export const StreamValues: React.FC<StreamValuesProps> = ({ langSkills, softSkills, skills }) => {
@@ -59,28 +61,24 @@ export const StreamValues: React.FC<StreamValuesProps> = ({ langSkills, softSkil
   }, [skills, softSkills, langSkills, setValues]);
 
   const dispatch = useDispatch();
-  // const object = useSelector((state: RootState) => state.updateValues);
+  const object = useSelector((state: RootState) => state.updateValues);
 
   const handleUpdateValues = () => {
-    const newObject = {
-      state: values
+    const newObject: ValuesState = {
+      ...values
     };
     dispatch(setUpdateValues(newObject));
   };
 
    
-    // const {name, surname, address, relocation} = values;
     useEffect(() => {
       handleUpdateValues()
-        // console.log(values)
+        console.log(values)
 
 
 
     },[values])
 
-    // useEffect(() => {
-    //   console.log('Nuovo stato:', object);
-    // }, [object]);
-  
+    
     return null
 }

@@ -2,6 +2,18 @@
 import { db } from "@/lib/db";
 import { auth } from "@/auth";
 
+export const getImage = async () => {
+  try {
+    const session = await auth();
+    const userId = session?.user.id;
+    const profilePic = await db.profilePic.findUnique({ where: { userId } });
+    const Image = profilePic?.image;
+    return Image;
+  } catch {
+    return null;
+  }
+};
+
 export const getInitialData = async () => {
   const session = await auth();
 
@@ -12,6 +24,7 @@ export const getInitialData = async () => {
     const bio = await db.bio.findUnique({ where: { userId } });
     const skills = await db.skills.findUnique({ where: { userId } });
     const workedu = await db.workedu.findUnique({ where: { userId } });
+    const profilePic = await db.profilePic.findUnique({ where: { userId } });
 
     const experience =
       workedu?.experience.map((exp, index) => ({
@@ -23,7 +36,7 @@ export const getInitialData = async () => {
     const education =
       workedu?.education.map((edu, eindex) => ({
         edu: edu,
-		etitle: workedu?.educationTitle[eindex],
+        etitle: workedu?.educationTitle[eindex],
         eyears: workedu?.educationYears[eindex],
       })) || [];
 
@@ -47,6 +60,8 @@ export const getInitialData = async () => {
       langSkillss: skills?.languages,
       experience: experience,
       education: education,
+      image: profilePic?.image
+
     };
     // console.log("GET GET GET GET GET GET ",iValues)
     return iValues;

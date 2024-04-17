@@ -107,5 +107,5 @@ body,
   aspect-ratio: 210 / 297;
 }
 .a4 {
-  @apply  aspect-w-210-h-297 bg-white p-[5mm]
+  @apply  aspect-w-210-h-297 bg-white w-[85%]
 }

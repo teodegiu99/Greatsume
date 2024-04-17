@@ -12,23 +12,14 @@ import {
   useFormikContext,
 } from "formik";
 import { resume } from "@/actions/resume";
-import React, {
-  useState,
-  useId,
-  useEffect,
-  useTransition,
-} from "react";
+import React, { useState, useId, useEffect, useTransition } from "react";
 import Select from "react-select";
 import { getInitialData } from "@/data/InitialData";
 import { FormSchema } from "@/schemas";
 import * as z from "zod";
 import { StreamValues } from "../StreamValues";
-
-
-
-
-
-
+import { Label } from '@/components/ui/label';
+import ImageUploader from "./ImageUploader";
 
 const LeftBar = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -40,7 +31,6 @@ const LeftBar = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
 
-  
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === ",") {
       event.preventDefault();
@@ -141,6 +131,7 @@ const LeftBar = () => {
     skillss: [""],
     softSkillss: [""],
     langSkillss: [""],
+    image: ""
   });
 
   useEffect(() => {
@@ -167,6 +158,7 @@ const LeftBar = () => {
           skillss: data.skillss || [""],
           softSkillss: data.softSkillss || [""],
           langSkillss: data.langSkillss || [""],
+          image: data.image || "",
         });
         setSkills(data.skillss || [""]);
         setSoftSkills(data.softSkillss || [""]);
@@ -176,9 +168,6 @@ const LeftBar = () => {
 
     fetchInitialValues();
   }, []);
-
-  
-
 
   const SubmitHandler = (values: z.infer<typeof FormSchema>) => {
     const updatedValues = {
@@ -192,6 +181,7 @@ const LeftBar = () => {
     setError("");
 
     startTransition(() => {
+      
       resume(values)
         .then((data) => {
           if (data?.error) {
@@ -202,19 +192,15 @@ const LeftBar = () => {
     });
   };
 
-
-
   return (
     <div>
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
         onSubmit={SubmitHandler}
-        // innerRef={ref}
       >
-        {({ values, setFieldValue }) => (
-          <Form
-          >
+        {({ values, setFieldValue, errors }) => (
+          <Form>
             <div className="flex sticky top-0 bg-[#f8f8ff] justify-between items-center z-50 border-b-2 border-slate-200 ">
               <h3 className="text-start m-4 formTitle">Build your resume</h3>
               <Button
@@ -227,14 +213,7 @@ const LeftBar = () => {
                 Save
               </Button>
             </div>
-
-
-
-
-
-
-
-
+<ImageUploader />
             <h3 className="text-start m-4 formTitle">Personal Informations</h3>
             <div className="grid grid-cols-2 gap-4  p-4 m-2 border-2 border-slate-200 rounded-md">
               <div>
@@ -807,7 +786,11 @@ const LeftBar = () => {
               <RiSave3Fill />
               Save
             </Button>
-            <StreamValues skills={skills} softSkills={softSkills} langSkills={langSkills}/>
+            <StreamValues
+              skills={skills}
+              softSkills={softSkills}
+              langSkills={langSkills}
+            />
           </Form>
         )}
       </Formik>
