@@ -170,12 +170,12 @@ const LeftBar = () => {
   }, []);
 
   const SubmitHandler = (values: z.infer<typeof FormSchema>) => {
-    const updatedValues = {
-      ...values,
-      skillss: [...skills],
-      softSkillss: [...softSkills],
-      langSkillss: [...langSkills],
-    };
+    // const updatedValues = {
+    //   ...values,
+    //   skillss: [...skills],
+    //   softSkillss: [...softSkills],
+    //   langSkillss: [...langSkills],
+    // };
 
     console.log(values);
     setError("");

@@ -165,6 +165,8 @@ model Public {
 	showAddress Boolean @default(true)
 	showDateOfBirth Boolean @default(true)
 	showBio Boolean @default(true)
+	publicLink String? @unique
+	cvTemplate String @default("ClassicBlue")
 	user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([userId])
 

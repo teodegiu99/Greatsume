@@ -1,4 +1,5 @@
 import * as z from "zod";
+import ResumeLayout from '../app/(protected)/layout';
 
 export const LoginSchema = z.object({
   email: z.string().email({
@@ -72,4 +73,43 @@ export const FormSchema = z.object({
   skillss: z.array(z.string()).optional(),
   softSkillss: z.array(z.string()).optional(),
   langSkillss: z.array(z.string()).optional(),
+});
+
+export const ResumeSchema = z.object({
+  image: z.string().optional().nullish(),
+  name: z.string().optional().nullish(),
+  surname: z.string().optional().nullish(),
+  address: z.string().optional().nullish(),
+  dateOfBirth: z.string().optional().nullish(),
+  relocation: z.string().optional().nullish(),
+  phone: z.string().optional().nullish(),
+  email: z.string().optional().nullish(),
+  linkedin: z.string().optional().nullish(),
+  github: z.string().optional().nullish(),
+  dribble: z.string().optional().nullish(),
+  website: z.string().optional().nullish(),
+  bio: z.string().optional().nullish(),
+  desiredJob: z.string().optional().nullish(),
+  ral: z.string().optional().nullish(),
+  experience: z
+    .array(
+      z.object({
+        years: z.string(),
+        exps: z.string(),
+        title: z.string(),
+      })
+    )
+    .optional().nullish(),
+  education: z
+    .array(
+      z.object({
+        eyears: z.string(),
+        edu: z.string(),
+        etitle: z.string(),
+      })
+    )
+    .optional().nullish(),
+  skillss: z.array(z.string()).optional().nullish(),
+  softSkillss: z.array(z.string()).optional().nullish(),
+  langSkillss: z.array(z.string()).optional().nullish(),
 });

@@ -4,9 +4,9 @@
 
 html,
 body,
-:root{
+:root {
   height: 100%;
-  @apply bg-[#f8f8ff]
+  @apply bg-[#f8f8ff];
 }
 
 @layer base {
@@ -82,53 +82,65 @@ body,
   }
 }
 .customBtnCol {
-	@apply bg-gradient-to-r from-violet-600 to-indigo-600 text-white
-   }
+  @apply bg-gradient-to-r from-violet-600 to-indigo-600 text-white;
+}
 
 .formTitle {
-	@apply bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-left text-lg font-medium 
+  @apply bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent text-left text-lg font-medium;
 }
 
 .formLabel {
-	@apply block text-sm font-medium leading-6 text-gray-900 mt-3 mb-1
+  @apply block text-sm font-medium leading-6 text-gray-900 mt-3 mb-1;
 }
-.textArea{
-	@apply block w-full rounded-md border-0 p-1.5  text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+.textArea {
+  @apply block w-full rounded-md border-0 p-1.5  text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
 }
 
 .inputField {
-	@apply	block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+  @apply block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
 }
 .inputFieldArray {
-	@apply	block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
+  @apply block w-full rounded-md border-0 p-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}
+
+.selected {
+  @apply ring-2 ring-inset ring-indigo-600;
+}
+
+.signoutBtn {
+  @apply flex flex-row gap-x-1 items-center ring-1 p-1.5 rounded-sm text-black ring-indigo-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white;
+}
+
+.footer {
+  @apply h-[45px] w-[100dwh] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white z-50;
+}
+
+.cvTitle {
+  @apply text-[15px] mb-1;
+}
+.cvSubTitle {
+  @apply text-[13px];
+}
+
+.cvData {
+  @apply text-[11px] mb-2;
+}
+
+.cvMainTitle {
+  @apply text-[38px] font-semibold -mb-2;
+}
+
+.cvMainSub {
+  @apply text-[24px] font-normal;
 }
 
 .aspect-w-210-h-297 {
   aspect-ratio: 210 / 297;
 }
 .a4 {
-  @apply  aspect-w-210-h-297 bg-white w-[85%]
+  @apply aspect-w-210-h-297 bg-white w-[85%];
 }
 
-.selected {
-  @apply ring-2 ring-inset ring-indigo-600  
-}
-
-.signoutBtn {
-  @apply flex flex-row gap-x-1 items-center ring-1 p-1.5 rounded-sm text-black ring-indigo-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white
-}
-
-.footer {
-  @apply h-[45px] w-[100dwh] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white
-}
-
-.cvTitle {
-  @apply text-[15px] mb-1
-}
-.cvSubTitle {
-  @apply text-[13px]
-}
-
-.cvData {
-  @apply text-[11px] mb-2
+.a4s {
+  @apply aspect-w-210-h-297 bg-white  my-4 2xl:w-[40%] lg:w-[70%]; 
 }

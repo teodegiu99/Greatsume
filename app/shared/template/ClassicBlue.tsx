@@ -2,104 +2,131 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
 import { useEffect, useRef, useState } from "react";
+import { getInitialData } from "@/data/InitialData";
+import { ResumeSchema } from "@/schemas";
+import * as z from "zod"
 
 const ClassicBlue = () => {
-  const object = useSelector((state: RootState) => state.updateValues);
+  const showHide = useSelector((state: RootState) => state.showHide);
   const [exceed, setExceed] = useState<string>("");
   const [exceedIndex, setExceedIndex] = useState<number>();
   const [renderSecondPage, setRenderSecondPage] = useState<boolean>(false);
+  const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); // Definisci lo stato per object
+
+      
+  useEffect(() => {
+    const fetchPublicValues = async () => {
+        try {
+            const data = await getInitialData();
+            if (data) {
+              // setObject(prevObject => ({
+              //   ...prevObject,
+              //   image: data.image ?? prevObject?.image
+              setObject(data)
+              ;// Imposta lo stato di object con i dati ottenuti
+                
+            }
+            console.log(data)
+        
+        } catch (error) {
+            console.error("Error connecting to db ", error);
+        }
+    };
+
+    fetchPublicValues();
+}, []);
 
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className=" flex justify-center  items-center h-full">
       {/* <p>{object.address}</p> */}
 
-      <div className="a4 shadow-lg overflow-hidden">
+      <div className="a4s shadow-lg overflow-hidden  ">
         <div className="grid grid-cols-3 h-full">
           <div className="col-span-1 bg-[#1c2863] p-3 w-full">
-           {object.image &&
+           {object?.image && showHide?.showImage &&
             <div className="flex justify-center w-full mb-4">
               <img
                 id="cvImage"
                 className="max-w-[75%] rounded-full"
-                src={`${object.image}`}
+                src={`${object?.image}`}
               />
             </div>}
 
             <div className="flex justify-start flex-col">
-              {(object.address || object.dateOfBirth) && (
+              {(object?.address || object?.dateOfBirth) && (showHide?.showAddress || showHide?.showDateOfBirth) && (
                 <>
                   <p className="cvTitle">Personal Information</p>
                   <hr className="mb-2"></hr>
                 </>
               )}
-              {object.address && (
+              {object?.address && showHide?.showAddress &&(
                 <>
                   <p className="cvSubTitle">Address</p>
-                  <p className="cvData">{object.address}</p>
+                  <p className="cvData">{object?.address}</p>
                 </>
               )}
-              {object.dateOfBirth && (
+              {object?.dateOfBirth && showHide?.showDateOfBirth &&(
                 <>
                   <p className="cvSubTitle">Date Of Birth</p>
-                  <p className="cvData">{object.dateOfBirth}</p>
+                  <p className="cvData">{object?.dateOfBirth}</p>
                 </>
               )}
             </div>
             <div className="flex justify-start flex-col">
-              {(object.email ||
-                object.phone ||
-                object.linkedin ||
-                object.github ||
-                object.dribble ||
-                object.website) && (
+              {(object?.email ||
+                object?.phone ||
+                object?.linkedin ||
+                object?.github ||
+                object?.dribble ||
+                object?.website) && (
                 <>
                   <p className="cvTitle">Contacts</p>
                   <hr className="mb-2"></hr>
                 </>
               )}
-              {object.email && (
+              {object?.email && (
                 <>
                   <p className="cvSubTitle">Email</p>
-                  <p className="cvData">{object.email}</p>{" "}
+                  <p className="cvData">{object?.email}</p>{" "}
                 </>
               )}
-              {object.phone && (
+              {object?.phone && (
                 <>
                   <p className="cvSubTitle">Phone number</p>
                   <p className="cvData">{object.phone}</p>
                 </>
               )}
-              {object.linkedin && (
+              {object?.linkedin && (
                 <>
                   <p className="cvSubTitle">LinkedIn</p>
-                  <p className="cvData">{object.linkedin}</p>
+                  <p className="cvData">{object?.linkedin}</p>
                 </>
               )}
-              {object.github && (
+              {object?.github && (
                 <>
                   <p className="cvSubTitle">GitHub</p>
-                  <p className="cvData">{object.github}</p>
+                  <p className="cvData">{object?.github}</p>
                 </>
               )}
-              {object.dribble && (
+              {object?.dribble && (
                 <>
                   <p className="cvSubTitle">Dribble</p>
-                  <p className="cvData">{object.dribble}</p>
+                  <p className="cvData">{object?.dribble}</p>
                 </>
               )}
-              {object.website && (
+              {object?.website && (
                 <>
                   <p className="cvSubTitle">Personal Website</p>
-                  <p className="cvData">{object.website}</p>
+                  <p className="cvData">{object?.website}</p>
                 </>
               )}
             </div>
-            {(object.skillss &&  object.skillss.length > 0) &&(
+            {(object?.skillss &&  object?.skillss.length > 0) &&(
               <div className="flex justify-start flex-col">
                 <p className="cvTitle mt-2">Skills</p>
                 <hr className="mb-2"></hr>
                 <ul>
-                  {object.skillss.map((skill, index) => (
+                  {object?.skillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       - {skill}
                     </li>
@@ -107,12 +134,12 @@ const ClassicBlue = () => {
                 </ul>
               </div>
             )}
-            {(object.softSkillss && object.softSkillss.length > 0) && (
+            {(object?.softSkillss && object?.softSkillss.length > 0) && (
               <div className="flex justify-start flex-col">
                 <p className="cvTitle mt-2">Soft Skills</p>
                 <hr className="mb-2"></hr>
                 <ul>
-                  {object.softSkillss.map((skill, index) => (
+                  {object?.softSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
                       - {skill}
@@ -122,12 +149,12 @@ const ClassicBlue = () => {
               </div>
             )}
 
-            {(object.langSkillss && object.langSkillss.length > 0) &&(
+            {(object?.langSkillss && object?.langSkillss.length > 0) &&(
               <div className="flex justify-start flex-col">
                 <p className="cvTitle mt-2">Languages</p>
                 <hr className="mb-2"></hr>
                 <ul>
-                  {object.langSkillss.map((skill, index) => (
+                  {object?.langSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
                       - {skill}
@@ -141,16 +168,16 @@ const ClassicBlue = () => {
           <div className="col-span-2 p-3 w-full h-full text-black">
             <div className="flex justify-start flex-col">
               <h1 className="cvMainTitle">
-                {object.name} {object.surname}
+                {object?.name} {object?.surname}
               </h1>
-              {object.desiredJob && <h2 className="cvMainSub">{object.desiredJob}</h2>}
-              {object.bio && <p className="cvData text-justify">{object.bio}</p>}
+              {object?.desiredJob && <h2 className="cvMainSub">{object?.desiredJob}</h2>}
+              {object?.bio && showHide?.showBio && <p className="cvData text-justify">{object?.bio}</p>}
             </div>
-            {object.experience && (object.experience.length > 0) &&(
+            {object?.experience && (object?.experience.length > 0) &&(
               <div>
                 <h2 className="cvMainSub">Experience</h2>
                 <hr className="mb-2 border-t-1 border-slate-400"></hr>
-                {object.experience.map((exp, index) => (
+                {object?.experience.map((exp, index) => (
                   <div key={index}>
                     <div
                       className="flex flex-row justify-between pb-1"
@@ -165,11 +192,11 @@ const ClassicBlue = () => {
                 ))}
               </div>
             )}
-            {object.education && (object.education.length > 0) &&(
+            {object?.education && (object?.education.length > 0) &&(
               <div>
                 <h2 className="cvMainSub">Education</h2>
                 <hr className="mb-2 border-t-1 border-slate-400"></hr>
-                {object.education.map((edu, index) => (
+                {object?.education.map((edu, index) => (
                   <div key={index}>
                     <div
                       className="flex flex-row justify-between pb-1"

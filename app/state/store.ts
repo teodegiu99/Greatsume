@@ -16,11 +16,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import updateValuesReducer from "./values/valuesSlice";
 import templateReducer from './values/templateSlice';
+import  showHideReducer  from './values/showHideSlice';
 
 // Combiniamo i reducer di tutti i slice
 const rootReducer = combineReducers({
   updateValues: updateValuesReducer,
   template: templateReducer, // Aggiungi il nuovo slice qui
+  showHide: showHideReducer,
 });
 
 // Creiamo lo store utilizzando il rootReducer
