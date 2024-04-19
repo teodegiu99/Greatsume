@@ -47,3 +47,15 @@ export const getShowHideOptions = async () => {
 		return null;
 	}
 };
+
+
+export const getShowHidePublicOptions = async (publicLink: string) => {
+
+try {
+  const showHide = await db.public.findFirst({ where: { publicLink: publicLink } });
+
+  return showHide;
+} catch {
+  return null;
+}
+};
