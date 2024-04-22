@@ -16,6 +16,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
    publicLink
 }) => {  // const showHide = useSelector((state: RootState) => state.showHide);
 
+   const showHide = useSelector((state: RootState) => state.showHidePublic);
   const [object, setObject] = useState<Partial<z.infer<typeof PublicSchema>>>(); // Definisci lo stato per object
 
       
@@ -48,7 +49,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
       <div className="a4s shadow-lg overflow-hidden  ">
         <div className="grid grid-cols-3 h-full">
           <div className="col-span-1 bg-[#1c2863] p-3 w-full">
-           {object?.image && object?.showImage &&
+           {object?.image && object?.showImage && showHide?.showImage &&
             <div className="flex justify-center w-full mb-4">
               <img
                 id="cvImage"
@@ -58,19 +59,19 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
             </div>}
 
             <div className="flex justify-start flex-col">
-              {(object?.address || object?.dateOfBirth) && (object?.showAddress || object?.showDateOfBirth) && (
+              {(object?.address || object?.dateOfBirth) && (object?.showAddress || object?.showDateOfBirth) && (showHide?.showAddress || showHide?.showDateOfBirth) && (
                 <>
                   <p className="cvTitle">Personal Information</p>
                   <hr className="mb-2"></hr>
                 </>
               )}
-              {object?.address && object?.showAddress &&(
+              {object?.address && object?.showAddress && showHide?.showAddress &&(
                 <>
                   <p className="cvSubTitle">Address</p>
                   <p className="cvData">{object?.address}</p>
                 </>
               )}
-              {object?.dateOfBirth && object?.showDateOfBirth &&(
+              {object?.dateOfBirth && object?.showDateOfBirth && showHide?.showDateOfBirth &&(
                 <>
                   <p className="cvSubTitle">Date Of Birth</p>
                   <p className="cvData">{object?.dateOfBirth}</p>
@@ -176,9 +177,9 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
                 {object?.name} {object?.surname}
               </h1>
               {object?.desiredJob && <h2 className="cvMainSub">{object?.desiredJob}</h2>}
-              {object?.bio && object?.showBio && <p className="cvData text-justify">{object?.bio}</p>}
+              {object?.bio && object?.showBio && showHide?.showBio && <p className="cvData text-justify">{object?.bio}</p>}
             </div>
-            {object?.experience && (object?.experience.length > 0) &&(
+            {object?.experience  && (object?.experience.length > 0) &&(
               <div>
                 <h2 className="cvMainSub">Experience</h2>
                 <hr className="mb-2 border-t-1 border-slate-400"></hr>

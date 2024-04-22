@@ -1,28 +1,18 @@
 "use client"
-
-// import {configureStore} from "@reduxjs/toolkit"
-// import updateValuesReducer from "./values/valuesSlice"
-
-// export const store = configureStore({
-//     reducer: {
-//         updateValues: updateValuesReducer,
-//     }
-// });
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
-
 // store.ts
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import updateValuesReducer from "./values/valuesSlice";
 import templateReducer from './values/templateSlice';
 import  showHideReducer  from './values/showHideSlice';
+import showHidePublicReducer from "./values/showHidePublicSlice";
 
 // Combiniamo i reducer di tutti i slice
 const rootReducer = combineReducers({
   updateValues: updateValuesReducer,
   template: templateReducer, // Aggiungi il nuovo slice qui
   showHide: showHideReducer,
+  showHidePublic: showHidePublicReducer,
+
 });
 
 // Creiamo lo store utilizzando il rootReducer

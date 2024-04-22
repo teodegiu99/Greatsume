@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field } from "formik";
 import {getShowHideOptions, getShowHidePublicOptions } from '@/actions/showHideOptions';
+import { StreamShowHidePublic } from './StreamShowHidePublic';
 // import { StreamShowHideOptions } from './StreamShowHideOptions';
 
 interface ShowHideProps {
@@ -80,6 +81,8 @@ const ShowHide: React.FC<ShowHideProps> = ({publicLink}) => {
             Show your biography
           </label>
           <br />
+          <StreamShowHidePublic />
+
         </Form>
         )}
       </Formik>

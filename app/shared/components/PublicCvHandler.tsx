@@ -26,10 +26,7 @@ const templateComponents: TemplateComponents = {
 const PublicCvHandler: React.FC<PublicCvHandlerProps> = ({
   selectedTemplate, publicLink
 }) => {
-  // Ottieni il nome del template dallo stato
-  // const selectedTemplate = useSelector((state: RootState) => state.showHide.template);
 
-  // Ottieni il componente corrispondente al nome dal mapping
   const ComponenteScelto = templateComponents[selectedTemplate];
 
   return (
