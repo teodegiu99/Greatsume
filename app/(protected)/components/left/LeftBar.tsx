@@ -777,7 +777,7 @@ const LeftBar = () => {
               )}
             </FieldArray>
 
-            <Button
+            {/* <Button
               className="gap-x-2 customBtnCol m-4"
               size="lg"
               type="submit"
@@ -785,7 +785,7 @@ const LeftBar = () => {
             >
               <RiSave3Fill />
               Save
-            </Button>
+            </Button> */}
             <StreamValues
               skills={skills}
               softSkills={softSkills}

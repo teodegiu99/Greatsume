@@ -13,7 +13,7 @@ const page = () => {
           <ShareSettings />
           <ShowHide />
         </div>
-        <div className="col-span-3 overflow-auto scrollbar-hide text-white">
+        <div className="col-span-3 h-full overflow-auto scrollbar-hide text-white">
           <CvHandler />
         </div>
       </div>

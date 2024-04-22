@@ -9,11 +9,11 @@ import { store } from "../../state/store";
 const ResumePage = () => {
   return (
     <Provider store={store}>
-    <div className="grid grid-cols-6 gap-4 h-full">
-      <div className="col-span-2 shadow-2xl overflow-auto scrollbar-hide">
+    <div className="grid grid-cols-8 gap-4 h-full">
+      <div className="col-span-3 shadow-2xl overflow-auto scrollbar-hide">
         <TopBar />
       </div>
-      <div className="col-span-3 overflow-auto scrollbar-hide text-white">
+      <div className="col-span-4 overflow-auto scrollbar-hide text-white">
         <CvHandler />
       </div>
       <div className="col-span-1 overflow-auto scrollbar-hide shadow-2xl">
