@@ -5,6 +5,7 @@ import updateValuesReducer from "./values/valuesSlice";
 import templateReducer from './values/templateSlice';
 import  showHideReducer  from './values/showHideSlice';
 import showHidePublicReducer from "./values/showHidePublicSlice";
+import mobileReducer from "./values/mobileSlice";
 
 // Combiniamo i reducer di tutti i slice
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   template: templateReducer, // Aggiungi il nuovo slice qui
   showHide: showHideReducer,
   showHidePublic: showHidePublicReducer,
+  mobile: mobileReducer,
 
 });
 

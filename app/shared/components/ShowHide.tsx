@@ -48,7 +48,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
 
     return (
         <div>
-            <div className="block p-5">
+            <div className="block p-5 mt-5">
                 <h1 className=" font-semibold text-xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
                     Would you like to hide some personal data before downloading
                     the cv?
@@ -64,42 +64,46 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
             >
                 {({ values, setFieldValue, errors }) => (
                     <Form className="p-5">
-                        <label>
+                        <label className="CheckBoxLabel">
                             <Field
                                 type="checkbox"
                                 name="showImage"
                                 id="showImage"
                                 disabled={!initialValues.showImage}
+                                className="CheckBox"
                             />
                             Show your picture
                         </label>
                         <br />
-                        <label>
+                        <label className="CheckBoxLabel">
                             <Field
                                 type="checkbox"
                                 name="showAddress"
                                 id="showAddress"
                                 disabled={!initialValues.showAddress}
+                                className="CheckBox"
                             />
                             Show your address
                         </label>
                         <br />
-                        <label>
+                        <label className="CheckBoxLabel">
                             <Field
                                 type="checkbox"
                                 name="showDateOfBirth"
                                 id="showDateOfBirth"
                                 disabled={!initialValues.showDateOfBirth}
+                                className="CheckBox"
                             />
                             Show your date of birth
                         </label>
                         <br />
-                        <label>
+                        <label className="CheckBoxLabel">
                             <Field
                                 type="checkbox"
                                 name="showBio"
                                 id="showBio"
                                 disabled={!initialValues.showBio}
+                                className="CheckBox"
                             />
                             Show your biography
                         </label>
@@ -108,8 +112,8 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                     </Form>
                 )}
             </Formik>
-            <div className="flex justify-center items-center mt-10">
-                <button className="customBtnCol w-[75%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md">
+            <div className="flex justify-center p-5 items-center mt-10">
+                <button className="customBtnCol w-[100%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md">
                     <FaFileDownload className="text-lg" />
                     Download
                 </button>

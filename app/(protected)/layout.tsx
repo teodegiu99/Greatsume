@@ -7,10 +7,11 @@ const ResumeLayout =  ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
-            <NavBar />
+            {/* <NavBar /> */}
+            <div className="h-[100dvh]">{children}</div>
 
-            <div style={{ height: `calc(100vh - 105px)` }}>{children}</div>
-            <Footer />
+            {/* <div style={{ height: `calc(100vh - 105px)` }}>{children}</div> */}
+            {/* <Footer /> */}
         </>
     );
 };

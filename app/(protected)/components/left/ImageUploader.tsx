@@ -55,7 +55,7 @@ const YourComponent: React.FC = () => {
     <h3 className="text-start m-4 formTitle">Resume Picture</h3>
     <div className='p-4 m-2 border-2 border-slate-200 rounded-md flex flex-col justify-center items-start gap-y-2'>
       <h5 className='block'>Carica un'immagine (max 500 KB)</h5>
-      <input type="file" accept="image/*" onChange={handleFileUpload} className=' block bg-white ring-inset ring-1 ring-indigo-600 sm:text-sm sm:leading-6 rounded-sm'/>
+      <input type="file" accept="image/*" onChange={handleFileUpload} className='  bg-white ring-inset ring-1 ring-indigo-600 sm:text-sm sm:leading-6 w-full  rounded-sm'/>
     </div>
     </>
   );

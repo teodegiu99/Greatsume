@@ -10,10 +10,10 @@ const ClassicBlue = () => {
   const [renderSecondPage, setRenderSecondPage] = useState<boolean>(false);
 
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className="h-full flex justify-center items-center ">
       {/* <p>{object.address}</p> */}
 
-      <div className="a4 shadow-lg overflow-hidden">
+      <div className="a4 shadow-lg  overflow-hidden">
         <div className="grid grid-cols-3 h-full">
           <div className="col-span-1 bg-[#1c2863] p-3 w-full">
            {object.image &&
@@ -101,7 +101,7 @@ const ClassicBlue = () => {
                 <ul>
                   {object.skillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
-                      - {skill}
+						{skill}
                     </li>
                   ))}
                 </ul>
@@ -114,8 +114,7 @@ const ClassicBlue = () => {
                 <ul>
                   {object.softSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
-                      {" "}
-                      - {skill}
+						{skill}
                     </li>
                   ))}
                 </ul>
@@ -129,8 +128,7 @@ const ClassicBlue = () => {
                 <ul>
                   {object.langSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
-                      {" "}
-                      - {skill}
+						{skill}
                     </li>
                   ))}
                 </ul>

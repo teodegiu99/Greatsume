@@ -6,7 +6,7 @@ html,
 body,
 :root {
   height: 100%;
-  @apply bg-[#f8f8ff];
+  @apply bg-[#f8f8ff] 	; 
 }
 
 @layer base {
@@ -80,6 +80,7 @@ body,
   body {
     @apply bg-background text-foreground;
   }
+ 
 }
 .customBtnCol {
   @apply bg-gradient-to-r from-violet-600 to-indigo-600 text-white;
@@ -138,10 +139,26 @@ body,
   aspect-ratio: 210 / 297;
 }
 .a4 {
-  @apply aspect-w-210-h-297 bg-white w-[85%];
+  @apply aspect-w-210-h-297 bg-white w-[70%];
 }
 
 .a4s {
   @apply aspect-w-210-h-297 bg-white  my-4 2xl:w-[40%] lg:w-[70%]; 
 }
 
+p {
+	@apply break-words
+}
+
+ul {
+	@apply list-disc list-inside
+}
+
+
+.CheckBox {
+	@apply accent-purple-600 w-5 h-5  me-3  bg-gray-100 border-gray-800 
+}
+
+.CheckBoxLabel {
+	@apply font-normal text-lg
+}

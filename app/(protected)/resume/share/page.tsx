@@ -8,12 +8,12 @@ import CvHandler from "./components/cvHandler";
 const page = () => {
   return (
     <Provider store={store}>
-      <div className="grid grid-cols-4 h-full">
-        <div className="cols-span-1 bg-[#f8f8ff] overflow-auto scrollbar-hide shadow-2xl ">
+      <div className="grid lg:grid-cols-2 xl:grid-cols-4 h-full">
+        <div className="lg:col-span-1 bg-[#f8f8ff] overflow-auto scrollbar-hide shadow-2xl ">
           <ShareSettings />
           <ShowHide />
         </div>
-        <div className="col-span-3 h-full overflow-auto scrollbar-hide text-white">
+        <div className="hidden lg:block xl:col-span-3 lg:col-span-1 h-full overflow-auto scrollbar-hide text-white">
           <CvHandler />
         </div>
       </div>

@@ -19,7 +19,7 @@ const CvHandler = () => {
     const ComponenteScelto = templateArray[indexcomponent];
 
     return (
-        <div className="flex justify-center items-center p-5">
+        <div className="flex justify-center items-center p-5 ">
             {ComponenteScelto && <ComponenteScelto />}
         </div>
     );

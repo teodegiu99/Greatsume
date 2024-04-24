@@ -26,8 +26,8 @@ const page = ({ params }: { params: { slug: string } }) => {
     }, [params.slug]);
     return (
         <Provider store={store}>
-            <div className="grid grid-cols-4 h-full">
-                <div className="cols-span-1 bg-[#f8f8ff] overflow-auto scrollbar-hide shadow-2xl ">
+            <div className="grid lg:grid-cols-2 xl:grid-cols-4 h-full">
+                <div className="lg:col-span-1 bg-[#f8f8ff] overflow-auto scrollbar-hide shadow-2xl ">
                     <div className="block p-5">
                         <h1 className=" font-semibold text-3xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
                             Share your resume
@@ -38,9 +38,21 @@ const page = ({ params }: { params: { slug: string } }) => {
                         </p>
                     </div>
                     <hr className="border-1 border-slate-300" />
-                    <ShowHide publicLink={params.slug} />
+                    {template != null &&<ShowHide publicLink={params.slug} />}
+					{!template && (
+                        <>
+                            <div
+                                className=" lg:hidden h-max flex justify-center items-center "
+                            >
+                                <div className="bg-red-400 w-auto mt-10 text-white text-center p-5 rounded-md">
+                                    This url does not exist or has been deleted
+                                    by the user!
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
-                <div className="col-span-3 overflow-auto scrollbar-hide text-white">
+                <div className="hidden lg:block xl:col-span-3 lg:col-span-1 overflow-auto scrollbar-hide text-white">
                     {template != null && (
                         <PublicCvHandler
                             selectedTemplate={template}
