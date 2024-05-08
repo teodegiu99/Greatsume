@@ -9,35 +9,34 @@ import BottomBar from "../components/BottomBar";
 import ComponentHandler from "../components/ComponentHandler";
 
 const ResumePage = () => {
-    const [windowSize, setWindowSize] = useState<{
-        width: number;
-        height: number;
-    }>({
-        width: 0, // Assegna un valore iniziale
-        height: 0, // Assegna un valore iniziale
-    });
+    // const [windowSize, setWindowSize] = useState<{
+    //     width: number;
+    //     height: number;
+    // }>({
+    //     width: 0, // Assegna un valore iniziale
+    //     height: 0, // Assegna un valore iniziale
+    // });
 
-    useEffect(() => {
-        const updateWindowSize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        };
+    // useEffect(() => {
+    //     const updateWindowSize = () => {
+    //         setWindowSize({
+    //             width: window.innerWidth,
+    //             height: window.innerHeight,
+    //         });
+    //     };
 
-        // Aggiungi un event listener per gestire il ridimensionamento della finestra
-        window.addEventListener("resize", updateWindowSize);
+    //     // Aggiungi un event listener per gestire il ridimensionamento della finestra
+    //     window.addEventListener("resize", updateWindowSize);
 
-        // Pulisci l'event listener quando il componente si dismonta
-        return () => {
-            window.removeEventListener("resize", updateWindowSize);
-        };
-    }, []);
+    //     // Pulisci l'event listener quando il componente si dismonta
+    //     return () => {
+    //         window.removeEventListener("resize", updateWindowSize);
+    //     };
+    // }, []);
 
     return (
         <Provider store={store}>
-            {windowSize.width >= 640 && (
-                <div className="grid 2xl:grid-cols-8 xl:grid-cols-7 lg:grid-cols-6 lg:gap-4 h-full">
+                <div className="hidden sm:grid 2xl:grid-cols-8 xl:grid-cols-7 lg:grid-cols-6 lg:gap-4 h-full">
                     <div className=" lg:col-span-2 xl:col-span-3 shadow-2xl overflow-auto scrollbar-hide">
                         <TopBar />
                     </div>
@@ -48,9 +47,7 @@ const ResumePage = () => {
                         <TemplateCarousel />
                     </div>
                 </div>
-            )}
-            {windowSize.width < 640 && (
-                <div className="w-full h-full ">
+                <div className="sm:hidden w-full h-full ">
                     <div className="flex-grow h-full overflow-auto scrollbar-hide">
                         <ComponentHandler />
                     </div>
@@ -58,7 +55,6 @@ const ResumePage = () => {
                         <BottomBar />
                     </div>
                 </div>
-            )}
         </Provider>
     );
 };
