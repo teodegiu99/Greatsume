@@ -29,7 +29,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
               //   ...prevObject,
               //   image: data.image ?? prevObject?.image
               setObject(data)
-              ;// Imposta lo stato di object con i dati ottenuti
+              // Imposta lo stato di object con i dati ottenuti
                 
             }
             console.log(data)

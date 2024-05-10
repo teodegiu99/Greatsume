@@ -1,32 +1,82 @@
-"use client";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/state/store";
+// import React, { useEffect, useState } from 'react';
+// import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+// import { PDFViewer } from '@react-pdf/renderer';
+// import { getInitialData } from '@/data/InitialData';
+// import { ResumeSchema } from '@/schemas';
+// import * as z from "zod"
+// const styles = StyleSheet.create({
+// 	page: {
+// 		flexDirection: 'row',
+// 	},
+// 	section: {
+// 		flexGrow: 1,
+// 	},
+// 	text: {
+// 		color: "black",
+// 	},
+// });
 
-const Anglo = () => {
-    const object = useSelector((state: RootState) => state.updateValues);
+// export const MyDocument = (object: z.infer<typeof ResumeSchema>) => (
 
-    return (
-        <div className="h-full flex justify-center items-center">
-          {/* <p>{object.address}</p> */}
-    
-          <div className="a4">
-            <div className="grid grid-cols-3 h-full">
-              <div className="col-span-1  p-5 w-full h-full">
-                  <div className="w-[75%]">
-                    <img id="cvImage" src={`${object.image}`} />
-                    {/* <p>${object.image}</p> */}
-          <p>{object.bio}</p>
-    
-                  </div>
-              </div>
-              <div className="col-span-2">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-  
+	
+// 	<Document>
+// 	 <Page size="A4" style={styles.page}>
+// 			<View style={styles.section}>
+// 				<Text>{object?.bio}</Text>
+// 			</View>
+// 			<View style={styles.section}>
+// 				<Text>We're inside a PDF!</Text>
+// 			</View>
+// 		</Page>
+// 	</Document>
+//   );
+
+ const Anglo = () => {
+	return(
+	<>
+	ciao
+	</>
+
+	)
 }
-
 export default Anglo
+
+// const Test = () => {
+// 	const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); 
+
+// 	useEffect(() => {
+// 		const fetchPublicValues = async () => {
+// 			try {
+// 				const data = await getInitialData();
+// 				if (data) {
+// 				  // setObject(prevObject => ({
+// 				  //   ...prevObject,
+// 				  //   image: data.image ?? prevObject?.image
+// 				  setObject(data)
+// 				  // Imposta lo stato di object con i dati ottenuti
+					
+// 				}
+// 				console.log(data)
+			
+// 			} catch (error) {
+// 				console.error("Error connecting to db ", error);
+// 			}
+// 		};
+	
+// 		fetchPublicValues();
+// 	}, []);
+// 	return(
+// <Document>
+// 	 <Page size="A4" style={styles.page}>
+// 			<View style={styles.section}>
+// 				<Text>{object?.bio}</Text>
+// 			</View>
+// 			<View style={styles.section}>
+// 				<Text>We're inside a PDF!</Text>
+// 			</View>
+// 		</Page>
+// 	</Document>
+// 		// <MyDocument object={object}/>
+// 	)
+// }
+// export default Test

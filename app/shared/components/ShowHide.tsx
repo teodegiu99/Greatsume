@@ -7,6 +7,7 @@ import {
     getShowHidePublicOptions,
 } from "@/actions/showHideOptions";
 import { StreamShowHidePublic } from "./StreamShowHidePublic";
+import DownloadBtn from "@/components/downloadBtn/DownloadBtn";
 // import { StreamShowHideOptions } from './StreamShowHideOptions';
 
 interface ShowHideProps {
@@ -19,6 +20,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
         showAddress: true,
         showDateOfBirth: true,
         showBio: true,
+		cvTemplate: "ClassicBlue",
     });
 
     useEffect(() => {
@@ -31,6 +33,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                         showBio: data.showBio,
                         showDateOfBirth: data.showDateOfBirth,
                         showImage: data.showImage,
+						cvTemplate: data.cvTemplate,
                     });
                 }
                 console.log(data);
@@ -113,10 +116,16 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                 )}
             </Formik>
             <div className="flex justify-center p-5 items-center mt-10">
-                <button className="customBtnCol w-[100%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md">
+                {/* <button className="customBtnCol w-[100%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md">
                     <FaFileDownload className="text-lg" />
                     Download
-                </button>
+                </button> */}
+                <div className="w-[100%] cursor-pointer	">
+                    <DownloadBtn
+                        btnLocation={"public"}
+                        template={initialValues.cvTemplate}
+                    />
+                </div>
             </div>
         </div>
     );
