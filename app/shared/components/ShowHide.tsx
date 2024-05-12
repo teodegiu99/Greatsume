@@ -125,6 +125,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                         btnLocation={"public"}
                         template={initialValues.cvTemplate}
                         publicLink={publicLink}
+                        style="customBtnCol w-[100%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md"
                     />
                 </div>
             </div>

@@ -112,6 +112,11 @@ body,
   @apply flex flex-row gap-x-1 items-center ring-1 p-1.5 rounded-sm text-black ring-indigo-600 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white;
 }
 
+.settingsBtn {
+  @apply   hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white;
+}
+
+
 .footer {
   @apply h-[45px] w-[100dwh] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white z-50;
 }

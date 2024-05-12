@@ -14,6 +14,7 @@ import Tech from "./pdfTemplate/Tech";
 import Anglo from "./pdfTemplate/Anglo";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
+import { Button } from "../ui/button";
 
 
 const TemplateComponents: Record<string, React.ComponentType<any>> = {
@@ -28,6 +29,7 @@ const DownloadBtn = (props: {
   btnLocation: string;
   template?: string;
   publicLink?: string;
+  style: string;
 }) => {
 
     const templateArray = ["ClassicBlue", "ElegantBlack", "Tech", "Anglo"];
@@ -50,13 +52,13 @@ const DownloadBtn = (props: {
 
   return (
     <div>
-      <button
+      <Button
         onClick={handlePrint}
-        className="customBtnCol w-[100%] py-3 flex items-center justify-center gap-x-2 font-medium rounded-md"
+        className={props.style}
       >
         <FaFileDownload className="text-lg" />
         Download
-      </button>
+      </Button>
       <div style={{ display: "none" }}>
         <TemplateComponent
           ref={componentRef}
