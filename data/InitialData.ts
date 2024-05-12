@@ -14,6 +14,18 @@ export const getImage = async () => {
   }
 };
 
+export const getTemplate = async () => {
+  try {
+    const session = await auth();
+    const userId = session?.user.id;
+    const cvTemplate = await db.public.findUnique({ where: { userId } });
+    const template = cvTemplate?.cvTemplate
+    return template;
+  } catch {
+    return null;
+  }
+};
+
 export const getInitialData = async () => {
   const session = await auth();
 

@@ -124,6 +124,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                     <DownloadBtn
                         btnLocation={"public"}
                         template={initialValues.cvTemplate}
+                        publicLink={publicLink}
                     />
                 </div>
             </div>

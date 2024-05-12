@@ -1,11 +1,13 @@
-"use client"
+"use client";
 // store.ts
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import updateValuesReducer from "./values/valuesSlice";
-import templateReducer from './values/templateSlice';
-import  showHideReducer  from './values/showHideSlice';
+import templateReducer from "./values/templateSlice";
+import showHideReducer from "./values/showHideSlice";
 import showHidePublicReducer from "./values/showHidePublicSlice";
 import mobileReducer from "./values/mobileSlice";
+import loaderTemplateReducer from "./values/loaderTemplateSlice";
+import loaderCvDataReducer from "./values/loaderCvDataSlice";
 
 // Combiniamo i reducer di tutti i slice
 const rootReducer = combineReducers({
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   showHide: showHideReducer,
   showHidePublic: showHidePublicReducer,
   mobile: mobileReducer,
+  loaderTemplate: loaderTemplateReducer,
+  loaderCvData: loaderCvDataReducer,
 
 });
 

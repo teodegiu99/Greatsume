@@ -183,7 +183,6 @@ export const updateWorkEdu = async (
     });
   }
 };
-
 export const updateImage = async (
   id?: string,
   compressedImage?: string
@@ -199,6 +198,27 @@ export const updateImage = async (
       create: {
         userId: id,
         image: compressedImage
+
+      },
+    });
+  }
+}
+
+export const updateSelectedTemplate = async (
+  id?: string,
+  template?: string
+) => {
+  console.log("UPDATE IMAGE=", id, );
+
+  if (id) {
+    await db.public.upsert({
+      where: { userId: id },
+      update: {
+        cvTemplate: template
+      },
+      create: {
+        userId: id,
+        cvTemplate: template
 
       },
     });

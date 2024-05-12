@@ -10,6 +10,7 @@ const ClassicBlue = () => {
 
 
   return (
+
     <div className="h-full flex flex-col gap-y-4 ">
 
       <div className=" shadow-lg">

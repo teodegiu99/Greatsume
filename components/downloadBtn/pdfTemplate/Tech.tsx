@@ -1,10 +1,11 @@
+"use client"
 import { useState, useEffect } from "react";
 import { getPublicData, getDownloadData } from "@/data/getPublicData";
 import { PublicSchema } from "@/schemas";
 import * as z from "zod";
 import { forwardRef, ForwardedRef } from "react";
 
-const ClassicBlue = forwardRef(
+const Tech = forwardRef(
   (
     props: { btnLocation: string; publicLink: string },
     ref: ForwardedRef<HTMLDivElement>
@@ -14,7 +15,6 @@ const ClassicBlue = forwardRef(
     );
 
     useEffect(() => {
-      console.log(props.publicLink);
       const fetchData = async () => {
         try {
           if (props.btnLocation === "public" && props.publicLink) {
@@ -48,11 +48,11 @@ const ClassicBlue = forwardRef(
     return (
       <div ref={ref}>
         <h1>Contenuto da stampare</h1>
-        <h1>Sono Classic Blfffue</h1>
+        <h1>Sono terch</h1>
         <h5>{object?.bio}</h5>
       </div>
     );
   }
 );
 
-export default ClassicBlue;
+export default Tech;

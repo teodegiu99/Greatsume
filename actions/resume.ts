@@ -2,7 +2,7 @@
 import { FormSchema } from "@/schemas";
 import * as z from "zod";
 import { auth } from "@/auth";
-import { updateBio, updateContact, updateImage, updatePersonal, updateSkills, updateWorkEdu } from "./resumeFieldUpdate";
+import { updateBio, updateContact, updateImage, updatePersonal, updateSkills, updateWorkEdu, updateSelectedTemplate } from "./resumeFieldUpdate";
 
 
 export const imgResume = async (compressedImage: string) => {
@@ -10,6 +10,20 @@ export const imgResume = async (compressedImage: string) => {
 	const id = session?.user.id
 	await updateImage(id, compressedImage)
 }
+
+
+export const selectedTemplate = async (template: string) => {
+	const session = await auth();
+	const id = session?.user.id
+	await updateSelectedTemplate(id, template)
+}
+
+
+
+
+
+
+
 
 
 export const resume = async (values: z.infer<typeof FormSchema>) => {

@@ -28,7 +28,6 @@ export const StreamShowHidePublic = () => {
 
   useEffect(() => {
     handleUpdateValues();
-    console.log("nuovo redux",values);
   }, [values]);
 
   return null;
