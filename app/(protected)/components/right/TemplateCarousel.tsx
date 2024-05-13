@@ -25,11 +25,11 @@ const VerticalCarousel: React.FC<VerticalCarouselProps> = ({
   selectedIndex,
 }) => {
   return (
-    <div className="flex lg:flex-col flex-row lg:h-full gap-x-6">
+    <div className="flex flex-col h-full gap-y-6 items-center">
       {cvTemplates.map((template, index) => (
         <div
           key={index}
-          className={`bg-gray-200 lg:p-4 p-2 border w-full border-gray-300 rounded-md shadow-md  lg:mr-0 lg:mb-6 aspect-w-210-h-297 ${
+          className={`bg-gray-200 lg:p-4 p-2  border w-1/2 lg:w-full border-gray-300 rounded-md shadow-md  lg:mr-0 lg:mb-6 aspect-w-210-h-297 ${
             index === selectedIndex ? "selected" : ""
           }`}
           onClick={() => onItemClick(index)}
@@ -108,10 +108,10 @@ const TemplateCarousel: React.FC = () => {
 
   return (
     <>
-      <div className="sticky top-0 bg-[#f8f8ff] p-3 z-50 border-b-2 border-slate-300">
+      <div className="sticky top-0 block bg-[#f8f8ff] p-3 z-50 border-b-2 border-slate-300">
         <h3 className="text-center lg:m-4 formTitle">Choose Your Template</h3>
       </div>
-      <div className="p-3 lg:p-5 bg-[#f8f8ff] overflow-auto scrollbar-hide">
+      <div className="p-3 lg:p-5 bg-[#f8f8ff] overflow-auto  scrollbar-hide w-full">
         <VerticalCarousel
           cvTemplates={cvTemplates}
           onItemClick={handleItemClick}

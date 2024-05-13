@@ -43,12 +43,12 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
 }, []);
 
   return (
-    <div className=" flex justify-center  items-center h-full">
+    <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
       {/* <p>{object.address}</p> */}
 
-      <div className="a4s shadow-lg overflow-hidden  ">
+      <div className="a4f shadow-lg ">
         <div className="grid grid-cols-3 h-full">
-          <div className="col-span-1 bg-[#1c2863] p-3 w-full">
+          <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
            {object?.image && object?.showImage && showHide?.showImage &&
             <div className="flex justify-center w-full mb-4">
               <img
@@ -134,7 +134,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
                 <ul>
                   {object?.skillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
-                      - {skill}
+                      {skill}
                     </li>
                   ))}
                 </ul>
@@ -148,7 +148,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
                   {object?.softSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
-                      - {skill}
+                      {skill}
                     </li>
                   ))}
                 </ul>
@@ -163,7 +163,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
                   {object?.langSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
-                      - {skill}
+                      {skill}
                     </li>
                   ))}
                 </ul>
@@ -171,7 +171,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
             )}
           </div>
 
-          <div className="col-span-2 p-3 w-full h-full text-black">
+          <div className="col-span-2 p-3 w-full h-full text-black bg-white">
             <div className="flex justify-start flex-col">
               <h1 className="cvMainTitle">
                 {object?.name} {object?.surname}

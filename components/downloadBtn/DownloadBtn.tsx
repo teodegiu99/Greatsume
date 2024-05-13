@@ -25,6 +25,7 @@ const TemplateComponents: Record<string, React.ComponentType<any>> = {
   // Aggiungi altri componenti qui, se necessario
 };
 
+
 const DownloadBtn = (props: {
   btnLocation: string;
   template?: string;
@@ -49,6 +50,7 @@ const DownloadBtn = (props: {
   const TemplateComponent = TemplateComponents[WhichTemplate];
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+ 
   });
 
   return (

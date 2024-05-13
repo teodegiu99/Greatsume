@@ -11,12 +11,12 @@ const ClassicBlue = () => {
 
   return (
 
-    <div className="h-full flex flex-col gap-y-4 ">
+    <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
 
-      <div className=" shadow-lg">
+      <div className=" a4f shadow-lg">
 
         <div className="grid grid-cols-3 h-full">
-          <div className="col-span-1 bg-[#1c2863] p-3 w-full">
+          <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
             {object.image && (
               <div className="flex justify-center w-full mb-4">
                 <img
@@ -30,7 +30,7 @@ const ClassicBlue = () => {
             <div className="flex justify-start flex-col">
               {(object.address || object.dateOfBirth) && (
                 <>
-                  <p className="cvTitle">Personal Information</p>
+                  <p className="cvTitle">Personal Informations</p>
                   <hr className="mb-2"></hr>
                 </>
               )}
@@ -44,6 +44,12 @@ const ClassicBlue = () => {
                 <>
                   <p className="cvSubTitle">Date Of Birth</p>
                   <p className="cvData">{object.dateOfBirth}</p>
+                </>
+              )}
+              {object.relocation && (
+                <>
+                  <p className="cvSubTitle">Condition to relocate</p>
+                  <p className="cvData">{object.relocation}</p>
                 </>
               )}
             </div>
@@ -138,7 +144,7 @@ const ClassicBlue = () => {
             )}
           </div>
 
-          <div className="col-span-2 p-3 w-full h-full text-black">
+          <div className="col-span-2 p-3 w-full h-full bg-white text-black">
             <div>
               <div className="flex justify-start flex-col">
                 <h1 className="cvMainTitle">

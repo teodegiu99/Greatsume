@@ -140,16 +140,7 @@ body,
   @apply text-[24px] font-normal;
 }
 
-.aspect-w-210-h-297 {
-  aspect-ratio: 210 / 297;
-}
-.a4 {
-  @apply aspect-w-210-h-297 bg-white w-[70%];
-}
 
-.a4s {
-  @apply aspect-w-210-h-297 bg-white   2xl:w-[40%] lg:w-[70%]; 
-}
 
 p {
 	@apply break-words
@@ -179,3 +170,20 @@ ul {
 .subMenuItem {
   @apply flex justify-start items-center w-[100%] gap-x-2 text-2xl px-8 py-5 font-normal text-slate-900 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white
 }
+
+
+.aspect-w-210-h-297 {
+  aspect-ratio: 210 / 297;
+}
+.a4 {
+  @apply aspect-w-210-h-297 bg-white w-[70%];
+}
+
+.a4s {
+  @apply aspect-w-210-h-297 bg-white   2xl:w-[40%] lg:w-[70%]; 
+}
+
+.a4f {
+  @apply  bg-white w-[21cm]  min-h-[297mm] my-4 
+}
+

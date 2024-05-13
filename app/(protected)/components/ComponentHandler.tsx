@@ -27,7 +27,7 @@ const ComponentHandler = () => {
   const ComponenteScelto = ComponentsList[selectedcomponent];
 
   return (
-    <div className="h-full flex justify-center items-center overflow-auto scrollbar-hide ">
+    <div className="h-full">
       {ComponenteScelto && <ComponenteScelto />}
     </div>
   );

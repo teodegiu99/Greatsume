@@ -10,9 +10,9 @@ const ResumeLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Provider store={store}>
         <NavBar />
-        <div className="hidden sm:block"style={{ height: `calc(100vh - 105px)` }}>{children}</div>
-        <div className="sm:hidden ">{children}</div>
-        <div className="hidden sm:block "><Footer /></div>
+        <div className="hidden lg:block"style={{ height: `calc(100vh - 105px)` }}>{children}</div>
+        <div className="lg:hidden ">{children}</div>
+        <div className="hidden lg:block "><Footer /></div>
       </Provider>
     </>
   );

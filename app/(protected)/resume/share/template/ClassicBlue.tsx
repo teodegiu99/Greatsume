@@ -8,9 +8,6 @@ import * as z from "zod"
 
 const ClassicBlue = () => {
   const showHide = useSelector((state: RootState) => state.showHide);
-  const [exceed, setExceed] = useState<string>("");
-  const [exceedIndex, setExceedIndex] = useState<number>();
-  const [renderSecondPage, setRenderSecondPage] = useState<boolean>(false);
   const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); // Definisci lo stato per object
 
       
@@ -19,11 +16,8 @@ const ClassicBlue = () => {
         try {
             const data = await getInitialData();
             if (data) {
-              // setObject(prevObject => ({
-              //   ...prevObject,
-              //   image: data.image ?? prevObject?.image
-              setObject(data)
-              ;// Imposta lo stato di object con i dati ottenuti
+             
+              setObject(data);
                 
             }
             console.log(data)
@@ -37,12 +31,12 @@ const ClassicBlue = () => {
 }, []);
 
   return (
-    <div className=" flex justify-center  items-center h-full">
+    <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
       {/* <p>{object.address}</p> */}
 
-      <div className="a4s shadow-lg overflow-hidden  ">
+      <div className="a4f shadow-lg  ">
         <div className="grid grid-cols-3 h-full">
-          <div className="col-span-1 bg-[#1c2863] p-3 w-full">
+          <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
            {object?.image && showHide?.showImage &&
             <div className="flex justify-center w-full mb-4">
               <img
@@ -69,6 +63,12 @@ const ClassicBlue = () => {
                 <>
                   <p className="cvSubTitle">Date Of Birth</p>
                   <p className="cvData">{object?.dateOfBirth}</p>
+                </>
+              )}
+              {object?.relocation && (
+                <>
+                  <p className="cvSubTitle">Condition to relocate</p>
+                  <p className="cvData">{object?.relocation}</p>
                 </>
               )}
             </div>
@@ -128,7 +128,7 @@ const ClassicBlue = () => {
                 <ul>
                   {object?.skillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
-                      - {skill}
+                       {skill}
                     </li>
                   ))}
                 </ul>
@@ -142,7 +142,7 @@ const ClassicBlue = () => {
                   {object?.softSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
-                      - {skill}
+                       {skill}
                     </li>
                   ))}
                 </ul>
@@ -157,7 +157,7 @@ const ClassicBlue = () => {
                   {object?.langSkillss.map((skill, index) => (
                     <li className="cvSubTitle" key={index}>
                       {" "}
-                      - {skill}
+                      {skill}
                     </li>
                   ))}
                 </ul>
@@ -165,7 +165,7 @@ const ClassicBlue = () => {
             )}
           </div>
 
-          <div className="col-span-2 p-3 w-full h-full text-black">
+          <div className="col-span-2 p-3 w-full h-full bg-white text-black">
             <div className="flex justify-start flex-col">
               <h1 className="cvMainTitle">
                 {object?.name} {object?.surname}
