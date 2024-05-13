@@ -26,11 +26,11 @@ const ResumePage = () => {
                         <TemplateCarousel />
                     </div>
                 </div>
-                <div className="sm:hidden w-full h-full ">
-                    <div className="flex-grow h-full overflow-auto scrollbar-hide">
+                <div className="sm:hidden flex flex-col h-full">
+                    <div className="overflow-auto scrollbar-hide ">
                         <ComponentHandler />
-                    </div>
-                    <div className="sticky bottom-0 z-50">
+                    </div> 
+                    <div className="sticky bottom-0 z-50 ">
                         <BottomBar />
                     </div>
                 </div>

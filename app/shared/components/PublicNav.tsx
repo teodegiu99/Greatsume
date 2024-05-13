@@ -6,7 +6,7 @@ import { PiSignInFill } from "react-icons/pi";
 
 const PublicNav = () => {
     return (
-        <nav className="flex justify-between items-center w-[100dwh] h-[60px] bg-white p-4 border-b-2 shadow-sm">
+        <nav className="flex justify-between items-center w-[100%] h-[60px] bg-white p-4 border-b-2 shadow-sm">
             <div>
                 <h1 className="font-black text-3xl text-blue-700">
                     g<span className="text-purple-800">re</span>at

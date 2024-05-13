@@ -13,7 +13,7 @@ const BottomBar = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className="grid grid-cols-3 justify-center items-center h-10 w-[100dwh]">
+        <div className="grid grid-cols-3 justify-center items-center">
             <div className="col-span-1 ">
                 <Button
                     variant={active === "data" ? "default" : "outline"}

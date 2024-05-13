@@ -118,7 +118,7 @@ body,
 
 
 .footer {
-  @apply h-[45px] w-[100dwh] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white z-50;
+  @apply h-[45px] w-[100%] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white z-50;
 }
 
 .cvTitle {
@@ -148,7 +148,7 @@ body,
 }
 
 .a4s {
-  @apply aspect-w-210-h-297 bg-white  my-4 2xl:w-[40%] lg:w-[70%]; 
+  @apply aspect-w-210-h-297 bg-white   2xl:w-[40%] lg:w-[70%]; 
 }
 
 p {
@@ -166,4 +166,16 @@ ul {
 
 .CheckBoxLabel {
 	@apply font-normal text-lg
+}
+
+.menuItem {
+  @apply flex justify-start items-center w-[100%] gap-x-2 text-3xl px-4 py-5 font-medium text-slate-900 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white
+}
+
+.menuItemBtn {
+  @apply text-3xl bg-[#f8f8ff] px-4 py-5 font-medium text-slate-900 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white
+}
+
+.subMenuItem {
+  @apply flex justify-start items-center w-[100%] gap-x-2 text-2xl px-8 py-5 font-normal text-slate-900 hover:bg-gradient-to-r hover:from-violet-600 hover:to-indigo-600 hover:text-white
 }

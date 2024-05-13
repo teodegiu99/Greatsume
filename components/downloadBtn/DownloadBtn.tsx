@@ -30,6 +30,7 @@ const DownloadBtn = (props: {
   template?: string;
   publicLink?: string;
   style: string;
+  menuItem?: boolean;
 }) => {
 
     const templateArray = ["ClassicBlue", "ElegantBlack", "Tech", "Anglo"];
@@ -52,13 +53,20 @@ const DownloadBtn = (props: {
 
   return (
     <div>
-      <Button
+      {!props.menuItem && <Button
         onClick={handlePrint}
         className={props.style}
       >
         <FaFileDownload className="text-lg" />
         Download
-      </Button>
+      </Button>}
+      {props.menuItem && <button
+        onClick={handlePrint}
+        className={props.style}
+      >
+        <FaFileDownload className="h-6 w-6" />
+        Download
+      </button>}
       <div style={{ display: "none" }}>
         <TemplateComponent
           ref={componentRef}
