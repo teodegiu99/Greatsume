@@ -50,6 +50,7 @@ const Anglo = forwardRef(
         <h1>Contenuto da stampare</h1>
         <h1>Sono Anglo</h1>
         <h5>{object?.bio}</h5>
+        <a href="www.google.com">LINK</a>
       </div>
     );
   }

@@ -58,7 +58,7 @@ const TemplateCarousel: React.FC = () => {
           dispatch(setUpdateValues(true));
 
         } else {
-          console.log("Error retrieving template");
+          dispatch(setUpdateValues(true));
         }
       } catch (error) {
         console.error("Error connecting to db ", error);

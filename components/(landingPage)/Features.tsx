@@ -14,7 +14,7 @@ import { FaShareAlt } from "react-icons/fa";
 export function Features() {
   return (
  
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full ">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full mb-8">
      <div className="lg:col-span-1 col-span-3 p-8 border-2 shadow-2xl w-full h-full rounded-2xl relative overflow-hidden">
   <h5 className="text-neutral-700 dark:text-neutral-200 text-3xl md:text-4xl lg:text-5xl font-semibold text-start relative z-10">
     <span className="text-violet-600 z-[80]">Change</span> your resume{" "}

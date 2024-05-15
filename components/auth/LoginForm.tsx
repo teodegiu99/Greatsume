@@ -154,7 +154,7 @@ export const LoginForm = () => {
 			<Button
 			  disabled={isPending}
 			  type="submit"
-			  className="w-full"
+			  className="w-full bg-violet-600  hover:bg-violet-700"
 			>
 			  {showTwoFactor ? "Confirm" : "Login"}
 			</Button>
