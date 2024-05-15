@@ -20,9 +20,7 @@ router.push("/auth/login");
 }
   if (mode === "modal") {
     return (
-        <span>
-            TODO: Implement modal 
-        </span>
+     <></>
     )
   }
   return (
