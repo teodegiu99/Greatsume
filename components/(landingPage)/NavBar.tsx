@@ -11,9 +11,9 @@ const NavBar = () => {
   return (
     <nav className="flex sticky top-0 justify-between items-center w-[100%] bg-[#f8f8ff] z-[100] h-[60px] p-4 ">
       <div>
-        <h1 className="font-black text-3xl text-blue-700">
-          G<span className="text-purple-800">re</span>at
-          <span className="text-purple-800">sume</span>
+        <h1 className="font-black text-3xl text-indigo-600">
+          G<span className="text-violet-600">re</span>at
+          <span className="text-violet-600">sume</span>
         </h1>
       </div>
       <div className="flex flex-row justify-center items-center gap-x-4">

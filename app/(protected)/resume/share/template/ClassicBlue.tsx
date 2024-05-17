@@ -10,7 +10,8 @@ const ClassicBlue = () => {
   const showHide = useSelector((state: RootState) => state.showHide);
   const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); // Definisci lo stato per object
 
-      
+  // const object = useSelector((state: RootState) => state.updateValues);
+
   useEffect(() => {
     const fetchPublicValues = async () => {
         try {

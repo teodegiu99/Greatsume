@@ -20,6 +20,7 @@ const templateComponents: TemplateComponents = {
 };
 
 const CvHandler = () => {
+  
   // Ottieni il nome del template dallo stato
   const selectedTemplate = useSelector(
     (state: RootState) => state.showHide.template

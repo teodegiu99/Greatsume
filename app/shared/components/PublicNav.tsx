@@ -9,9 +9,9 @@ const PublicNav = () => {
     <nav className="flex justify-between items-center w-[100%] h-[60px] bg-white p-4 border-b-2 shadow-sm">
       <Link href="/">
         <div>
-          <h1 className="font-black text-3xl text-blue-700">
-            g<span className="text-purple-800">re</span>at
-            <span className="text-purple-800">sume</span>
+          <h1 className="font-black text-3xl text-indigo-600">
+            g<span className="text-violet-600">RE</span>at
+            <span className="text-violet-600">SUME</span>
           </h1>
         </div>
       </Link>

@@ -10,7 +10,7 @@ const NewTemplateBanner = () => {
       </div>
       <div className='col-span-2 flex flex-col justify-center items-center  p-8 bg-[#f8f8ff] rounded-2xl shadow-2xl relative'>
       <p className="text-3xl text-neutral-700 font-medium">Stand out in today&rsquo;s competitive job market</p>
-      <Button className='text-white bg-violet-600 text-2xl px-6 py-6 mt-8 rounded-md hover:bg-violet-600 hover:scale-110 shadow-2xl'>
+      <Button className='text-white bg-gradient-to-r from-violet-600 to-indigo-600 text-2xl px-6 py-6 mt-8 rounded-md hover:from-violet-700 hover:to-indigo-700 hover:scale-110 shadow-2xl'>
         Start now 🚀
       </Button>
       <MdWorkOutline className="absolute size-96 bottom-[-130px] right-[-50px]  z-0 text-violet-600 opacity-10" />

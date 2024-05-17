@@ -157,3 +157,12 @@ export const PublicSchema = z.object({
   showDateOfBirth:  z.boolean().optional().nullish(),
 showImage: z.boolean().optional().nullish(),
 });
+
+
+export const ShowHide = z.object({
+  showBio:  z.boolean().optional().nullish(),
+  showAddress:  z.boolean().optional().nullish(),
+  showDateOfBirth:  z.boolean().optional().nullish(),
+showImage: z.boolean().optional().nullish(),
+template: z.string().optional().nullish(),
+})

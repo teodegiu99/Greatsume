@@ -35,7 +35,7 @@ const CvHandler = () => {
       )}
       {(loaderTemplate.template == false || loaderCvData.cvdata == false)  && (
         <div className="flex w-full h-full justify-center items-center ">
-         { <Loader />}
+          <Loader />
         </div>
       )}
     </>

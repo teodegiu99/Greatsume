@@ -145,9 +145,9 @@ const ClassicBlue = () => {
           <div className="col-span-2 p-3 w-full h-full bg-white text-black">
             <div>
               <div className="flex justify-start flex-col">
-                <h1 className="cvMainTitle-ClassicBlue ">
+              {(object.name || object.surname) &&<h1 className="cvMainTitle-ClassicBlue ">
                   {object.name} {object.surname}
-                </h1>
+                </h1>}
                 {object.desiredJob && (
                   <h2 className="cvMainSub-ClassicBlue ">{object.desiredJob}</h2>
                 )}

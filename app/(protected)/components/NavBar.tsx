@@ -46,9 +46,9 @@ const NavBar = () => {
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <Link href="/resume">
         <div>
-          <h1 className="font-black text-3xl text-blue-700">
-            G<span className="text-purple-600">re</span>at
-            <span className="text-purple-600">sume</span>
+          <h1 className="font-black text-3xl text-indigo-600">
+            G<span className="text-violet-600">re</span>at
+            <span className="text-violet-600">sume</span>
           </h1>
         </div>
       </Link>
@@ -91,16 +91,23 @@ const NavBar = () => {
           <DropdownMenuContent className="w-56">
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <SignOutBtn />
+                {/* <SignOutBtn /> */}
+                <GoSignOut className="h-5 w-5 mr-2" />
+
+                <button onClick={() => signOut()} className="text-start font-medium w-full h-full">
+          Sign Out
+                </button>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 {" "}
+                <MdDelete className="h-5 w-5 mr-2" />
+
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity"
+                  className="text-start w-full h-full font-medium"
                 >
-                  Open Modal
+                  Delete Account
                 </button>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -120,10 +127,10 @@ const NavBar = () => {
           <div className="fixed top-0 left-0 h-full w-[100%] z-[100] bg-[#f8f8ff] overflow-hidden scrollbar-hide">
             <div className="flex justify-between items-center p-2 text-right">
               <div>
-                <h1 className="font-black text-3xl text-blue-700">
-                  G<span className="text-purple-800">re</span>at
-                  <span className="text-purple-800">sume</span>
-                </h1>
+              <h1 className="font-black text-3xl text-indigo-600">
+            G<span className="text-violet-600">re</span>at
+            <span className="text-violet-600">sume</span>
+          </h1>
               </div>
               <Button
                 variant="outline"
@@ -284,7 +291,7 @@ const SpringModal = ({
                   onClick={handleSubmit}
                   className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded"
                 >
-                  Understood!
+                  Delete 😭
                 </button>
               </div>
             </div>

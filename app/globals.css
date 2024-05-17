@@ -210,3 +210,31 @@ ul {
 .cvMainSub-ClassicBlue {
   @apply text-[24px] font-normal;
 }
+
+
+/* Elegant Black */
+.cvTitle-ElegantBlack {
+  @apply text-[18px];
+}
+.cvSeparator-div-ElegantBlack {
+  @apply bg-gray-300 flex w-full justify-center mb-3;
+}
+
+.cvData-ElegantBlack {
+  @apply text-[11px] text-justify ;
+}
+
+.cvMainTitle-ElegantBlack {
+  @apply text-[38px] font-semibold;
+}
+
+.cvDataTitle-ElegantBlack {
+  @apply text-[14px] font-medium;
+}
+.cvSkillsTitle-ElegantBlack {
+  @apply text-[14px] font-medium;
+}
+
+.cvSkills-ElegantBlack {
+  @apply text-[12px] mr-4 font-normal;
+}

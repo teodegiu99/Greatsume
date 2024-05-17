@@ -34,7 +34,7 @@ export function Hero() {
         The ultimate CV builder is here
       </p>
       <TypewriterEffectSmooth words={words} />
-      <button className="w-40 h-10 rounded-md bg-violet-600 text-white text-xl" onClick={() => router.push("/auth/register")}>
+      <button className="w-40 h-10 rounded-md bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xl  hover:from-violet-700 hover:to-indigo-700 hover:scale-110 shadow-2xl" onClick={() => router.push("/auth/register")}>
         Sign Up Now!
       </button>
     </div>

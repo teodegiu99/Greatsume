@@ -1,14 +1,43 @@
-import { hatch } from "ldrs";
+"use client"
+import { Variants, motion } from "framer-motion";
 
-import React from "react";
 
-function Loader() {
-  hatch.register();
+
+const variants = {
+  initial: {
+    scaleY: 0.5,
+    opacity: 0,
+  },
+  animate: {
+    scaleY: 1,
+    opacity: 1,
+    transition: {
+      repeat: Infinity,
+      repeatType: "mirror",
+      duration: 1,
+      ease: "circIn",
+    },
+  },
+} as Variants;
+
+const Loader = () => {
   return (
-    <div>
-      <l-hatch size="28" stroke="4" speed="3.5" color="black"></l-hatch>
-    </div>
+    <motion.div
+      transition={{
+        staggerChildren: 0.25,
+      }}
+      initial="initial"
+      animate="animate"
+      className="flex gap-1"
+    >
+      <motion.div variants={variants} className="h-12 w-2 bg-violet-600" />
+      <motion.div variants={variants} className="h-12 w-2 bg-violet-600" />
+      <motion.div variants={variants} className="h-12 w-2 bg-violet-600" />
+      <motion.div variants={variants} className="h-12 w-2 bg-violet-600" />
+      <motion.div variants={variants} className="h-12 w-2 bg-violet-600" />
+    </motion.div>
   );
-}
+};
+
 
 export default Loader;

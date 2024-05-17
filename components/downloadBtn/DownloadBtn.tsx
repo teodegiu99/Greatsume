@@ -7,7 +7,7 @@ import { FaFileDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import ClassicBlue from "./pdfTemplate/ClassicBlue";
 import { getDownloadData, getPublicData } from "@/data/getPublicData";
-import { PublicSchema } from "@/schemas";
+import { PublicSchema, ShowHide } from "@/schemas";
 import * as z from "zod";
 import ElegantBlack from "./pdfTemplate/ElegantBlack";
 import Tech from "./pdfTemplate/Tech";
@@ -15,6 +15,7 @@ import Anglo from "./pdfTemplate/Anglo";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
 
 
 const TemplateComponents: Record<string, React.ComponentType<any>> = {
@@ -33,7 +34,7 @@ const DownloadBtn = (props: {
   style: string;
   menuItem?: boolean;
 }) => {
-
+ 
     const templateArray = ["ClassicBlue", "ElegantBlack", "Tech", "Anglo"];
 
     const template = useSelector((state: RootState) => state.template.value);
@@ -43,6 +44,10 @@ const DownloadBtn = (props: {
         templateArray.length - 1
     );
   
+
+
+
+
 
   const componentRef = useRef<HTMLDivElement>(null);
 

@@ -471,6 +471,7 @@ const LeftBar = () => {
                           <div key={index} className="flex p-2 ">
                             {skill}
                             <button
+                            type="button"
                               onClick={() => handleDeleteSkill(index)}
                               className=" text-red-500 text-xl"
                             >
@@ -519,6 +520,7 @@ const LeftBar = () => {
                           <div key={softindex} className="flex  p-2">
                             {softSkill}
                             <button
+                            type="button"
                               onClick={() => handleDeleteSoftSkill(softindex)}
                               className=" text-red-500 text-xl"
                             >
@@ -562,6 +564,7 @@ const LeftBar = () => {
                           <div key={lindex} className="flex p-2 ">
                             {lang}
                             <button
+                             type="button"
                               onClick={() => handleDeleteLangSkill(lindex)}
                               className=" text-red-500 text-xl"
                             >

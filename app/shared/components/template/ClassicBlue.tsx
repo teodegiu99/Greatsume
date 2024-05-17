@@ -25,11 +25,8 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
         try {
             const data = await getPublicData(publicLink);
             if (data) {
-              // setObject(prevObject => ({
-              //   ...prevObject,
-              //   image: data.image ?? prevObject?.image
+
               setObject(data)
-              // Imposta lo stato di object con i dati ottenuti
                 
             }
             console.log(data)
@@ -59,7 +56,7 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
             </div>}
 
             <div className="flex justify-start flex-col">
-              {(object?.address || object?.dateOfBirth) && (object?.showAddress || object?.showDateOfBirth) && (showHide?.showAddress || showHide?.showDateOfBirth) && (
+            {(object?.address || object?.dateOfBirth || object?.relocation) && (object?.showAddress || object?.showDateOfBirth || object?.relocation) && (showHide?.showAddress || showHide?.showDateOfBirth || object?.relocation) && (
                 <>
                   <p className="cvTitle-ClassicBlue">Personal Information</p>
                   <hr className="mb-2"></hr>
@@ -75,6 +72,12 @@ const ClassicBlue: React.FC<ClassicBlueProps> = ({
                 <>
                   <p className="cvSubTitle-ClassicBlue">Date Of Birth</p>
                   <p className="cvData-ClassicBlue">{object?.dateOfBirth}</p>
+                </>
+              )}
+              {object?.relocation &&(
+                <>
+                  <p className="cvSubTitle-ClassicBlue">Condition to relocate</p>
+                  <p className="cvData-ClassicBlue">{object?.relocation}</p>
                 </>
               )}
             </div>
