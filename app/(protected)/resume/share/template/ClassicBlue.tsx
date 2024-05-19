@@ -1,35 +1,39 @@
 "use client";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
-import { useEffect, useRef, useState } from "react";
-import { getInitialData } from "@/data/InitialData";
+
 import { ResumeSchema } from "@/schemas";
 import * as z from "zod"
 
-const ClassicBlue = () => {
-  const showHide = useSelector((state: RootState) => state.showHide);
-  const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); // Definisci lo stato per object
 
+type Props = {
+  resume: z.infer<typeof ResumeSchema>;
+};
+
+const ClassicBlue: React.FC<Props> = ({ resume }) => {
+  const showHide = useSelector((state: RootState) => state.showHide);
+  // const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>(); // Definisci lo stato per object
+const object = resume
   // const object = useSelector((state: RootState) => state.updateValues);
 
-  useEffect(() => {
-    const fetchPublicValues = async () => {
-        try {
-            const data = await getInitialData();
-            if (data) {
+//   useEffect(() => {
+//     const fetchPublicValues = async () => {
+//         try {
+//             const data = await getInitialData();
+//             if (data) {
              
-              setObject(data);
+//               setObject(data);
                 
-            }
-            console.log(data)
+//             }
+//             console.log(data)
         
-        } catch (error) {
-            console.error("Error connecting to db ", error);
-        }
-    };
+//         } catch (error) {
+//             console.error("Error connecting to db ", error);
+//         }
+//     };
 
-    fetchPublicValues();
-}, []);
+//     fetchPublicValues();
+// }, []);
 
   return (
     <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
