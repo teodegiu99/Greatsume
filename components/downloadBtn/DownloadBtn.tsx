@@ -6,9 +6,6 @@ import React, {
 import { FaFileDownload } from "react-icons/fa";
 import { useReactToPrint } from "react-to-print";
 import ClassicBlue from "./pdfTemplate/ClassicBlue";
-import { getDownloadData, getPublicData } from "@/data/getPublicData";
-import { PublicSchema, ShowHide } from "@/schemas";
-import * as z from "zod";
 import ElegantBlack from "./pdfTemplate/ElegantBlack";
 import Tech from "./pdfTemplate/Tech";
 import Anglo from "./pdfTemplate/Anglo";
@@ -44,11 +41,6 @@ const DownloadBtn = (props: {
         templateArray.length - 1
     );
   
-
-
-
-
-
   const componentRef = useRef<HTMLDivElement>(null);
 
   const WhichTemplate = props.template ? props.template : templateArray[index]
