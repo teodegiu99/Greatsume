@@ -12,11 +12,9 @@ const ElegantBlack = () => {
   const object = useSelector((state: RootState) => state.updateValues);
 
   return (
-    <div className="w-full flex justify-center overflow-auto scrollbar-hide">
-      {/* <p>{object.address}</p> */}
-
-      <div className="a4f h-full text-black w-full bg-white p-6">
-        <div className="flex flex-col items-center">
+   <div className="h-full w-full text-black bg-white p-6 min-h-full">
+      <div className="flex flex-col items-center">
+       
           {(object.name || object.surname) && <p className="cvMainTitle-ElegantBlack">
             {object.name} {object.surname}
           </p>}
@@ -60,7 +58,7 @@ const ElegantBlack = () => {
           <p className="cvTitle-ElegantBlack">Employment History</p>
         </div>
         {object.experience.map((exp, index) => (
-          <div key={index}>
+          <div key={index} className="paginate-item mb-4">
             <div className="flex flex-row justify-between pb-1">
               <p className="cvDataTitle-ElegantBlack">{exp.title}</p>
               <p className="cvDataTitle-ElegantBlack">{exp.years}</p>
@@ -76,7 +74,7 @@ const ElegantBlack = () => {
           <p className="cvTitle-ElegantBlack">Education</p>
         </div>
         {object.education.map((edu, index) => (
-          <div key={index}>
+          <div key={index} className="paginate-item mb-4">
             <div className="flex flex-row justify-between pb-1">
               <p className="cvDataTitle-ElegantBlack">{edu.etitle}</p>
               <p className="cvDataTitle-ElegantBlack">{edu.eyears}</p>
@@ -129,40 +127,45 @@ const ElegantBlack = () => {
             </div>
           </div>
         </div> */}
-        {(object.skillss && object.skillss.length > 0) &&
-        <> <div className="flex  w-full mb-2 items-center flex-wrap">
-          <p className="cvSkillsTitle-ElegantBlack mr-4">Skills:</p>
-          {object.skillss.map((skill, index) => (
-            <p className="cvSkills-ElegantBlack mr-4" key={index}>
-              {skill}
-            </p>
-          ))}
-        </div>
-        <hr className="border-1 w-full border-gray-300 mb-3" />
-        </>}
-        {(object.softSkillss && object.softSkillss.length > 0) && <>
-        <div className="flex  w-full mb-2 items-center flex-wrap">
-          <p className="cvSkillsTitle-ElegantBlack mr-4">Soft skills:</p>
-          {object.softSkillss.map((skill, index) => (
-            <p className="cvSkills-ElegantBlack" key={index}>
-             {skill}
-            </p>
-          ))}
-        </div>
-        <hr className="border-1 w-full  border-gray-300 mb-3" />
-</> }
-{(object.langSkillss && object.langSkillss.length > 0) && <>
-        <div className="flex  w-full mb-2 items-center flex-wrap ">
-          <p className="cvSkillsTitle-ElegantBlack mr-4">Languages:</p>
-
-          {object.langSkillss.map((skill, index) => (
-            <p className="cvSkills-ElegantBlack" key={index}>
-              {skill}
-            </p>
-          ))}
-        </div>
-        <hr className="border-1 w-full border-gray-300 mb-3" />
-        </>}
+     {(object.skillss && object.skillss.length > 0) &&
+  <div className="paginate-item w-full"> {/* <--- METTI QUESTO AL POSTO DI <> */}
+    <div className="flex w-full mb-2 items-center flex-wrap">
+      <p className="cvSkillsTitle-ElegantBlack mr-4">Skills:</p>
+      {object.skillss.map((skill, index) => (
+        <p className="cvSkills-ElegantBlack mr-4" key={index}>
+          {skill}
+        </p>
+      ))}
+    </div>
+    <hr className="border-1 w-full border-gray-300 mb-3" />
+  </div>
+}
+ {(object.softSkillss && object.softSkillss.length > 0) && 
+  <div className="paginate-item w-full"> {/* <--- METTI QUESTO AL POSTO DI <> */}
+    <div className="flex w-full mb-2 items-center flex-wrap">
+      <p className="cvSkillsTitle-ElegantBlack mr-4">Soft skills:</p>
+      {object.softSkillss.map((skill, index) => (
+        <p className="cvSkills-ElegantBlack mr-4" key={index}>
+         {skill}
+        </p>
+      ))}
+    </div>
+    <hr className="border-1 w-full border-gray-300 mb-3" />
+  </div>
+}
+{(object.langSkillss && object.langSkillss.length > 0) && 
+  <div className="paginate-item w-full"> {/* <--- METTI QUESTO AL POSTO DI <> */}
+    <div className="flex w-full mb-2 items-center flex-wrap">
+      <p className="cvSkillsTitle-ElegantBlack mr-4">Languages:</p>
+      {object.langSkillss.map((skill, index) => (
+        <p className="cvSkills-ElegantBlack mr-4" key={index}>
+          {skill}
+        </p>
+      ))}
+    </div>
+    <hr className="border-1 w-full border-gray-300 mb-3" />
+  </div>
+}
         <div className="flex w-full mb-2 items-center flex-wrap">
           {(object.website || object.dribble || object.github || object.linkedin) &&<p className="cvSkillsTitle-ElegantBlack mr-4">
             Professional profiles:
@@ -185,7 +188,6 @@ const ElegantBlack = () => {
           </p>}
         </div>
       </div>
-    </div>
   );
 };
 export default ElegantBlack;

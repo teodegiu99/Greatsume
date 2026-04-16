@@ -1,7 +1,7 @@
 "use client";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
-
+import PaginationWrapper from "./PaginationWrapper"; 
 import ClassicBlue from "../template/ClassicBlue";
 import ElegantBlack from "../template/ElegantBlack";
 import Tech from "../template/Tech";
@@ -28,10 +28,10 @@ const CvHandler = () => {
   console.log("loaderCvData", loaderCvData);
   return (
     <>
-      {loaderTemplate.template && loaderCvData.cvdata && (
-        <div className="w-full h-full">
+   {loaderTemplate.template && loaderCvData.cvdata && (
+        <PaginationWrapper>
           {ComponenteScelto && <ComponenteScelto />}
-        </div>
+        </PaginationWrapper>
       )}
       {(loaderTemplate.template == false || loaderCvData.cvdata == false)  && (
         <div className="flex w-full h-full justify-center items-center ">

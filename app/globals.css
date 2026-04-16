@@ -188,7 +188,18 @@ ul {
   @apply  bg-white w-[21cm]  min-h-[297mm] my-4 
 }
 
-
+@media print {
+  /* Nascondi la mascherina grigia in fase di stampa, non serve più */
+  .pointer-events-none {
+    display: none !important;
+  }
+  
+  /* Dice al browser di non spezzare i singoli blocchi */
+  .paginate-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
 
 /* Classic Blue */
 

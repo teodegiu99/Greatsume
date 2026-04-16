@@ -36,7 +36,11 @@ const LeftBar = () => {
   const [error, setError] = useState<string | undefined>("");
   const dispatch = useDispatch();
   const loader = useSelector((state: RootState) => state.loaderCvData);
+const [isMounted, setIsMounted] = useState(false);
 
+useEffect(() => {
+  setIsMounted(true);
+}, []);
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === ",") {
       event.preventDefault();
@@ -443,12 +447,13 @@ const LeftBar = () => {
             </div>
             <h3 className="text-start m-4 formTitle">Hard Skills</h3>
             <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
-              <Field name="skills" instanceId={useId()} disabled={isPending}>
+              <Field name="skills" disabled={isPending}>
                 {(props: FieldProps) => (
                   <div>
+					{isMounted ? (
                     <Select
                       {...props.field}
-                      instanceId={useId()}
+                      instanceId="hard-skills-select"
                       components={{
                         DropdownIndicator: () => null,
                         IndicatorSeparator: () => null,
@@ -462,6 +467,10 @@ const LeftBar = () => {
                       styles={customStyles}
                       menuIsOpen={false}
                     />
+					) : (
+      /* Segnaposto per SSR */
+      <div className="w-full min-h-[38px] border border-[#ccc] rounded bg-white"></div>
+    )}
                     <div className="flex flex-wrap p-2 mt-2 gap-x-2">
                       {skills.map((skill, index) => (
                         <div
@@ -490,15 +499,16 @@ const LeftBar = () => {
             <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
               <Field
                 name="softSkills"
-                instanceId={useId()}
+               
                 disabled={isPending}
               >
                 {(props: FieldProps) => (
                   <div>
+					{isMounted ? (
                     <Select
                       {...props.field}
                       options={[]}
-                      instanceId={useId()}
+                      instanceId="soft-skills-select"
                       components={{
                         DropdownIndicator: () => null,
                         IndicatorSeparator: () => null,
@@ -511,6 +521,10 @@ const LeftBar = () => {
                       styles={customStyles}
                       menuIsOpen={false}
                     />
+					) : (
+      /* Segnaposto per SSR */
+      <div className="w-full min-h-[38px] border border-[#ccc] rounded bg-white"></div>
+    )}
                     <div className="flex flex-wrap p-2 mt-2 gap-x-2">
                       {softSkills.map((softSkill, softindex) => (
                         <div
@@ -536,12 +550,13 @@ const LeftBar = () => {
             </div>
             <h3 className="text-start m-4 formTitle">Languages</h3>
             <div className="p-4 m-2 border-2 border-slate-200 rounded-md">
-              <Field name="languages" instanceId={useId()} disabled={isPending}>
+              <Field name="languages"  disabled={isPending}>
                 {(props: FieldProps) => (
                   <div>
+{isMounted ? (
                     <Select
                       {...props.field}
-                      instanceId={useId()}
+                      instanceId="languages-select"
                       components={{
                         DropdownIndicator: () => null,
                         IndicatorSeparator: () => null,
@@ -555,6 +570,10 @@ const LeftBar = () => {
                       styles={customStyles}
                       menuIsOpen={false}
                     />
+					) : (
+      /* Segnaposto per SSR */
+      <div className="w-full min-h-[38px] border border-[#ccc] rounded bg-white"></div>
+    )}
                     <div className="flex flex-wrap p-2 mt-2 gap-x-2">
                       {langSkills.map((lang, lindex) => (
                         <div

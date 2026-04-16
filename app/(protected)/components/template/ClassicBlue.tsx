@@ -9,12 +9,10 @@ const ClassicBlue = () => {
 
   return (
 
-    <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
+   
 
-      <div className=" a4f shadow-lg">
-
-        <div className="grid grid-cols-3 h-full">
-          <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
+       <div className="grid grid-cols-3 h-full w-full min-h-full">
+      <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
             {object.image && (
               <div className="flex justify-center w-full mb-4">
                 <img
@@ -164,7 +162,7 @@ const ClassicBlue = () => {
                   <hr className="mb-2 border-t-1 border-slate-400"></hr>
                   {object.experience.map((exp, index) => (
       
-        <div key={index}>
+        <div key={index} className="paginate-item mb-4">
           <div className="flex flex-row justify-between pb-1">
             <p className="cvSubTitle-ClassicBlue ">{exp.title}</p>
             <p className="cvSubTitle-ClassicBlue ">{exp.years}</p>
@@ -186,7 +184,7 @@ const ClassicBlue = () => {
                   <h2 className="cvMainSub-ClassicBlue">Education</h2>
                   <hr className="mb-2 border-t-1 border-slate-400"></hr>
                   {object.education.map((edu, index) => (
-                    <div key={index}>
+                    <div key={index} className="paginate-item mb-4">
                       <div className="flex flex-row justify-between pb-1">
                         <p className="cvSubTitle-ClassicBlue ">{edu.etitle}</p>
                         <p className="cvSubTitle-ClassicBlue ">{edu.eyears}</p>
@@ -201,9 +199,7 @@ const ClassicBlue = () => {
             </div>
           </div>
         </div>
-      </div>
-
-    </div>
+ 
   );
 };
 
