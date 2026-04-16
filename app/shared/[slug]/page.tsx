@@ -1,76 +1,65 @@
 "use client";
 import { getPublicTemplate } from "@/actions/getPublicTemplate";
+import { getPublicData } from "@/data/getPublicData"; // Assicurati che il percorso sia corretto
 import PublicCvHandler from "../components/PublicCvHandler";
 import ShowHide from "../components/ShowHide";
 import { Provider } from "react-redux";
 import { store } from "@/app/state/store";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 
-const page = ({ params }: { params: { slug: string } }) => {
-    const [template, setTemplate] = useState<string | null>();
+const page = ({ params }: { params: Promise<{ slug: string }> }) => {
+	const resolvedParams = use(params);
+    const slug = resolvedParams.slug;
+	    const [template, setTemplate] = useState<string | null>();
+    const [resumeData, setResumeData] = useState<any>(null); // Stato per i dati del CV
 
     useEffect(() => {
-        const fetchTemplate = async () => {
+        const fetchPublicValues = async () => {
             try {
-                const templateData = await getPublicTemplate(params.slug);
+				const templateData = await getPublicTemplate(slug);
+                const data = await getPublicData(slug);
+                // Recupera il template e i dati in parallelo usando lo slug
+            
                 setTemplate(templateData);
+                setResumeData(data);
             } catch (error) {
                 console.error(
-                    "Errore durante il recupero del template:",
+                    "Errore durante il recupero dei dati pubblici:",
                     error
                 );
             }
         };
 
-        fetchTemplate();
-    }, [params.slug]);
+        fetchPublicValues(); // Nome corretto della funzione
+    }, [slug]);
+
     return (
         <Provider store={store}>
             <div className="grid lg:grid-cols-2 xl:grid-cols-4 h-full">
                 <div className="lg:col-span-1 bg-[#f8f8ff] overflow-auto scrollbar-hide shadow-2xl ">
-                    {/* <div className="block p-5">
-                        <h1 className=" font-semibold text-3xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-                            Share your resume
-                        </h1>
-                        <p className="font-regular text-lg text-slate-700">
-                            Generate your public link, but share only what you
-                            want!
-                        </p>
-                    </div>
-                    <hr className="border-1 border-slate-300" /> */}
-                    {template != null &&<ShowHide publicLink={params.slug} />}
-					{!template && (
-                        <>
-                            <div
-                                className=" lg:hidden h-max flex justify-center items-center "
-                            >
-                                <div className="bg-red-400 w-auto mt-10 text-white text-center p-5 rounded-md">
-                                    This url does not exist or has been deleted
-                                    by the user!
-                                </div>
+                    {template != null && <ShowHide publicLink={slug} />}
+                    {!template && (
+                        <div className="lg:hidden h-max flex justify-center items-center">
+                            <div className="bg-red-400 w-auto mt-10 text-white text-center p-5 rounded-md">
+                                This url does not exist or has been deleted by the user!
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
                 <div className="hidden lg:block xl:col-span-3 lg:col-span-1 overflow-auto scrollbar-hide text-white">
                     {template != null && (
                         <PublicCvHandler
                             selectedTemplate={template}
-                            publicLink={params.slug}
+                            resumeData={resumeData} // Passiamo i dati al componente
+                            publicLink={slug}
                         />
                     )}
                     {!template && (
-                        <>
-                            <div
-                                id="error"
-                                className="flex h-full justify-center items-center "
-                            >
-                                <div className="bg-red-400 w-[400px] text-white text-center p-5 rounded-md">
-                                    This url does not exist or has been deleted
-                                    by the user!
-                                </div>
+                        <div id="error" className="flex h-full justify-center items-center">
+                            <div className="bg-red-400 w-[400px] text-white text-center p-5 rounded-md">
+                                This url does not exist or has been deleted by the user!
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

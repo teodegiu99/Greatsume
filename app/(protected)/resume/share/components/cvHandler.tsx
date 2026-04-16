@@ -27,8 +27,10 @@ const templateComponents: TemplateComponents = {
   Tech,
   Anglo,
 };
-
-const CvHandler = () => {
+interface CvHandlerProps {
+  publicLink?: string; // Aggiungi questa riga
+}
+const CvHandler = ({ publicLink }: CvHandlerProps) => {
     const [object, setObject] = useState<Partial<z.infer<typeof ResumeSchema>>>();
 
   useEffect(() => {
@@ -63,7 +65,7 @@ const CvHandler = () => {
         
         // 3. AVVOLGI IL TUO TEMPLATE QUI
         <PaginationWrapper>
-            <ComponenteScelto resume={object} />
+            <ComponenteScelto resume={object} publicLink={publicLink}/>
         </PaginationWrapper>
 
       ) : (

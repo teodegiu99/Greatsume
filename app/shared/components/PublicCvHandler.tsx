@@ -1,21 +1,20 @@
 "use client";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/state/store";
-
 import ClassicBlue from "./template/ClassicBlue";
 import ElegantBlack from "./template/ElegantBlack";
 import Tech from "./template/Tech";
 import Anglo from "./template/Anglo";
-
+// Assicurati di importarlo correttamente tra le graffe se non è l'export default
+import PaginationWrapper from "@/app/(protected)/components/center/PaginationWrapper";
 interface TemplateComponents {
   [key: string]: React.ComponentType<any>;
 }
+
 interface PublicCvHandlerProps {
   selectedTemplate: string;
   publicLink: string;
-
+  resumeData: any; 
 }
-// Oggetto che mappa i nomi dei componenti ai loro riferimenti
+
 const templateComponents: TemplateComponents = {
   ClassicBlue,
   ElegantBlack,
@@ -24,14 +23,20 @@ const templateComponents: TemplateComponents = {
 };
 
 const PublicCvHandler: React.FC<PublicCvHandlerProps> = ({
-  selectedTemplate, publicLink
+  selectedTemplate, 
+  publicLink, 
+  resumeData 
 }) => {
-
   const ComponenteScelto = templateComponents[selectedTemplate];
 
   return (
-    <div className="h-full flex justify-center items-center">
-      {ComponenteScelto && <ComponenteScelto publicLink={publicLink} />}
+    <div className="h-full w-full">
+      {ComponenteScelto && (
+        <PaginationWrapper>
+           {/* Ora 'children' è correttamente accettato */}
+           <ComponenteScelto resume={resumeData} publicLink={publicLink} />
+        </PaginationWrapper>
+      )}
     </div>
   );
 };
