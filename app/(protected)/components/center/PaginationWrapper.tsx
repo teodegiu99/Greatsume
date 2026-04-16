@@ -20,51 +20,55 @@ const PaginationWrapper = ({ children }: PaginationWrapperProps) => {
   const MARGIN_PX = 38; // ~1cm di margine desiderato
   const VISUAL_GAP = 40; // Altezza della "maschera" grigia che separa le pagine
 
-  useEffect(() => {
+useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // 1. Reset di tutti i margini prima di ricalcolare (fondamentale se l'utente cancella testo)
-    const items = container.querySelectorAll(".paginate-item");
-    items.forEach((el) => {
-      (el as HTMLElement).style.marginTop = "0px";
-    });
-
-    // 2. Ricalcolo delle posizioni
-    items.forEach((el) => {
-      const htmlEl = el as HTMLElement;
+    // 1. Estraiamo la logica in una funzione
+    const calculateLayout = () => {
+      const items = container.querySelectorAll(".paginate-item");
       
-      // Otteniamo le posizioni relative alla viewport
-      const rect = htmlEl.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
+      // Reset di tutti i margini
+      items.forEach((el) => {
+        (el as HTMLElement).style.marginTop = "0px";
+      });
 
-      // Calcoliamo il 'top' e 'bottom' dell'elemento rispetto all'inizio del foglio CV
-      const topRelativeToContainer = rect.top - containerRect.top;
-      const bottomRelativeToContainer = topRelativeToContainer + rect.height;
+      // Ricalcolo
+      items.forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        const rect = htmlEl.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
-      // In quale pagina si trova l'inizio di questo elemento? (0 = prima pagina, 1 = seconda, ecc.)
-      const currentPageIndex = Math.floor(topRelativeToContainer / A4_HEIGHT_PX);
-      
-      // Qual è il limite inferiore di questa pagina (sottraendo il margine)?
-      const pageBottomLimit = (currentPageIndex + 1) * A4_HEIGHT_PX - MARGIN_PX;
+        const topRelativeToContainer = rect.top - containerRect.top;
+        const bottomRelativeToContainer = topRelativeToContainer + rect.height;
 
-      // Se la fine dell'elemento supera il limite della pagina corrente...
-      if (bottomRelativeToContainer > pageBottomLimit) {
-        // ...calcoliamo di quanti pixel dobbiamo spingerlo in giù per portarlo alla pagina successiva (+ margine)
-        const newPageStart = (currentPageIndex + 1) * A4_HEIGHT_PX + MARGIN_PX;
-        const pushAmount = newPageStart - topRelativeToContainer;
-        
-        // Applichiamo il margine. Al prossimo ciclo del forEach, getBoundingClientRect 
-        // ricalcolerà automaticamente la posizione shiftata per gli elementi successivi!
-        htmlEl.style.marginTop = `${pushAmount}px`;
-      }
-    });
+        const currentPageIndex = Math.floor(topRelativeToContainer / A4_HEIGHT_PX);
+        const pageBottomLimit = (currentPageIndex + 1) * A4_HEIGHT_PX - MARGIN_PX;
 
-    // 3. Aggiorniamo il numero di pagine totali per disegnare i "tagli" visivi
-    const totalHeight = container.scrollHeight;
-    setPages(Math.ceil(totalHeight / A4_HEIGHT_PX));
+        if (bottomRelativeToContainer > pageBottomLimit) {
+          const newPageStart = (currentPageIndex + 1) * A4_HEIGHT_PX + MARGIN_PX;
+          const pushAmount = newPageStart - topRelativeToContainer;
+          htmlEl.style.marginTop = `${pushAmount}px`;
+        }
+      });
 
-  }, [cvData]); // Ricalcola ogni volta che l'utente scrive qualcosa
+      const totalHeight = container.scrollHeight;
+      setPages(Math.ceil(totalHeight / A4_HEIGHT_PX));
+    };
+
+    // 2. Eseguiamo il calcolo subito (per quando l'utente digita velocemente)
+    calculateLayout();
+
+    // 3. Lo ri-eseguiamo dopo 300ms! 
+    // Questo dà il tempo al browser di renderizzare i dati del DB e caricare eventuali immagini
+    const timer = setTimeout(() => {
+      calculateLayout();
+    }, 300);
+
+    // Pulizia del timer
+    return () => clearTimeout(timer);
+
+  }, [cvData]); // L'effetto scatta ogni volta che cvData cambia (sia da DB che da tastiera)
 
   return (
     // Sfondo del builder (grigio per far risaltare i fogli bianchi)
