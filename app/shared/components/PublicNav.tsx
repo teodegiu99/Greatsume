@@ -10,8 +10,8 @@ const PublicNav = () => {
       <Link href="/">
         <div>
           <h1 className="font-black text-3xl text-indigo-600">
-            g<span className="text-violet-600">RE</span>at
-            <span className="text-violet-600">SUME</span>
+            G<span className="text-violet-600">re</span>at
+            <span className="text-violet-600">sume</span>
           </h1>
         </div>
       </Link>

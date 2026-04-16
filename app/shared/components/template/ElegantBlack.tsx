@@ -45,10 +45,10 @@ const ElegantBlack: React.FC<ElegantBlackProps> = ({
 }, []);
 
   return (
-    <div className="w-full flex justify-center overflow-auto scrollbar-hide">
+    <div className="h-full  w-full flex justify-center overflow-auto scrollbar-hide">
       {/* <p>{object.address}</p> */}
 
-      <div className="a4f h-full text-black w-full bg-white p-6">
+      <div className="a4f text-black w-full bg-white p-6">
         <div className="flex flex-col items-center">
           {(object?.name || object?.surname) && <p className="cvMainTitle-ElegantBlack">
             {object?.name} {object?.surname}

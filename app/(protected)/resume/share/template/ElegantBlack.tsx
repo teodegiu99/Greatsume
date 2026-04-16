@@ -19,7 +19,7 @@ const ElegantBlack: React.FC<Props> = ({ resume }) => {
   const showHide = useSelector((state: RootState) => state.showHide);
 
   return (
-    <div className="w-full flex justify-center overflow-auto scrollbar-hide">
+    <div className="h-full w-full flex justify-center overflow-auto scrollbar-hide">
       {/* <p>{object.address}</p> */}
 
       <div className="a4f h-full text-black w-full bg-white p-6">
