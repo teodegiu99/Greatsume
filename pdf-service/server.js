@@ -9,43 +9,46 @@ app.use(express.json());
 app.post('/generate-pdf', async (req, res) => {
   const { url } = req.body;
   let browser;
-
-  try {
-    console.log("Navigazione verso:", url);
+try {
+    console.log("Richiesta ricevuta...");
     
     browser = await puppeteer.launch({
-      headless: "new", // Usa la nuova modalità invisibile
-      args: ['--no-sandbox'] // Meno restrizioni in locale
+      headless: "new",
+      args: ['--no-sandbox'] 
     });
     
     const page = await browser.newPage();
 
-    // 1. Vai alla pagina
-    await page.goto(url, { waitUntil: 'networkidle0' });
+    // LOGICA UNIVERSALE: Sceglie se navigare un URL o iniettare HTML
+    if (url) {
+        console.log("Navigazione verso:", url);
+        await page.goto(url, { waitUntil: 'networkidle0' });
+        await page.waitForSelector('#cv-ready', { timeout: 10000 }); 
+    } else if (req.body.html) {
+        console.log("Rendering Snapshot HTML diretto...");
+        // Inietta l'HTML nudo e crudo nel browser vuoto
+        await page.setContent(req.body.html, { waitUntil: 'networkidle0' });
+    }
 
-    // 2. Aspetta che il CV sia stato caricato dal DB
-    await page.waitForSelector('#cv-ready', { timeout: 10000 }); 
-    await new Promise(resolve => setTimeout(resolve, 500)); // Mezzo secondo extra di sicurezza
+    await new Promise(resolve => setTimeout(resolve, 500)); // Sicurezza extra
 
-    // 3. Stampa il PDF
-  const rawPdf = await page.pdf({
+    const rawPdf = await page.pdf({
       format: 'A4',
       printBackground: true,
       preferCSSPageSize: true
     });
+
     await browser.close();
 
-    console.log("PDF generato, invio al client...");
-   // MODIFICA FONDAMENTALE QUI: Forziamo il formato in Node Buffer
+    console.log("PDF generato, conversione in buffer binario...");
     const pdfBuffer = Buffer.from(rawPdf); 
 
-    // 4. Invio al client
     res.status(200);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', pdfBuffer.length);
-    res.end(pdfBuffer); // res.end è più sicuro di res.send per i file binari
+    res.end(pdfBuffer);
 
-  } catch (e) {
+  }catch (e) {
     console.error("ERRORE:", e.message);
     if (browser) await browser.close();
     res.status(500).send("Errore generazione PDF");
