@@ -17,20 +17,18 @@ export interface ValuesState {
     bio: string,
     desiredJob: string,
     ral: string,
-    experience: [
+    experience: 
       {
         years: string,
         title: string,
         exps: string,
-      },
-    ],
-    education: [
+      }[],
+    education:
       {
         eyears: string,
         etitle: string,
         edu: string,
-      },
-    ],
+      }[],
     skillss: string[],
     softSkillss: string[],
     langSkillss: string[],
