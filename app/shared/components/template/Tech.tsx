@@ -2,7 +2,7 @@
 import { TemplateBaseProps } from "@/types/template";
 import { TechBase } from "@/components/templateBase/TechBase";
 
-export default function TechPublic({ data, showHide }: TemplateBaseProps) {
+export default function Tech({ data, showHide }: TemplateBaseProps) {
   // Ora TypeScript è felice perché l'interfaccia in TechBase accetta il template come opzionale!
   return <TechBase data={data} showHide={showHide} />;
 };
