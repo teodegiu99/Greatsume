@@ -64,11 +64,11 @@ const page = () => {
 
                 <div className="hidden lg:block xl:col-span-3 lg:col-span-1 overflow-auto scrollbar-hide text-white print:block">
                     {template != null && (
-                        <PublicCvHandler
-                            selectedTemplate={template}
-                            resumeData={resumeData}
-                            publicLink={slug}
-                        />
+                       <PublicCvHandler
+    templateName={template}  // Cambiato da selectedTemplate
+    initialData={resumeData} // Cambiato da resumeData
+    publicLink={slug}
+/>
                     )}
                     {!template && (
                         <div id="error" className="flex h-full justify-center items-center">
