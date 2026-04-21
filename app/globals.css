@@ -249,3 +249,15 @@ ul {
 .cvSkills-ElegantBlack {
   @apply text-[12px] mr-4 font-normal;
 }
+
+.primary {
+	  @apply text-violet-600;
+}
+
+.secondary {
+	  @apply text-indigo-600;
+}
+
+.accent {
+	  @apply text-[#04c892];
+}

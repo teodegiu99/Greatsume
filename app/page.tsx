@@ -9,6 +9,7 @@ import NavBar from "@/components/(landingPage)/NavBar";
 import { Footer } from "@/components/(landingPage)/Footer";
 import NewTemplateBanner from "@/components/(landingPage)/NewTemplateBanner";
 import NextFeatures from "@/components/(landingPage)/NextFeatures";
+import Logo from "@/components/ui/logo";
 
 const font = Poppins({
   subsets: ["latin"],

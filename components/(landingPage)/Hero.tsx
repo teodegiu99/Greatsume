@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
+import Logo from "../ui/logo";
 
 export function Hero() {
   const router = useRouter();
@@ -41,6 +42,7 @@ export function Hero() {
     <div className="hidden lg:flex m-4 absolute top-4 right-4 bottom-4 mask rounded-2xl">
       <img src="/linear.webp" className="rounded-md shadow-xl"></img>
     </div>
+
   </div>
     
   );
