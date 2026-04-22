@@ -1,103 +1,73 @@
-// "use client"
-// import { motion } from "framer-motion";
-// import {
-//   BiSolidUserCheck
-// } from "react-icons/bi";
-// import { IconType } from "react-icons";
-
-// const RibbonLogos = () => {
-//   return (
-//       <div className="flex overflow-hidden  border-2   rounded-2xl max-w-7xl justify-center items-center  mx-auto w-full shadow-2xl">
-//         <TranslateWrapper>
-//           <LogoItemsTop />
-//         </TranslateWrapper>
-//         <TranslateWrapper>
-//           <LogoItemsTop />
-//         </TranslateWrapper>
-//         <TranslateWrapper>
-//           <LogoItemsTop />
-//         </TranslateWrapper>
-//       </div>
-   
-//   );
-// };
-
-// const TranslateWrapper = ({
-//   children,
-//   reverse,
-// }: {
-//   children: JSX.Element;
-//   reverse?: boolean;
-// }) => {
-//   return (
-//     <motion.div
-//       initial={{ translateX: reverse ? "-100%" : "0%" }}
-//       animate={{ translateX: reverse ? "0%" : "-100%" }}
-//       transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-//       className="flex px-2"
-//     >
-//       {children}
-//     </motion.div>
-//   );
-// };
-
-// const LogoItem = ({ Icon, name }: { Icon: IconType; name: string }) => {
-//   return (
-//     <a
-//       href="/"
-//       rel="nofollow"
-//       target="_blank"
-//       className="flex items-center justify-center gap-4 px-4 py-4 text-black transition-colors md:py-6"
-//     >
-//       <Icon className="text-3xl md:text-4xl text-violet-600" />
-//       <span className="whitespace-nowrap text-2xl font-semibold uppercase md:text-3xl">
-//         {name}
-//       </span>
-//     </a>
-//   );
-// };
-
-// const LogoItemsTop = () => (
-//   <>
-//     <LogoItem Icon={BiSolidUserCheck} name="Rise above the crowd in a sea of applicants" />
-//   </>
-// );
-
-
-
-// export default RibbonLogos;
-
 "use client";
+
+import React from "react";
 
 export default function RibbonLogos() {
   const items = [
     "Software Engineer", "✦", "Marketing Manager", "✦", 
     "Graphic Designer", "✦", "Data Scientist", "✦", 
     "Product Manager", "✦", "Sales Executive", "✦",
-    "UX/UI Designer", "✦", "Financial Analyst", "✦"
+    "UX/UI Designer", "✦", "Financial Analyst", "✦",
+    "Project Manager", "✦", "Frontend Developer", "✦"
   ];
 
   return (
-    <div className="relative flex overflow-hidden py-6 bg-transparent">
-      {/* Sfumature ai lati per far "scomparire" il testo dolcemente */}
-      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-neutral-50 dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-neutral-50 dark:from-neutral-950 to-transparent z-10 pointer-events-none" />
+    <div className="relative flex overflow-hidden py-10 bg-transparent w-full">
+      {/* Sfumature laterali (creano l'effetto di dissolvenza in entrata e uscita) */}
+      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-neutral-50 dark:from-neutral-900 to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-neutral-50 dark:from-neutral-900 to-transparent z-10 pointer-events-none" />
 
-      {/* Contenitore animato */}
-      <div className="flex w-max animate-[marquee_30s_linear_infinite] hover:[animation-play-state:paused]">
-        {/* Duplichiamo l'array due volte per l'effetto loop infinito */}
-        {[...items, ...items, ...items].map((item, index) => (
-          <span 
-            key={index} 
-            className={`mx-6 text-xl md:text-2xl font-semibold uppercase tracking-widest ${
-              item === "✦" 
-                ? "text-violet-500" 
-                : "text-neutral-400 dark:text-neutral-600"
-            }`}
-          >
-            {item}
-          </span>
-        ))}
+      {/* CSS iniettato per l'animazione plug-and-play */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes infinite-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-100%); }
+        }
+        .animate-infinite-scroll {
+          /* 80s è la velocità. Aumenta per rallentare, diminuisci per velocizzare */
+          animation: infinite-scroll 80s linear infinite;
+        }
+        /* Mette in pausa l'animazione quando l'utente ci passa sopra col mouse */
+        .scrolling-container:hover .animate-infinite-scroll {
+          animation-play-state: paused;
+        }
+      `}} />
+
+      {/* Contenitore principale che raggruppa le due liste */}
+      <div className="flex w-max scrolling-container cursor-default">
+        
+        {/* === LISTA 1 === */}
+        <div className="flex w-max animate-infinite-scroll items-center">
+          {items.map((item, index) => (
+            <span 
+              key={`list1-${index}`} 
+              className={`mx-6 md:mx-10 text-xl md:text-3xl font-bold uppercase tracking-widest whitespace-nowrap ${
+                item === "✦" 
+                  ? "text-violet-500" 
+                  : "text-neutral-300 dark:text-neutral-700 hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-300"
+              }`}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+
+        {/* === LISTA 2 (Copia esatta per il loop infinito) === */}
+        <div className="flex w-max animate-infinite-scroll items-center" aria-hidden="true">
+          {items.map((item, index) => (
+            <span 
+              key={`list2-${index}`} 
+              className={`mx-6 md:mx-10 text-xl md:text-3xl font-bold uppercase tracking-widest whitespace-nowrap ${
+                item === "✦" 
+                  ? "text-violet-500" 
+                  : "text-neutral-300 dark:text-neutral-700 hover:text-violet-600 dark:hover:text-violet-400 transition-colors duration-300"
+              }`}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+
       </div>
     </div>
   );

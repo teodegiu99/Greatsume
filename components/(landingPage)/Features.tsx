@@ -1,69 +1,14 @@
-// "use client";
-// import React from "react";
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipProvider,
-//   TooltipTrigger,
-// } from "@/components/ui/tooltip";
-// import { CiCircleInfo } from "react-icons/ci";
-// import { HiTemplate } from "react-icons/hi";
-// import { GrDocumentText } from "react-icons/gr";
-// import { FaShareAlt } from "react-icons/fa";
-
-// export function Features() {
-//   return (
- 
-//     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full mb-8">
-//      <div className="lg:col-span-1 col-span-3 p-8 border-2 shadow-2xl w-full h-full rounded-2xl relative overflow-hidden">
-//   <h5 className="text-neutral-700 dark:text-neutral-200 text-3xl md:text-4xl lg:text-5xl font-semibold text-start relative z-10">
-//     <span className="text-violet-600 z-[80]">Change</span> your resume{" "}
-//     <span className="text-violet-600 z-[80]">design</span> without rewriting all
-//     your infos
-//   </h5>
-//   <HiTemplate className="absolute size-96 bottom-[-100px] right-[-80px] -rotate-45 z-0 text-violet-600 opacity-10" />
-// </div>
-//       <div className="lg:col-span-2  col-span-3  p-8 border-2 shadow-2xl w-full h-full rounded-2xl relative overflow-hidden">
-//         <div className="absolute top-2 right-2">
-//           <TooltipProvider>
-//             <Tooltip>
-//               <TooltipTrigger>
-//                 <CiCircleInfo className="text-xl" />
-//               </TooltipTrigger>
-//               <TooltipContent>
-//                 <p>Add to library</p>
-//               </TooltipContent>
-//             </Tooltip>
-//           </TooltipProvider>
-//         </div>
-//         <h5 className="text-neutral-700 dark:text-neutral-200  text-3xl md:text-4xl lg:text-5xl font-bold text-start uppercase mb-2">
-//           Ats <span className="text-violet-600">proof</span>
-//         </h5>
-//         <p className="text-xl text-neutral-700 font-medium">
-//           Greatsume ensures ATS-proof CVs, crucial for modern job applications.
-//           With <span className="text-violet-600">optimized formatting</span> and
-//           relevant keywords, candidates stand out in Applicant Tracking Systems,
-//           enhancing their chances of human review and job success.
-//         </p>
-//         <GrDocumentText className="absolute size-96 bottom-[-80px] right-[-50px] -rotate-45 z-0 text-violet-600 opacity-10" />
-
-//       </div>
-//       <div className="col-span-3 p-8 border-2 shadow-2xl w-full h-full rounded-2xl relative overflow-hidden">
-//         <h5 className="text-neutral-700 dark:text-neutral-200  text-3xl md:text-4xl lg:text-5xl font-bold text-start uppercase mb-2">Generate a link to <span className="text-violet-600">share your resume</span></h5>
-//         <p className="text-xl text-neutral-700 font-medium">
-//           Hide your personal info with  <span className="text-violet-600"> just a click!</span> No need to edit you resume
-//         </p>
-//         <FaShareAlt className="absolute size-48 bottom-[-40px] right-[-50px] -rotate-180 z-0 text-violet-600 opacity-10" />
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { 
+  LightningBoltIcon, 
+  LockClosedIcon, 
+  FileTextIcon, 
+  MagicWandIcon 
+} from "@radix-ui/react-icons";
 
-// Registra il plugin per le animazioni allo scroll
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -73,17 +18,16 @@ export function Features() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Anima le card facendole salire quando si scrolla fino a questa sezione
-      gsap.from(".feature-card", {
+      gsap.from(".bento-card", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 75%", // Parte quando la cima della sezione è al 75% dello schermo
+          start: "top 75%",
         },
         y: 40,
         opacity: 0,
-        duration: 0.6,
+        duration: 0.7,
         stagger: 0.15,
-        ease: "power2.out"
+        ease: "power3.out"
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -92,61 +36,102 @@ export function Features() {
   return (
     <section ref={sectionRef} className="py-24 px-6 max-w-7xl mx-auto w-full">
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-4">
-          Tutto ciò che ti serve. <br className="hidden sm:block"/> Niente che non ti serva.
+        <h2 className="text-3xl md:text-5xl font-black tracking-tight text-neutral-900 dark:text-white mb-6">
+          Progettato per farti assumere.
         </h2>
-        <p className="text-lg text-neutral-500 dark:text-neutral-400">
-          Abbiamo rimosso la complessità per lasciarti solo gli strumenti migliori.
+        <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
+          Abbiamo rimosso la complessità dei vecchi editor per lasciarti solo strumenti veloci, sicuri e ottimizzati per i moderni processi di selezione.
         </p>
       </div>
 
-      {/* Bento Grid */}
+      {/* Nuova Bento Grid con Micro-UI */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* Card 1 - Grande */}
-        <div className="feature-card md:col-span-2 bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-100 dark:border-neutral-800 flex flex-col justify-between">
-          <div>
-            <div className="w-12 h-12 bg-violet-100 dark:bg-violet-900/30 text-violet-600 rounded-xl flex items-center justify-center mb-6 text-xl">
-              ⚡
+        {/* CARD 1 - Larga (Editor Real-Time) */}
+        <div className="bento-card relative md:col-span-2 bg-neutral-50 dark:bg-neutral-900/50 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-800 overflow-hidden group">
+          <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center h-full">
+            <div className="flex-1">
+              <div className="w-12 h-12 bg-white dark:bg-neutral-800 shadow-sm rounded-xl flex items-center justify-center mb-6 text-violet-600 border border-neutral-100 dark:border-neutral-700">
+                <LightningBoltIcon className="w-6 h-6" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-neutral-900 dark:text-white">Velocità in Tempo Reale</h3>
+              <p className="text-neutral-500 dark:text-neutral-400">
+                Nessun caricamento noioso. Modifica i tuoi dati a sinistra e guarda il tuo curriculum aggiornarsi istantaneamente a destra.
+              </p>
             </div>
-            <h3 className="text-2xl font-bold mb-3 dark:text-white">Velocità Incredibile</h3>
-            <p className="text-neutral-500 dark:text-neutral-400 max-w-sm">
-              Nessun form infinito. Un'interfaccia fluida e reattiva che salva le tue modifiche in tempo reale mentre componi il tuo curriculum.
-            </p>
+            
+            {/* Micro-UI: Finto Editor */}
+            <div className="flex-1 w-full flex flex-col gap-3 p-4 bg-white dark:bg-neutral-950 rounded-2xl shadow-xl border border-neutral-100 dark:border-neutral-800 transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500">
+              <div className="flex gap-2 mb-2">
+                <div className="w-3 h-3 rounded-full bg-red-400" />
+                <div className="w-3 h-3 rounded-full bg-amber-400" />
+                <div className="w-3 h-3 rounded-full bg-emerald-400" />
+              </div>
+              <div className="h-4 w-3/4 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+              <div className="h-4 w-1/2 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse delay-75" />
+              <div className="h-10 w-full bg-violet-100 dark:bg-violet-900/30 rounded-lg mt-2" />
+            </div>
           </div>
         </div>
 
-        {/* Card 2 - Piccola */}
-        <div className="feature-card bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-100 dark:border-neutral-800">
-          <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 rounded-xl flex items-center justify-center mb-6 text-xl">
-            🎨
+        {/* CARD 2 - Piccola (Sicurezza) */}
+        <div className="bento-card relative bg-neutral-50 dark:bg-neutral-900/50 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col group">
+          <div className="w-12 h-12 bg-white dark:bg-neutral-800 shadow-sm rounded-xl flex items-center justify-center mb-6 text-indigo-600 border border-neutral-100 dark:border-neutral-700 relative z-10">
+            <LockClosedIcon className="w-6 h-6" />
           </div>
-          <h3 className="text-xl font-bold mb-3 dark:text-white">Design ATS-Friendly</h3>
-          <p className="text-neutral-500 dark:text-neutral-400">
-            Layout studiati per passare i sistemi automatici di screening delle aziende.
+          <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white relative z-10">100% Sicuro</h3>
+          <p className="text-neutral-500 dark:text-neutral-400 text-sm relative z-10">
+            I tuoi dati personali sono protetti e non vengono mai venduti a terzi. Decidi tu chi può vedere il tuo CV.
           </p>
+          
+          {/* Micro-UI: Sfondo a pattern */}
+          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,rgba(99,102,241,0.15)_1px,transparent_1px)] bg-[size:10px_10px] transform group-hover:scale-110 transition-transform duration-500" />
         </div>
 
-        {/* Card 3 - Piccola */}
-        <div className="feature-card bg-neutral-50 dark:bg-neutral-900 rounded-3xl p-8 border border-neutral-100 dark:border-neutral-800">
-          <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl flex items-center justify-center mb-6 text-xl">
-            🔒
+        {/* CARD 3 - Piccola (ATS) */}
+        <div className="bento-card relative bg-neutral-50 dark:bg-neutral-900/50 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-800 overflow-hidden flex flex-col group">
+          <div className="w-12 h-12 bg-white dark:bg-neutral-800 shadow-sm rounded-xl flex items-center justify-center mb-6 text-emerald-600 border border-neutral-100 dark:border-neutral-700 relative z-10">
+            <MagicWandIcon className="w-6 h-6" />
           </div>
-          <h3 className="text-xl font-bold mb-3 dark:text-white">Dati al Sicuro</h3>
-          <p className="text-neutral-500 dark:text-neutral-400">
-            I tuoi dati personali sono crittografati e non vengono mai condivisi con terzi.
+          <h3 className="text-xl font-bold mb-3 text-neutral-900 dark:text-white relative z-10">ATS Friendly</h3>
+          <p className="text-neutral-500 dark:text-neutral-400 text-sm relative z-10">
+            Layout ottimizzati per superare i software di scansione automatica utilizzati dal 90% delle aziende.
           </p>
+
+          {/* Micro-UI: Finto Badge */}
+          <div className="absolute bottom-6 right-6 px-3 py-1.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold rounded-full transform group-hover:-translate-y-1 transition-transform duration-300">
+            99% Pass Rate
+          </div>
         </div>
 
-        {/* Card 4 - Grande */}
-        <div className="feature-card md:col-span-2 bg-neutral-900 dark:bg-neutral-100 rounded-3xl p-8 text-white dark:text-black">
-          <div className="w-12 h-12 bg-white/10 dark:bg-black/10 rounded-xl flex items-center justify-center mb-6 text-xl">
-            📄
+        {/* CARD 4 - Larga (Esportazione) */}
+        <div className="bento-card relative md:col-span-2 bg-violet-600 dark:bg-violet-600 rounded-3xl p-8 border border-violet-500 overflow-hidden group text-white">
+          <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between h-full">
+            <div className="max-w-sm">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                <FileTextIcon className="w-6 h-6" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Esportazione Impeccabile</h3>
+              <p className="text-violet-100">
+                Genera un PDF in alta definizione istantaneamente, pronto per essere inviato via email o stampato, mantenendo la formattazione perfetta.
+              </p>
+            </div>
+
+            {/* Micro-UI: Finto PDF Hover */}
+            <div className="w-40 h-48 bg-white rounded-lg shadow-2xl flex flex-col p-3 transform rotate-6 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500 translate-y-8 md:translate-y-0">
+              <div className="h-2 w-1/3 bg-neutral-200 rounded mb-4" />
+              <div className="h-1 w-full bg-neutral-100 rounded mb-1" />
+              <div className="h-1 w-full bg-neutral-100 rounded mb-1" />
+              <div className="h-1 w-2/3 bg-neutral-100 rounded mb-4" />
+              <div className="flex gap-2">
+                <div className="h-10 w-10 bg-neutral-100 rounded" />
+                <div className="flex-1 flex flex-col gap-1">
+                  <div className="h-1 w-full bg-neutral-100 rounded" />
+                  <div className="h-1 w-4/5 bg-neutral-100 rounded" />
+                </div>
+              </div>
+            </div>
           </div>
-          <h3 className="text-2xl font-bold mb-3">Esportazione in 1 Click</h3>
-          <p className="text-neutral-400 dark:text-neutral-600 max-w-sm">
-            Genera un file PDF in alta definizione istantaneamente. Perfetto per essere stampato o inviato via email direttamente ai recruiter.
-          </p>
         </div>
 
       </div>
