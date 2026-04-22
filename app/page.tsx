@@ -34,7 +34,7 @@ import { Poppins } from "next/font/google";
 import { Hero } from "../components/(landingPage)/Hero";
 import { Features } from "@/components/(landingPage)/Features";
 import RibbonLogos from "@/components/(landingPage)/ScrollingText";
-import NavBar from "@/components/(landingPage)/NavBar";
+import {NavBar} from "@/components/(landingPage)/NavBar";
 import { Footer } from "@/components/(landingPage)/Footer";
 import NewTemplateBanner from "@/components/(landingPage)/NewTemplateBanner";
 import NextFeatures from "@/components/(landingPage)/NextFeatures";
