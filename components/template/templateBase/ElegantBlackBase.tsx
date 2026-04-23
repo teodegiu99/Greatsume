@@ -37,13 +37,15 @@ export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }
           <hr className="border w-full border-black mb-3" />
         </div>
         {((data?.bio && showHide?.showBio) || data?.ral || data?.relocation ) &&<div className="cvSeparator-div-ElegantBlack">
-          <p className="cvTitle-ElegantBlack">Profile</p>
-        </div>}
+     </div>}
         <div>
-        {data?.bio && showHide?.showBio &&<p className="cvData-ElegantBlack mb-2">{data?.bio}</p>}
-          <div className="flex justify-between  w-full">
+        {data?.bio && showHide?.showBio &&<div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: data.bio || "" }} 
+/>   }
+          <div className="flex justify-between  w-full mt-2">
           {data?.relocation  && <p className="cvDataTitle-ElegantBlack">
-              <span className="font-medium">Condition to relocate: </span>
+              <span className="font-medium ">Condition to relocate: </span>
               {data?.relocation}
             </p>}
             {data?.ral  &&<p className="cvDataTitle-ElegantBlack mb-2">
@@ -63,8 +65,10 @@ export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }
               <p className="cvDataTitle-ElegantBlack">{exp.years}</p>
             </div>
             <div>
-              <p className="cvData-ElegantBlack mb-2">{exp.exps}</p>
-            </div>
+<div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: exp.exps || "" }} 
+/>            </div>
           </div>
         ))}
         </>}
@@ -79,8 +83,10 @@ export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }
               <p className="cvDataTitle-ElegantBlack">{edu.eyears}</p>
             </div>
             <div>
-              <p className="cvData-ElegantBlack mb-2">{edu.edu}</p>
-            </div>
+<div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: edu.edu || "" }} 
+/>            </div>
           </div>
         ))}</>}
         {((data?.softSkillss && data?.softSkillss.length > 0) || (data?.skillss && data?.skillss.length > 0) || (data?.langSkillss && data?.langSkillss.length > 0) || (data?.website || data?.linkedin || data?.github || data?.dribble)) && <div className="cvSeparator-div-ElegantBlack h-[28px]"></div>}

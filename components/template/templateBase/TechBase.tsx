@@ -12,8 +12,10 @@ export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
             {data?.name} <span className="text-blue-600">{data?.surname}</span>
           </h1>
           <p className="text-xl font-medium text-gray-600 mt-2">{data?.desiredJob}</p>
-          <p className="text-sm text-gray-500 mt-4 leading-relaxed">{data?.bio}</p>
-        </div>
+<div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: data?.bio || "" }} 
+/>        </div>
         
         <div className="flex flex-col items-end gap-y-2 text-sm font-medium">
           {data?.email && <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-100">{data?.email}</span>}
@@ -70,7 +72,10 @@ export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                   <div className="absolute w-3 h-3 bg-blue-600 rounded-full -left-[7px] top-1"></div>
                   <h3 className="font-bold text-lg leading-none">{exp.title}</h3>
                   <p className="text-xs font-bold text-gray-500 mt-1 mb-2 uppercase">{exp.years}</p>
-                  <p className="text-sm text-gray-700 text-justify">{exp.exps}</p>
+                  <div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: exp.exps || "" }} 
+/>
                 </div>
               ))}
             </div>
@@ -83,7 +88,10 @@ export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                 <div key={i} className="paginate-item">
                   <h3 className="font-bold text-sm uppercase">{edu.etitle}</h3>
                   <div className="flex justify-between text-xs font-medium text-gray-500">
-                    <span>{edu.edu}</span>
+                    <div 
+  className="... quill-content" // Aggiungi la classe quill-content per gli stili delle liste/grassetti
+  dangerouslySetInnerHTML={{ __html: edu.edu || "" }} 
+/>
                     <span>{edu.eyears}</span>
                   </div>
                 </div>

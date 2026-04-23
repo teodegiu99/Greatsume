@@ -261,3 +261,25 @@ ul {
 .accent {
 	  @apply text-[#04c892];
 }
+
+/* Stili per resettare i blocchi HTML dentro il CV */
+.quill-content p {
+  margin: 0 !important; /* Rimuove i margini dei paragrafi che sballano il layout */
+  word-break: break-word; /* Forza il ritorno a capo se una parola è troppo lunga */
+}
+
+.quill-content ul, .quill-content ol {
+  padding-left: 1.2rem !important;
+  margin: 4px 0 !important;
+}
+
+.quill-content li {
+  margin-bottom: 2px !important;
+}
+
+/* Evita che gli spazi vuoti di Quill &nbsp; forzino righe infinite */
+.quill-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: normal !important; 
+}

@@ -10,6 +10,14 @@ interface FormData {
     template: string;
   }
 
+interface ShowHideValues {
+  showBio: boolean;
+  showAddress: boolean;
+  showDateOfBirth: boolean;
+  showImage: boolean;
+  template: string;
+}
+
 export const ShowHideUpdate = async (values: FormData) => {
 	const session = await auth();
 	const id = session?.user.id
@@ -58,4 +66,34 @@ try {
 } catch {
   return null;
 }
+};
+
+
+export const updateShowHideOptions = async (values: ShowHideValues) => {
+  // 1. Recuperiamo l'utente loggato
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user || !user.id) {
+    return { error: "Non autorizzato" };
+  }
+
+  // 2. Aggiorniamo il database
+  try {
+    await db.public.update({
+      where: { userId: user.id },
+      data: {
+        showBio: values.showBio,
+        showAddress: values.showAddress,
+        showDateOfBirth: values.showDateOfBirth,
+        showImage: values.showImage,
+        cvTemplate: values.template, // Mappiamo "template" sul nome corretto nel DB
+      },
+    });
+
+    return { success: "Impostazioni aggiornate con successo!" };
+  } catch (error) {
+    console.error("Errore updateShowHide:", error);
+    return { error: "Si è verificato un errore durante il salvataggio." };
+  }
 };

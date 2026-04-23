@@ -1,152 +1,104 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { ShowHideUpdate, getShowHideOptions } from "@/actions/showHideOptions";
+import { MdOutlineBoy, MdPlace, MdCake, MdImage, MdPalette, MdVisibility } from "react-icons/md";
 import { StreamShowHideOptions } from "./StreamShowHideOptions";
+import { updateShowHideOptions } from "@/actions/showHideOptions";
+import { templateRegistry } from "@/components/template/templateRegistry";
+import { FormError } from "@/components/form-error";     // I tuoi componenti nativi
+import { FormSuccess } from "@/components/form-success"; // I tuoi componenti nativi
 
-interface FormData {
-    showImage: boolean;
-    showAddress: boolean;
-    showDateOfBirth: boolean;
-    showBio: boolean;
-    template: string;
-}
+const ShowHide = ({ publicData }: { publicData: any }) => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  
+  const templateOptions = Object.keys(templateRegistry);
 
-const ShowHide = () => {
-    const [initialValues, setInitialValues] = useState({
-        showImage: true,
-        showAddress: true,
-        showDateOfBirth: true,
-        showBio: true,
-        template: "classicBlue",
-    });
+  const initialValues = {
+    showBio: publicData?.showBio ?? true,
+    showAddress: publicData?.showAddress ?? true,
+    showDateOfBirth: publicData?.showDateOfBirth ?? true,
+    showImage: publicData?.showImage ?? true,
+    template: publicData?.cvTemplate || "ClassicBlue",
+  };
 
-    useEffect(() => {
-        const fetchPublicValues = async () => {
-            try {
-                const data = await getShowHideOptions();
-                if (data) {
-                    setInitialValues({
-                        showAddress: data.showAddress,
-                        showBio: data.showBio,
-                        showDateOfBirth: data.showDateOfBirth,
-                        showImage: data.showImage,
-                        template: data.cvTemplate,
-                    });
-                }
-                console.log(data);
-            } catch (error) {
-                console.error("Error connecting to db ", error);
-            }
-        };
+  return (
+    <Formik
+      initialValues={initialValues}
+      enableReinitialize={true}
+      onSubmit={async (values) => {
+        // Reset dei messaggi precedenti
+        setError("");
+        setSuccess("");
+        
+        // Chiamata alla server action aggiornata
+        const result = await updateShowHideOptions(values);
+        
+        if (result?.error) {
+          setError(result.error);
+        } else if (result?.success) {
+          setSuccess(result.success);
+          // Nascondiamo il messaggio di successo dopo 3 secondi
+          setTimeout(() => setSuccess(""), 3000); 
+        }
+      }}
+    >
+      {() => (
+        <Form id="share-settings-form" className="space-y-6">
+          
+          {/* Spazio per i messaggi di Errore/Successo */}
+          {error && <FormError message={error} />}
+          {success && <FormSuccess message={success} />}
 
-        fetchPublicValues();
-    }, []);
-
-    const handleSubmit = async (values: FormData) => {
-        await ShowHideUpdate(values);
-        console.log(values);
-    };
-
-    return (
-        <div className="p-2 m-2 border-2 border-slate-200 rounded-md">
-            <div className="block p-5">
-                <h1 className=" font-semibold text-xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-                    Would you like to hide something before sharing?
-                </h1>
-                <p className="font-regular  text-md text-slate-700">
-                    Sharing your information on the interneet can be scary,
-                    choose wisely what to share!
-                </p>
-                <hr className="my-2"></hr>
+          <div>
+            <h3 className="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
+              <MdPalette className="text-indigo-500" />
+              Choose Template to Share
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {templateOptions.map((t) => (
+                <label key={t} className="cursor-pointer">
+                  <Field type="radio" name="template" value={t} className="sr-only peer" />
+                  <div className="p-2 text-center text-xs border rounded-lg border-slate-200 peer-checked:border-indigo-600 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 transition-all hover:bg-slate-50">
+                    {t}
+                  </div>
+                </label>
+              ))}
             </div>
-            <Formik
-                enableReinitialize={true}
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-            >
-                {({ values, setFieldValue, errors }) => (
-                    <div className="flex justify-start items-center">
-                        <Form className="p-5">
-                            <label className="CheckBoxLabel">
-                                <Field
-                                    type="checkbox"
-                                    name="showImage"
-                                    id="showImage"
-                                    className="CheckBox"
-                                />
-                                Show your picture
-                            </label>
-                            <br />
-                            <label className="CheckBoxLabel">
-                                <Field
-                                    type="checkbox"
-                                    name="showAddress"
-                                    id="showAddress"
-                                    className="CheckBox"
-                                />
-                                Show your address
-                            </label>
-                            <br />
-                            <label className="CheckBoxLabel">
-                                <Field
-                                    type="checkbox"
-                                    name="showDateOfBirth"
-                                    id="showDateOfBirth"
-                                    className="CheckBox"
-                                />
-                                Show your date of birth
-                            </label>
-                            <br />
-                            <label className="CheckBoxLabel">
-                                <Field
-                                    type="checkbox"
-                                    name="showBio"
-                                    id="showBio"
-                                    className="CheckBox"
-                                />
-                                Show your biography
-                            </label>
-                            <br />
-                            <div className="mt-6">
-                                <label
-                                    htmlFor="template"
-                                    className="formLabel "
-                                >
-                                    Which resume template do you want to share?
-                                </label>
-                                <Field
-                                    as="select"
-                                    id="template"
-                                    name="template"
-                                    multiple={false}
-                                    className="inputField appearance-none "
-                                    // onChange={handleRelocate}
-                                >
-                                    <option value="ClassicBlue">
-                                        Classic Blue
-                                    </option>
-                                    <option value="ElegantBlack">
-                                        Elegant Black
-                                    </option>
-                                    <option value="Tech">Tech</option>
-                                    <option value="Anglo">Anglo</option>
-                                </Field>
-                            </div>
-                            <br />
-                            <StreamShowHideOptions />
-                            <button
-                                type="submit"
-                                className="customBtnCol p-2 rounded-md "
-                            >
-                                Update Preferences
-                            </button>
-                        </Form>
-                    </div>
-                )}
-            </Formik>
-        </div>
-    );
+          </div>
+
+          <div className="border-t border-slate-50 pt-4">
+            <h3 className="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
+              <MdVisibility className="text-indigo-500" />
+              Visibility Settings
+            </h3>
+            <div className="space-y-2">
+              <ToggleRow name="showBio" label="Show Bio" icon={<MdOutlineBoy />} />
+              <ToggleRow name="showAddress" label="Show Address" icon={<MdPlace />} />
+              <ToggleRow name="showDateOfBirth" label="Show Date of Birth" icon={<MdCake />} />
+              <ToggleRow name="showImage" label="Show Profile Image" icon={<MdImage />} />
+            </div>
+          </div>
+
+          <StreamShowHideOptions />
+        </Form>
+      )}
+    </Formik>
+  );
 };
+
+const ToggleRow = ({ name, label, icon }: { name: string, label: string, icon: React.ReactNode }) => (
+  <div className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-slate-50 transition-colors">
+    <div className="flex items-center gap-3">
+      <div className="p-1.5 bg-slate-50 text-slate-600 rounded">{icon}</div>
+      <span className="text-sm font-medium text-slate-700">{label}</span>
+    </div>
+    <label className="relative inline-flex items-center cursor-pointer">
+      <Field type="checkbox" name={name} className="sr-only peer" />
+      <div className="w-10 h-5 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+    </label>
+  </div>
+);
 
 export default ShowHide;

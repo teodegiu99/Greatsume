@@ -18,15 +18,15 @@ export const NavBar = () => {
             <Logo />
           </div>
           
-          <div className="hidden md:flex items-center gap-8">
+          {/* <div className="hidden md:flex items-center gap-8">
             <Link 
               href="#features" 
               className="text-sm font-medium text-neutral-600 dark:text-neutral-400 hover:text-violet-600 transition-colors"
             >
               Features
             </Link>
-            {/* Altri link della navbar... */}
-          </div>
+
+          </div> */}
 
           <div className="flex items-center gap-4">
             <Link href="/auth/login">
