@@ -28,6 +28,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 import {deleteUser} from "@/actions/deleteUser"
+import Logo from "@/components/ui/logo";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -44,14 +45,7 @@ const NavBar = () => {
   return (
     <nav className="flex justify-between items-center w-[100%] h-[60px] bg-white p-4 border-b-2 shadow-sm">
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <Link href="/resume">
-        <div>
-          <h1 className="font-black text-3xl text-indigo-600">
-            G<span className="text-violet-600">re</span>at
-            <span className="text-violet-600">sume</span>
-          </h1>
-        </div>
-      </Link>
+      <Logo />
 
       <div className="hidden lg:flex flex-row justify-center items-center gap-x-4">
         {pathname !== "/resume/share" && (
