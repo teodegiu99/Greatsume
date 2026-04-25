@@ -7,20 +7,22 @@ export interface ShowHidePublic {
     showAddress: boolean;
     showDateOfBirth: boolean;
     showBio: boolean;
+    publicLink: string; // <--- AGGIUNGI QUESTA RIGA
   };
 
   const initialState: ShowHidePublic = {
     showImage: true,
-  showAddress: true,
-  showDateOfBirth: true,
-  showBio: true,
+    showAddress: true,
+    showDateOfBirth: true,
+    showBio: true,
+    publicLink: "", // <--- AGGIUNGI IL VALORE INIZIALE
   }
 
   const updateShowHidePublicSlice = createSlice({
     name: "showHidePublic",
     initialState,
     reducers: {
-        setUpdateValues: (state, action: PayloadAction<ShowHidePublic>) => {
+        setUpdateValues: (state, action: PayloadAction<Partial<ShowHidePublic>>) => { // Usa Partial per aggiornamenti flessibili
           return { ...state, ...action.payload };
         }
     }

@@ -13,6 +13,16 @@ const nextConfig = {
   images: {
     qualities: [100, 75],
   },
+  async rewrites() {
+    return [
+      {
+        // Quando il browser chiama /api/pdf-proxy ...
+        source: '/api/pdf-proxy',
+        // ... Next.js inoltra segretamente la richiesta al server Express interno
+        destination: 'http://127.0.0.1:4000/generate-pdf',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
