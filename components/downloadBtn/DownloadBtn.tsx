@@ -6,8 +6,6 @@ import { RootState } from "@/app/state/store";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
-// --- IMPORTA DAL REGISTRY ---
-// Assicurati che i nomi corrispondano a quelli esportati nel tuo templateRegistry.ts
 import { availableTemplates, templateRegistry } from "@/components/template/templateRegistry";
 
 const DownloadBtn = (props: {
@@ -18,27 +16,32 @@ const DownloadBtn = (props: {
   menuItem?: boolean;
 }) => {
   const pathname = usePathname();
+  
+  // 1. Sposta questo fuori per poterlo usare sia nella funzione che nel JSX
+  const isPublicPage = pathname.includes('/shared/');
 
   const templateIndex = useSelector((state: RootState) => state.template.value);
   const reduxPublicLink = useSelector((state: RootState) => state.showHidePublic.publicLink);
   const activePublicLink = props.publicLink || reduxPublicLink;
 
-  // Ora availableTemplates viene dal registry, quindi .length funzionerà di nuovo
+  // 2. Prendi i dati da Redux (se sei nella pagina pubblica saranno nulli/vuoti, ma non importa)
+const cvData = useSelector((state: RootState) => state.updateValues); 
+  const showHideOptions = useSelector((state: RootState) => state.showHide);
+
   const index = Math.min(Math.max(templateIndex, 0), availableTemplates.length - 1);
   const componentRef = useRef<HTMLDivElement>(null);
 
   const WhichTemplate = props.template ? props.template : availableTemplates[index];
-
-  // Ora templateRegistry	 viene dal registry
-  const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry	];
+  const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry ];
 
   const handleDownload = async () => {
     let payload = {};
-    const isPublicPage = pathname.includes('/shared/');
 
     if (isPublicPage && activePublicLink) {
+      // Il PDF viene generato passando direttamente l'URL
       payload = { url: `http://localhost:3000/shared/${activePublicLink}` };
     } else {
+      // Qui sei loggato, estrai l'HTML dal div nascosto
       if (!componentRef.current) return;
 
       let allCss = "";
@@ -104,7 +107,7 @@ const DownloadBtn = (props: {
     }
   };
 
-  if (!TemplateComponent) return null; // Protezione se il template non esiste
+  if (!TemplateComponent) return null;
 
   return (
     <div>
@@ -120,14 +123,20 @@ const DownloadBtn = (props: {
         </button>
       )}
 
-      <div className="absolute top-0 left-[-9999px] w-max overflow-hidden opacity-0 pointer-events-none">
-        <div ref={componentRef}>
-          <TemplateComponent
-            btnLocation={props.btnLocation}
-            publicLink={activePublicLink}
-          />
+      {/* 3. Renderizza il componente invisibile SOLO se non sei in una pagina pubblica 
+             e SOLO se hai i dati Redux pronti. */}
+      {!isPublicPage && cvData && showHideOptions && (
+        <div className="absolute top-0 left-[-9999px] w-max overflow-hidden opacity-0 pointer-events-none">
+          <div ref={componentRef}>
+            <TemplateComponent
+              btnLocation={props.btnLocation}
+              publicLink={activePublicLink}
+              data={cvData}
+              showHide={showHideOptions}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

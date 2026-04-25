@@ -44,4 +44,6 @@ export interface VisibilityOptions {
 export interface TemplateBaseProps {
   data: CvData;
   showHide: VisibilityOptions;
+  btnLocation?: string;   // Aggiungi questa
+  publicLink?: string;    // Aggiungi questa
 }
