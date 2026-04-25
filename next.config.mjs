@@ -5,13 +5,11 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    turbopack: {
-      root: '.', // o il percorso specifico della cartella del progetto
-    }, },
-  // Sposta allowedDevOrigins fuori da experimental
   allowedDevOrigins: ['greatsume.com', 'www.greatsume.com'],
-  
+  // La chiave turbopack è di primo livello in Next.js 15+
+  turbopack: {
+    root: '.', 
+  },
   images: {
     qualities: [100, 75],
   },
