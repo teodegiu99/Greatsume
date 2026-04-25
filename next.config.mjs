@@ -6,11 +6,13 @@ const nextConfig = {
     },
   },
   experimental: {
-    // Aggiungi questo per permettere a Next.js di accettare connessioni dal tuo dominio
-    allowedDevOrigins: ['greatsume.com', 'www.greatsume.com'],
-  },
+    turbopack: {
+      root: '.', // o il percorso specifico della cartella del progetto
+    }, },
+  // Sposta allowedDevOrigins fuori da experimental
+  allowedDevOrigins: ['greatsume.com', 'www.greatsume.com'],
+  
   images: {
-    // Per risolvere il warning sulla qualità delle immagini
     qualities: [100, 75],
   },
 };
