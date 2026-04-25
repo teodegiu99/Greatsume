@@ -3,7 +3,7 @@ import { TemplateBaseProps } from "@/types/template";
 
 export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
     return (
-        <div className="h-full w-full bg-white text-[#2c3e50] p-10 font-serif">
+        <div className="h-full w-full bg-white text-[#2c3e50] p-10 font-serif" id="cv-ready">
             {/* Header - Contatti al centro */}
             <div className="flex flex-col items-center border-b-2 border-gray-800 pb-4 mb-6">
                 <h1 className="text-3xl font-bold uppercase tracking-widest text-black">

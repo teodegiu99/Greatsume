@@ -1,22 +1,14 @@
-
 "use client";
 import React, { useRef } from "react";
 import { FaFileDownload } from "react-icons/fa";
-import ClassicBlue from "./pdfTemplate/ClassicBlue";
-import ElegantBlack from "./pdfTemplate/ElegantBlack";
-import Tech from "./pdfTemplate/Tech";
-import Anglo from "./pdfTemplate/Anglo";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/state/store";
 import { Button } from "../ui/button";
-import { usePathname } from "next/navigation"; // Assicurati di importarlo
+import { usePathname } from "next/navigation";
 
-const TemplateComponents: Record<string, React.ComponentType<any>> = {
-  ClassicBlue: ClassicBlue,
-  ElegantBlack: ElegantBlack,
-  Tech: Tech,
-  Anglo: Anglo,
-};
+// --- IMPORTA DAL REGISTRY ---
+// Assicurati che i nomi corrispondano a quelli esportati nel tuo templateRegistry.ts
+import { availableTemplates, templateRegistry } from "@/components/template/templateRegistry";
 
 const DownloadBtn = (props: {
   btnLocation: string;
@@ -25,18 +17,20 @@ const DownloadBtn = (props: {
   style: string;
   menuItem?: boolean;
 }) => {
-  const pathname = usePathname(); // Capisce su quale pagina ci troviamo
-  const templateArray = ["ClassicBlue", "ElegantBlack", "Tech", "Anglo"];
+  const pathname = usePathname();
 
   const templateIndex = useSelector((state: RootState) => state.template.value);
   const reduxPublicLink = useSelector((state: RootState) => state.showHidePublic.publicLink);
   const activePublicLink = props.publicLink || reduxPublicLink;
 
-  const index = Math.min(Math.max(templateIndex, 0), templateArray.length - 1);
+  // Ora availableTemplates viene dal registry, quindi .length funzionerà di nuovo
+  const index = Math.min(Math.max(templateIndex, 0), availableTemplates.length - 1);
   const componentRef = useRef<HTMLDivElement>(null);
 
-  const WhichTemplate = props.template ? props.template : templateArray[index];
-  const TemplateComponent = TemplateComponents[WhichTemplate];
+  const WhichTemplate = props.template ? props.template : availableTemplates[index];
+
+  // Ora templateRegistry	 viene dal registry
+  const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry	];
 
   const handleDownload = async () => {
     let payload = {};
@@ -47,18 +41,14 @@ const DownloadBtn = (props: {
     } else {
       if (!componentRef.current) return;
 
-      // 1. ESTRAZIONE CSS RINFORZATA
-      // Recuperiamo tutte le regole CSS caricate effettivamente nel browser
       let allCss = "";
       try {
         const sheets = Array.from(document.styleSheets);
         for (const sheet of sheets) {
           try {
-            // Estraiamo ogni singola regola CSS
             const rules = Array.from(sheet.cssRules);
             allCss += rules.map(rule => rule.cssText).join("\n");
           } catch (e) {
-            // Se un foglio di stile è esterno (es. Google Fonts), lo saltiamo o lo gestiamo
             console.warn("Impossibile leggere alcune regole CSS esterne:", e);
           }
         }
@@ -69,7 +59,6 @@ const DownloadBtn = (props: {
       const cvHtml = componentRef.current.innerHTML;
       const baseUrl = window.location.origin;
 
-      // 2. CREAZIONE SNAPSHOT AUTO-SUFFICIENTE
       const fullHtml = `
         <!DOCTYPE html>
         <html>
@@ -77,10 +66,7 @@ const DownloadBtn = (props: {
           <meta charset="UTF-8">
           <base href="${baseUrl}/">
           <style>
-            /* Inseriamo tutto il CSS estratto direttamente qui */
             ${allCss}
-            
-            /* Fix aggiuntivi per la stampa */
             body { background: white !important; -webkit-print-color-adjust: exact; }
             * { transition: none !important; animation: none !important; }
           </style>
@@ -93,7 +79,6 @@ const DownloadBtn = (props: {
       payload = { html: fullHtml };
     }
 
-    // 2. Chiamata API al server PDF
     try {
       const response = await fetch('/api/pdf-proxy', {
         method: "POST",
@@ -103,7 +88,6 @@ const DownloadBtn = (props: {
 
       if (!response.ok) throw new Error("Errore dal server PDF");
 
-      // 3. Scaricamento Sicuro per macOS
       const arrayBuffer = await response.arrayBuffer();
       const pdfBlob = new Blob([arrayBuffer], { type: "application/pdf" });
       const url = window.URL.createObjectURL(pdfBlob);
@@ -120,6 +104,8 @@ const DownloadBtn = (props: {
     }
   };
 
+  if (!TemplateComponent) return null; // Protezione se il template non esiste
+
   return (
     <div>
       {!props.menuItem ? (
@@ -134,10 +120,6 @@ const DownloadBtn = (props: {
         </button>
       )}
 
-      {/* MODIFICA FONDAMENTALE PER LA PAGINAZIONE:
-        Invece di display: "none" (che azzera l'altezza), spostiamo il CV fuori dallo schermo.
-        Così il PaginationWrapper può misurare l'altezza esatta e tagliare le pagine A4!
-      */}
       <div className="absolute top-0 left-[-9999px] w-max overflow-hidden opacity-0 pointer-events-none">
         <div ref={componentRef}>
           <TemplateComponent

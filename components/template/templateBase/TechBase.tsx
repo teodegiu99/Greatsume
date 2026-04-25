@@ -5,7 +5,7 @@ import { TemplateBaseProps } from "@/types/template";
 
 export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
   return (
-    <div className="h-full w-full bg-[#fafafa] text-[#1a202c] p-8 font-sans">
+    <div className="h-full w-full bg-[#fafafa] text-[#1a202c] p-8 font-sans" id="cv-ready">
       <div className="flex justify-between items-start mb-10">
         <div className="max-w-[70%]">
           <h1 className="text-4xl font-extrabold text-[#2d3748] tracking-tight">

@@ -6,7 +6,7 @@ export const ClassicBlueBase: React.FC<TemplateBaseProps> = ({
     showHide,
 }) => {
     return (
-        <div className="grid grid-cols-3 h-full w-full min-h-full">
+        <div className="grid grid-cols-3 h-full w-full min-h-full"id="cv-ready" >
             <div className="col-span-1 bg-[#1c2863] p-3 w-full text-white">
                 {data?.image && showHide?.showImage && (
                     <div className="flex justify-center w-full mb-4">

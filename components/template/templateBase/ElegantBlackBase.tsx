@@ -11,7 +11,7 @@ import { TemplateBaseProps } from "@/types/template";
 export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
 
   return (
-   <div className="h-full w-full text-black bg-white p-6 min-h-full">
+   <div className="h-full w-full text-black bg-white p-6 min-h-full " id="cv-ready">
       <div className="flex flex-col items-center">
        
           {(data?.name || data?.surname) && <p className="cvMainTitle-ElegantBlack">
