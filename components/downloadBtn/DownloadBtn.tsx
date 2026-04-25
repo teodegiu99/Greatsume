@@ -27,13 +27,13 @@ const DownloadBtn = (props: {
   // 2. Prendi i dati da Redux (se sei nella pagina pubblica saranno nulli/vuoti, ma non importa)
 const cvData = useSelector((state: RootState) => state.updateValues); 
   const showHideOptions = useSelector((state: RootState) => state.showHide);
-
-  const index = Math.min(Math.max(templateIndex, 0), availableTemplates.length - 1);
+const templateState = useSelector((state: RootState) => state.template);
+  const WhichTemplate = props.template 
+  || (typeof templateState === 'string' ? templateState : templateState?.value) 
+  || showHideOptions?.template 
+  || "ClassicBlue"; // Fallback di sicurezza
   const componentRef = useRef<HTMLDivElement>(null);
-
-  const WhichTemplate = props.template ? props.template : availableTemplates[index];
-  const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry ];
-
+const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry];
   const handleDownload = async () => {
     let payload = {};
 
