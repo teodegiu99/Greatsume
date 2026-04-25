@@ -6,6 +6,7 @@ import { RootState } from "@/app/state/store";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 
+// --- IMPORTA DAL REGISTRY ---
 import { availableTemplates, templateRegistry } from "@/components/template/templateRegistry";
 
 const DownloadBtn = (props: {
@@ -16,32 +17,48 @@ const DownloadBtn = (props: {
   menuItem?: boolean;
 }) => {
   const pathname = usePathname();
-  
-  // 1. Sposta questo fuori per poterlo usare sia nella funzione che nel JSX
   const isPublicPage = pathname.includes('/shared/');
 
-  const templateIndex = useSelector((state: RootState) => state.template.value);
+  // Selettori Redux
+  const templateState = useSelector((state: RootState) => state.template);
   const reduxPublicLink = useSelector((state: RootState) => state.showHidePublic.publicLink);
-  const activePublicLink = props.publicLink || reduxPublicLink;
-
-  // 2. Prendi i dati da Redux (se sei nella pagina pubblica saranno nulli/vuoti, ma non importa)
-const cvData = useSelector((state: RootState) => state.updateValues); 
+  const cvData = useSelector((state: RootState) => state.updateValues); 
   const showHideOptions = useSelector((state: RootState) => state.showHide);
-const templateState = useSelector((state: RootState) => state.template);
-  const WhichTemplate = props.template 
-  || (typeof templateState === 'string' ? templateState : templateState?.value) 
-  || showHideOptions?.template 
-  || "ClassicBlue"; // Fallback di sicurezza
+
+  const activePublicLink = props.publicLink || reduxPublicLink;
+  
+  // Dichiarazione del Ref mancante
   const componentRef = useRef<HTMLDivElement>(null);
-const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry];
+
+  /**
+   * Logica per determinare il nome del template (stringa).
+   * Si assicura che il PDF usi lo stesso template visualizzato nella UI.
+   */
+  const getTemplateName = () => {
+    // 1. Se passato via props (pagine pubbliche)
+    if (props.template) return props.template;
+    
+    // 2. Se siamo loggati, usiamo l'indice corrente dallo stato Redux per ottenere il nome dall'array
+    if (templateState && typeof templateState.value === 'number') {
+      const index = Math.min(Math.max(templateState.value, 0), availableTemplates.length - 1);
+      return availableTemplates[index];
+    }
+    
+    // 3. Fallback sul nome salvato in showHide o default
+    return showHideOptions?.template || "ClassicBlue";
+  };
+
+  const WhichTemplate = getTemplateName();
+  const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templateRegistry];
+
   const handleDownload = async () => {
     let payload = {};
 
     if (isPublicPage && activePublicLink) {
-      // Il PDF viene generato passando direttamente l'URL
-      payload = { url: `http://localhost:3000/shared/${activePublicLink}` };
+      // Per la parte pubblica usiamo l'URL
+      payload = { url: `${window.location.origin}/shared/${activePublicLink}` };
     } else {
-      // Qui sei loggato, estrai l'HTML dal div nascosto
+      // Per la parte loggata estraiamo l'HTML dal componente invisibile
       if (!componentRef.current) return;
 
       let allCss = "";
@@ -107,6 +124,7 @@ const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templat
     }
   };
 
+  // Se non troviamo il componente del template, non renderizziamo nulla (evita crash)
   if (!TemplateComponent) return null;
 
   return (
@@ -123,8 +141,9 @@ const TemplateComponent = templateRegistry[WhichTemplate as keyof typeof templat
         </button>
       )}
 
-      {/* 3. Renderizza il componente invisibile SOLO se non sei in una pagina pubblica 
-             e SOLO se hai i dati Redux pronti. */}
+      {/* Questo div renderizza il template in modo invisibile per poterne catturare l'HTML.
+         Viene renderizzato solo se non siamo in una pagina pubblica e abbiamo i dati.
+      */}
       {!isPublicPage && cvData && showHideOptions && (
         <div className="absolute top-0 left-[-9999px] w-max overflow-hidden opacity-0 pointer-events-none">
           <div ref={componentRef}>
