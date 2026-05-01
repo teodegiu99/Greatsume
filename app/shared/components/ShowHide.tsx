@@ -114,7 +114,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                                             className={`flex items-center justify-between p-3 border rounded-lg transition-all ${
                                                 isOwnerHidden
                                                     ? "bg-slate-50 border-slate-100 opacity-60 cursor-not-allowed"
-                                                    : "hover:border-indigo-300 cursor-pointer bg-white"
+                                                    : "hover:border-violet-300 cursor-pointer bg-white"
                                             }`}
                                         >
                                             <div className="flex items-center gap-3">
@@ -135,7 +135,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                                                 name={opt.name}
                                                 id={opt.name}
                                                 disabled={isOwnerHidden}
-                                                className={`w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 ${
+                                                className={`w-5 h-5 rounded border-slate-300 !text-violet-600 accent-violet-600 focus:ring-violet-500 ${
                                                     isOwnerHidden
                                                         ? "cursor-not-allowed"
                                                         : "cursor-pointer"
@@ -162,7 +162,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                         btnLocation={"public"}
                         template={initialValues.cvTemplate}
                         publicLink={publicLink}
-                        style="w-full py-3.5 flex items-center justify-center gap-x-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors shadow-sm"
+                        style="w-full py-3.5 flex items-center justify-center gap-x-2 bg-violet-600 hover:bg-violet-700 text-white font-medium rounded-lg transition-colors shadow-sm"
                     />
                 </div>
             </div>

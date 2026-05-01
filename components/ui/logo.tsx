@@ -3,7 +3,6 @@ import React from "react";
 const Logo = () => {
   return (
     <div className="flex flex-col items-start leading-none select-none font-['DM_Sans',_sans-serif]">
-      {/* Parte Superiore: Greatsume */}
       <div className="text-3xl tracking-tight primary">
         <span className="font-semibold ">G</span>
 		 <span className="font-black underline">

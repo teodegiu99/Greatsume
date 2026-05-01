@@ -47,18 +47,18 @@ const PublicSidebar = ({ data }: { data: any }) => {
       {/* Profilo & Immagine */}
       <div className="bg-white p-6 mb-5 border border-slate-100 rounded-xl shadow-sm text-center">
         {visibility.showImage && data.image ? (
-          <div className="relative w-32 h-32 mx-auto mb-4 border-4 border-indigo-50 rounded-full overflow-hidden shadow-inner">
+          <div className="relative w-32 h-32 mx-auto mb-4 border-4 border-violet-50 rounded-full overflow-hidden shadow-inner">
             <Image src={data.image} alt="Profile" fill className="object-cover" />
           </div>
         ) : (
-          <div className="w-24 h-24 mx-auto mb-4 bg-indigo-50 flex items-center justify-center rounded-full text-indigo-300">
+          <div className="w-24 h-24 mx-auto mb-4 bg-violet-50 flex items-center justify-center rounded-full text-violet-300">
             <MdPerson size={48} />
           </div>
         )}
         <h1 className="text-2xl font-bold text-slate-800 leading-tight">
           {data.name} {data.surname}
         </h1>
-        <p className="text-indigo-600 font-medium mt-1">{data.desiredJob}</p>
+        <p className="text-violet-600 font-medium mt-1">{data.desiredJob}</p>
       </div>
 
       {/* Bio / Sommario */}
@@ -75,7 +75,7 @@ const PublicSidebar = ({ data }: { data: any }) => {
           {data.email && (
             <div className="flex items-center gap-3 text-slate-600 text-sm">
               <MdEmail className="text-slate-400" />
-              <a href={`mailto:${data.email}`} className="hover:text-indigo-600 transition-colors">{data.email}</a>
+              <a href={`mailto:${data.email}`} className="hover:text-violet-600 transition-colors">{data.email}</a>
             </div>
           )}
           {data.phone && (
@@ -102,14 +102,14 @@ const PublicSidebar = ({ data }: { data: any }) => {
         <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-slate-50">
           {data.linkedin && <a href={data.linkedin} target="_blank" className="text-slate-400 hover:text-[#0077b5] transition-colors"><FaLinkedin size={20} /></a>}
           {data.github && <a href={data.github} target="_blank" className="text-slate-400 hover:text-[#333] transition-colors"><FaGithub size={20} /></a>}
-          {data.website && <a href={data.website} target="_blank" className="text-slate-400 hover:text-indigo-600 transition-colors"><FaGlobe size={20} /></a>}
+          {data.website && <a href={data.website} target="_blank" className="text-slate-400 hover:text-violet-600 transition-colors"><FaGlobe size={20} /></a>}
           {data.dribble && <a href={data.dribble} target="_blank" className="text-slate-400 hover:text-[#ea4c89] transition-colors"><FaDribbble size={20} /></a>}
         </div>
       </InfoCard>
 
       {/* Skills */}
       <InfoCard title="Hard Skills" icon={<MdCode />}>
-        {renderPills(data.skillss, "bg-indigo-50 text-indigo-700 border-indigo-100")}
+        {renderPills(data.skillss, "bg-violet-50 text-violet-700 border-violet-100")}
       </InfoCard>
 
       <InfoCard title="Soft Skills" icon={<MdExtension />}>

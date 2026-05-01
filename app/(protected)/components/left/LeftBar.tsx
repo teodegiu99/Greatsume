@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useTransition } from "react";
@@ -14,7 +13,7 @@ import {
 import Select from "react-select";
 import * as z from "zod";
 import dynamic from "next/dynamic";
-
+import { availableTemplates } from "@/components/template/templateRegistry";
 // Importa l'editor React Quill dinamicamente (disabilita SSR per evitare errori Window is not defined)
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
@@ -84,10 +83,9 @@ const LeftBar = () => {
     const [isMounted, setIsMounted] = useState(false);
 
     const template = useSelector((state: RootState) => state.template.value);
-    const templateArray = ["ClassicBlue", "ElegantBlack", "Tech", "Anglo"];
     const templateIndex = Math.min(
         Math.max(template, 0),
-        templateArray.length - 1,
+        availableTemplates.length - 1,
     );
 
     const [inputValue, setInputValue] = useState("");
@@ -163,7 +161,7 @@ const LeftBar = () => {
     const SubmitHandler = (values: ResumeFormValues) => {
         setError("");
         startTransition(() => {
-            selectedTemplate(templateArray[templateIndex]);
+            selectedTemplate(availableTemplates[templateIndex]);
             resume(values)
                 .then((data) => {
                     if (data?.error) setError(data.error);

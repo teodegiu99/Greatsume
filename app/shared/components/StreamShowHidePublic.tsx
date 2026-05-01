@@ -19,9 +19,10 @@ export const StreamShowHidePublic = () => {
   const dispatch = useDispatch();
   const object = useSelector((state: RootState) => state.showHidePublic);
 
-  const handleUpdateValues = () => {
+ const handleUpdateValues = () => {
     const newObject: ShowHidePublic = {
-      ...values,
+      ...object, // Recupera publicLink (e il resto) dallo stato attuale di Redux
+      ...values, // Sovrascrive i campi gestiti da Formik
     };
     dispatch(setUpdateValues(newObject));
   };
