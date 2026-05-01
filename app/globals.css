@@ -138,6 +138,7 @@ ul {
 }
 
 
+
 /* Footer */
 .footer {
   @apply h-[45px] w-[100%] flex flex-row items-center justify-center  bg-gradient-to-r from-violet-600 to-indigo-600 text-white z-50;
@@ -261,6 +262,7 @@ ul {
 .accent {
 	  @apply text-[#04c892];
 }
+
 
 /* Stili per resettare i blocchi HTML dentro il CV */
 .quill-content p {

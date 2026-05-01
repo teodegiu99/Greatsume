@@ -16,7 +16,7 @@ const InfoCard = ({ title, icon, children, isVisible = true }: { title: string, 
   return (
     <div className="bg-white p-5 mb-5 border border-slate-100 rounded-xl shadow-sm overflow-hidden">
       <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-        <span className="text-indigo-500">{icon}</span>
+        <span className="primary">{icon}</span>
         {title}
       </h3>
       {children}

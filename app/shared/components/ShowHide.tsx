@@ -2,7 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { MdPrivacyTip, MdPerson, MdLocationOn, MdCake, MdArticle } from "react-icons/md";
+import {
+    MdPrivacyTip,
+    MdPerson,
+    MdLocationOn,
+    MdCake,
+    MdArticle,
+} from "react-icons/md";
 import { getShowHidePublicOptions } from "@/actions/showHideOptions";
 import { StreamShowHidePublic } from "./StreamShowHidePublic";
 import DownloadBtn from "@/components/downloadBtn/DownloadBtn";
@@ -45,7 +51,7 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
     }, [publicLink]);
 
     const handleSubmit = () => {
-        // Nessuna azione al submit, i valori vengono gestiti in tempo reale 
+        // Nessuna azione al submit, i valori vengono gestiti in tempo reale
         // o prelevati dal DownloadBtn tramite lo store
         return;
     };
@@ -54,7 +60,11 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
     const toggleOptions = [
         { name: "showImage", label: "Show your picture", icon: MdPerson },
         { name: "showAddress", label: "Show your address", icon: MdLocationOn },
-        { name: "showDateOfBirth", label: "Show your date of birth", icon: MdCake },
+        {
+            name: "showDateOfBirth",
+            label: "Show your date of birth",
+            icon: MdCake,
+        },
         { name: "showBio", label: "Show your biography", icon: MdArticle },
     ] as const;
 
@@ -63,11 +73,12 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
             {/* Intestazione della Card */}
             <div className="mb-6">
                 <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2 mb-2">
-                    <MdPrivacyTip className="text-indigo-500" />
+                    <MdPrivacyTip className="primary" />
                     Privacy Options
                 </h3>
                 <p className="text-sm text-slate-500">
-                    Hide personal information to ensure DEIB compliance before downloading the CV.
+                    Hide personal information to ensure DEIB compliance before
+                    downloading the CV.
                 </p>
             </div>
 
@@ -75,7 +86,10 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
             {isLoading ? (
                 <div className="animate-pulse space-y-3">
                     {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="h-14 bg-slate-100 rounded-lg w-full"></div>
+                        <div
+                            key={i}
+                            className="h-14 bg-slate-100 rounded-lg w-full"
+                        ></div>
                     ))}
                 </div>
             ) : (
@@ -89,8 +103,11 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                             <div className="space-y-3">
                                 {toggleOptions.map((opt) => {
                                     // Se il creatore del CV ha nascosto un campo, il visitatore non può riattivarlo
-                                    const isOwnerHidden = !initialValues[opt.name as keyof typeof initialValues];
-                                    
+                                    const isOwnerHidden =
+                                        !initialValues[
+                                            opt.name as keyof typeof initialValues
+                                        ];
+
                                     return (
                                         <label
                                             key={opt.name}
@@ -102,7 +119,11 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                                         >
                                             <div className="flex items-center gap-3">
                                                 <opt.icon
-                                                    className={isOwnerHidden ? "text-slate-400" : "text-indigo-500"}
+                                                    className={
+                                                        isOwnerHidden
+                                                            ? "text-slate-400"
+                                                            : "primary"
+                                                    }
                                                     size={22}
                                                 />
                                                 <span className="text-sm font-medium text-slate-700">
@@ -115,7 +136,9 @@ const ShowHide: React.FC<ShowHideProps> = ({ publicLink }) => {
                                                 id={opt.name}
                                                 disabled={isOwnerHidden}
                                                 className={`w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 ${
-                                                    isOwnerHidden ? "cursor-not-allowed" : "cursor-pointer"
+                                                    isOwnerHidden
+                                                        ? "cursor-not-allowed"
+                                                        : "cursor-pointer"
                                                 }`}
                                             />
                                         </label>
