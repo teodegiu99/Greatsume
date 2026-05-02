@@ -127,7 +127,7 @@ export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }
         {/* ESPERIENZA LAVORATIVA[cite: 1] */}
         {data?.experience && data?.experience.length > 0 && (
           <div className="flex flex-col mb-4">
-            <div className="cvSeparator-div-ElegantBlack mb-4">
+            <div className="paginate-item cvSeparator-div-ElegantBlack mb-4">
               <p className="cvTitle-ElegantBlack">Employment History</p>
             </div>
             {data?.experience.map((exp, index) => (
@@ -148,7 +148,7 @@ export const ElegantBlackBase: React.FC<TemplateBaseProps> = ({ data, showHide }
         {/* EDUCAZIONE[cite: 1] */}
         {data?.education && data?.education.length > 0 && (
           <div className="flex flex-col mb-4">
-            <div className="cvSeparator-div-ElegantBlack mb-4">
+            <div className="paginate-item cvSeparator-div-ElegantBlack mb-4">
               <p className="cvTitle-ElegantBlack">Education</p>
             </div>
             {data?.education.map((edu, index) => (

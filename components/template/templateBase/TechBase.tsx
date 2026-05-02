@@ -170,7 +170,7 @@ export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
           <div className="col-span-2 space-y-8">
             {data?.experience && data?.experience.length > 0 && (
               <div>
-                <h2 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-6 border-b-2 border-blue-50 pb-1">Professional Experience</h2>
+                <h2 className="paginate-item text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-6 border-b-2 border-blue-50 pb-1">Professional Experience</h2>
                 <div className="space-y-8">
                   {data?.experience.map((exp, i) => (
                     <div key={i} className="paginate-item border-l-2 border-blue-50 pl-6 relative">
@@ -191,7 +191,7 @@ export const TechBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
 
             {data?.education && data?.education.length > 0 && (
               <div className="pt-4">
-                <h2 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-6 border-b-2 border-blue-50 pb-1">Educational Background</h2>
+                <h2 className="paginate-item text-xs font-black uppercase tracking-[0.2em] text-blue-600 mb-6 border-b-2 border-blue-50 pb-1">Educational Background</h2>
                 <div className="space-y-6">
                   {data?.education.map((edu, i) => (
                     <div key={i} className="paginate-item">

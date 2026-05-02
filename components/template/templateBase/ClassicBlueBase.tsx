@@ -208,7 +208,7 @@ export const ClassicBlueBase: React.FC<TemplateBaseProps> = ({
                     {/* Esperienza Lavorativa[cite: 1] */}
                     {data?.experience && data?.experience.length > 0 && (
                         <div className="mb-10">
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-[#1c2863] mb-4 flex items-center gap-4">
+                            <h2 className="paginate-item text-sm font-black uppercase tracking-[0.3em] text-[#1c2863] mb-4 flex items-center gap-4">
                                 Experience
                                 <div className="h-[1px] bg-slate-200 grow"></div>
                             </h2>
@@ -236,7 +236,7 @@ export const ClassicBlueBase: React.FC<TemplateBaseProps> = ({
                     {/* Educazione[cite: 1] */}
                     {data?.education && data?.education.length > 0 && (
                         <div className="mb-6">
-                            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-[#1c2863] mb-4 flex items-center gap-4">
+                            <h2 className="paginate-item text-sm font-black uppercase tracking-[0.3em] text-[#1c2863] mb-4 flex items-center gap-4">
                                 Education
                                 <div className="h-[1px] bg-slate-200 grow"></div>
                             </h2>

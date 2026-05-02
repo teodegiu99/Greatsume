@@ -13,6 +13,8 @@ const PaginationWrapper = ({ children }: PaginationWrapperProps) => {
   
   // Dati da usare come trigger: quando cambiano, ricalcoliamo
   const cvData = useSelector((state: RootState) => state.updateValues);
+  const templateIndex = useSelector((state: RootState) => state.template.value);
+  const showHideOptions = useSelector((state: RootState) => state.showHide);
 
   // Misure standard A4 a 96dpi
   const A4_HEIGHT_PX = 1123; 
@@ -28,9 +30,9 @@ useEffect(() => {
     const calculateLayout = () => {
       const items = container.querySelectorAll(".paginate-item");
       
-      // Reset di tutti i margini
+      // Ripristina i margini originali (CSS)
       items.forEach((el) => {
-        (el as HTMLElement).style.marginTop = "0px";
+        (el as HTMLElement).style.marginTop = "";
       });
 
       // Ricalcolo
@@ -43,12 +45,35 @@ useEffect(() => {
         const bottomRelativeToContainer = topRelativeToContainer + rect.height;
 
         const currentPageIndex = Math.floor(topRelativeToContainer / A4_HEIGHT_PX);
+        const pageTopLimit = currentPageIndex * A4_HEIGHT_PX + MARGIN_PX;
         const pageBottomLimit = (currentPageIndex + 1) * A4_HEIGHT_PX - MARGIN_PX;
 
-        if (bottomRelativeToContainer > pageBottomLimit) {
+        let pushAmount = 0;
+
+        // Se l'elemento cade nel margine superiore di una pagina (non la prima)
+        if (currentPageIndex > 0 && topRelativeToContainer < pageTopLimit) {
+          pushAmount = pageTopLimit - topRelativeToContainer;
+        } 
+        // Se l'elemento sfora il limite inferiore della pagina corrente
+        else if (bottomRelativeToContainer > pageBottomLimit) {
           const newPageStart = (currentPageIndex + 1) * A4_HEIGHT_PX + MARGIN_PX;
-          const pushAmount = newPageStart - topRelativeToContainer;
-          htmlEl.style.marginTop = `${pushAmount}px`;
+          pushAmount = newPageStart - topRelativeToContainer;
+        }
+
+        if (pushAmount > 0) {
+          const currentMargin = parseFloat(window.getComputedStyle(htmlEl).marginTop) || 0;
+          htmlEl.style.marginTop = `${currentMargin + pushAmount}px`;
+
+          // Controllo per il CSS margin-collapsing:
+          const newRect = htmlEl.getBoundingClientRect();
+          const currentContainerRect = container.getBoundingClientRect(); // Rileggiamo per evitare bug da Scroll Anchoring!
+          const newTopRelativeToContainer = newRect.top - currentContainerRect.top;
+          const expectedTop = topRelativeToContainer + pushAmount;
+
+          if (newTopRelativeToContainer < expectedTop - 1) { // 1px di tolleranza
+            const deficit = expectedTop - newTopRelativeToContainer;
+            htmlEl.style.marginTop = `${currentMargin + pushAmount + deficit}px`;
+          }
         }
       });
 
@@ -56,19 +81,23 @@ useEffect(() => {
       setPages(Math.ceil(totalHeight / A4_HEIGHT_PX));
     };
 
-    // 2. Eseguiamo il calcolo subito (per quando l'utente digita velocemente)
+    // 2. Eseguiamo il calcolo subito
     calculateLayout();
 
-    // 3. Lo ri-eseguiamo dopo 300ms! 
-    // Questo dà il tempo al browser di renderizzare i dati del DB e caricare eventuali immagini
-    const timer = setTimeout(() => {
+    // 3. Eseguiamo dopo il caricamento dei font (spesso causa di shift di layout)
+    document.fonts.ready.then(() => {
       calculateLayout();
-    }, 300);
+    });
 
-    // Pulizia del timer
-    return () => clearTimeout(timer);
+    // 4. Fallback con timer multipli per immagini o risorse lente
+    const timers = [100, 500, 1000].map(delay => 
+      setTimeout(calculateLayout, delay)
+    );
 
-  }, [cvData]); // L'effetto scatta ogni volta che cvData cambia (sia da DB che da tastiera)
+    // Pulizia dei timer
+    return () => timers.forEach(clearTimeout);
+
+  }, [cvData, templateIndex, showHideOptions]); // L'effetto scatta ogni volta che cvData, il template, o i toggle cambiano
 
   return (
     // Sfondo del builder (grigio per far risaltare i fogli bianchi)

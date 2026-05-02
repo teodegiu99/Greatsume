@@ -1,3 +1,4 @@
+
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
@@ -7,7 +8,6 @@ import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
 import { templateRegistry } from "@/components/template/templateRegistry";
 import { CvData, VisibilityOptions } from "@/types/template";
 
-// Dati perfetti per riempire tutto il template
 const mockResumeData: CvData = {
   name: "Matteo",
   surname: "Rossi",
@@ -60,8 +60,16 @@ export function Hero() {
   const heroRef = useRef(null);
   const templateContainerRef = useRef(null);
   
+  // Stato per gestire l'idratazione
+  const [isMounted, setIsMounted] = useState(false);
+  
   const templateKeys = Object.keys(templateRegistry);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Effetto per segnalare che il componente è montato sul client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -77,7 +85,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (templateKeys.length === 0) return;
+    if (templateKeys.length === 0 || !isMounted) return;
     const interval = setInterval(() => {
       gsap.to(templateContainerRef.current, {
         opacity: 0,
@@ -95,7 +103,7 @@ export function Hero() {
       });
     }, 4000);
     return () => clearInterval(interval);
-  }, [templateKeys.length]);
+  }, [templateKeys.length, isMounted]);
 
   const CurrentTemplate = templateRegistry[templateKeys[currentIndex]];
 
@@ -108,9 +116,8 @@ export function Hero() {
     <div className="w-full overflow-hidden relative">
       <section ref={heroRef} className="relative w-full pt-20 lg:pt-32 pb-20 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
         
-        {/* 1. TESTO (Sinistra) - AGGIORNATO */}
+        {/* 1. TESTO (Sinistra) - SSR consentito per SEO */}
         <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-20">
-          
           <div className="hero-anim inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-violet-50 dark:bg-violet-900/20 border border-violet-100 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-xs font-bold uppercase tracking-wider">
             🚀 Semplice, veloce e gratuito
           </div>
@@ -141,18 +148,17 @@ export function Hero() {
               Nessuna carta di credito richiesta
             </span>
           </div>
-
         </div>
 
-        {/* 2. MOCKUP CV (Destra) - INVARIATO */}
+        {/* 2. MOCKUP CV (Destra) - Client-Side Only[cite: 1] */}
         <div className="hero-anim w-full lg:w-1/2 flex justify-center items-center relative z-10">
-          
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-violet-500/20 blur-[100px] rounded-full pointer-events-none" />
 
           <div className="relative w-[318px] h-[449px] sm:w-[397px] sm:h-[561px] bg-white rounded-xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-neutral-200 transform rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden">
             
             <div ref={templateContainerRef} className="absolute inset-0 w-full h-full bg-white">
-              {CurrentTemplate ? (
+              {/* Rendering condizionale per evitare Hydration Error[cite: 1] */}
+              {isMounted && CurrentTemplate ? (
                 <div className="absolute top-0 left-0 w-[794px] h-[1123px] origin-top-left scale-[0.40] sm:scale-50 pointer-events-none text-black">
                   <CurrentTemplate data={mockResumeData} showHide={mockShowHide} />
                 </div>
@@ -165,7 +171,6 @@ export function Hero() {
             
             <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.015)]" />
           </div>
-          
         </div>
       </section>
     </div>
