@@ -21,13 +21,6 @@ export const Social = () => {
         onClick={() => onclick("google")}>
             <FcGoogle className="h-5 w-5"/>    
       </Button>
-      <Button 
-        size="lg" 
-        className="w-full" 
-        variant="outline" 
-        onClick={() => onclick("github")}>
-            <FaGithub className="h-5 w-5"/>    
-      </Button>
     </div>
   );
 };
