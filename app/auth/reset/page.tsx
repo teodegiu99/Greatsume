@@ -1,10 +1,12 @@
-import { ResetForm } from '@/components/auth/ResetForm'
-import React from 'react'
+import { ResetForm } from "@/components/auth/ResetForm";
+import { Suspense } from "react";
 
 const ResetPage = () => {
-  return (
-   <ResetForm />
-  )
-}
+    return (
+        <Suspense fallback={<div>Caricamento...</div>}>
+            <ResetForm />
+        </Suspense>
+    );
+};
 
-export default ResetPage
+export default ResetPage;
