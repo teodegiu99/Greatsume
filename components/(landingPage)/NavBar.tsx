@@ -8,29 +8,33 @@ import { cn } from "@/lib/utils";
 
 export const NavBar = () => {
   const pathname = usePathname();
+  // Controlliamo se siamo in una pagina di login, register, etc.
+  const isAuthPage = pathname.startsWith("/auth");
 
-  // NOTA: Abbiamo rimosso 'fixed top-0' 
-  // La posizione verrà gestita dal genitore o dal wrapper
   return (
     <nav className="w-full bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex items-center">
+          {/* Il logo ora è un link per tornare alla landing */}
+          <Link href="/" className="hover:opacity-75 transition">
             <Logo />
-          </div>
+          </Link>
 
-          <div className="flex items-center gap-4">
-            <Link href="/auth/login">
-              <Button variant="ghost" size="sm">
-                Log in
-              </Button>
-            </Link>
-            <Link href="/auth/register">
-              <Button size="sm" className="bg-violet-600 hover:bg-violet-700 text-white">
-                Get Started
-              </Button>
-            </Link>
-          </div>
+          {/* Mostriamo i bottoni solo se NON siamo in una pagina auth */}
+          {!isAuthPage && (
+            <div className="flex items-center gap-4">
+              <Link href="/auth/login">
+                <Button variant="ghost" size="sm">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/auth/register">
+                <Button size="sm" className="bg-violet-600 hover:bg-violet-700 text-white font-bold">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
