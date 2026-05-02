@@ -257,10 +257,6 @@ import { TemplateBaseProps } from "@/types/template";
 
 export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
     return (
-        /* 
-           Rimosso h-full: ora il contenitore cresce in base al contenuto nel browser.
-           Aggiunto overflow-visible per evitare tagli visivi.
-        */
         <div 
             className="w-full h-auto min-h-full bg-white text-[#2c3e50] font-serif overflow-visible" 
             id="cv-ready"
@@ -268,20 +264,32 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
             <style jsx global>{`
                 /* REGOLE PER PUPPETEER / STAMPA */
                 @media print {
-                    @page {
-                        margin: 1cm; /* Margine fisico richiesto */
-                        size: A4;
+                    /* Forza il bianco assoluto su tutto il foglio */
+                    html, body {
+                        background-color: white !important;
+                        -webkit-print-color-adjust: exact !important;
+                        print-color-adjust: exact !important;
                     }
+
+                    @page {
+                        margin: 1cm;
+                        size: A4;
+                        background-color: white !important;
+                    }
+
                     #cv-ready {
                         padding: 0 !important;
                         height: auto !important;
+                        background-color: white !important;
                     }
-                    /* Forza il browser a non tagliare mai dentro questi blocchi */
+
+                    /* Impedisce tagli orfani e assicura lo sfondo bianco sui blocchi */
                     .paginate-item {
                         break-inside: avoid !important;
                         page-break-inside: avoid !important;
                         display: block; 
                         position: relative;
+                        background-color: white !important;
                     }
                 }
 
@@ -291,21 +299,23 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                     margin-bottom: 1.5rem;
                 }
                 
-                /* Assicura che il testo HTML da Quill non causi problemi di layout */
                 .quill-content {
                     word-wrap: break-word;
                     overflow-wrap: break-word;
                 }
+                
+                /* Pulizia liste Quill */
+                .quill-content ul {
+                    list-style-type: disc;
+                    padding-left: 1.5rem;
+                }
             `}</style>
 
-            {/* 
-                Padding di 1cm: 
-                Nel browser simula il margine che Puppeteer applicherà via @page.
-            */}
-            <div className="p-[1cm] flex flex-col h-auto">
+            {/* Container con padding di 1cm (simula il margine fisico) */}
+            <div className="p-[1cm] flex flex-col h-auto bg-white">
                 
-                {/* Header */}
-                <div className="flex flex-col items-center border-b-2 border-gray-800 pb-4 mb-6 paginate-item">
+                {/* Header[cite: 1] */}
+                <div className="flex flex-col items-center border-b-2 border-gray-800 pb-4 mb-6 paginate-item bg-white text-center">
                     <h1 className="text-3xl font-bold uppercase tracking-widest text-black">
                         {data?.name} {data?.surname}
                     </h1>
@@ -322,9 +332,9 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                     </div>
                 </div>
 
-                {/* Profilo Professionale */}
+                {/* Profilo Professionale[cite: 1] */}
                 {data?.bio && showHide?.showBio && (
-                    <div className="paginate-item">
+                    <div className="paginate-item bg-white">
                         <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-2 italic">
                             Professional Summary
                         </h2>
@@ -335,14 +345,14 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                     </div>
                 )}
 
-                {/* Esperienza Lavorativa */}
+                {/* Esperienza Lavorativa[cite: 1] */}
                 {data?.experience && data?.experience.length > 0 && (
-                    <div className="flex flex-col">
-                        <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-3 italic paginate-item">
+                    <div className="flex flex-col bg-white">
+                        <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-3 italic paginate-item bg-white">
                             Experience
                         </h2>
                         {data?.experience.map((exp, index) => (
-                            <div key={index} className="paginate-item">
+                            <div key={index} className="paginate-item bg-white">
                                 <div className="flex justify-between items-baseline">
                                     <h3 className="font-bold text-black uppercase">
                                         {exp.title}
@@ -362,14 +372,14 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                     </div>
                 )}
 
-                {/* Educazione */}
+                {/* Educazione[cite: 1] */}
                 {data?.education && data?.education.length > 0 && (
-                    <div className="flex flex-col">
-                        <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-3 italic paginate-item">
+                    <div className="flex flex-col bg-white">
+                        <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-3 italic paginate-item bg-white">
                             Education
                         </h2>
                         {data?.education.map((edu, index) => (
-                            <div key={index} className="paginate-item">
+                            <div key={index} className="paginate-item bg-white">
                                 <div className="flex justify-between items-baseline">
                                     <h3 className="font-bold text-black uppercase">
                                         {edu.etitle}
@@ -389,8 +399,8 @@ export const AngloBase: React.FC<TemplateBaseProps> = ({ data, showHide }) => {
                     </div>
                 )}
 
-                {/* Skills */}
-                <div className="paginate-item mt-auto">
+                {/* Skills[cite: 1] */}
+                <div className="paginate-item bg-white mt-auto">
                     <h2 className="text-lg font-bold uppercase border-b border-gray-300 mb-2 italic">
                         Skills
                     </h2>
