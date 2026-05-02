@@ -4,11 +4,8 @@ import React from "react";
 
 export default function RibbonLogos() {
   const items = [
-    "Software Engineer", "✦", "Marketing Manager", "✦", 
-    "Graphic Designer", "✦", "Data Scientist", "✦", 
-    "Product Manager", "✦", "Sales Executive", "✦",
-    "UX/UI Designer", "✦", "Financial Analyst", "✦",
-    "Project Manager", "✦", "Frontend Developer", "✦"
+    "Condividi il tuo CV con il mondo", "✦", "Privacy Mode", "✦", 
+    "Nuovi template ogni settimana", "✦", "Scopri quando aprono il tuo cv", "✦", 
   ];
 
   return (
