@@ -1,12 +1,13 @@
+import { Suspense } from "react";
 import { LoginForm } from "@/components/auth/LoginForm";
 
 const LoginPage = () => {
-  return (
-    <div className="z-10">
- 
+  return ( 
+    // Il fallback può essere un semplice loader o null
+    <Suspense fallback={<div>Caricamento...</div>}>
       <LoginForm />
-    </div>
+    </Suspense>
   );
-};
-
+}
+ 
 export default LoginPage;
