@@ -170,7 +170,7 @@ const ShareSettings = () => {
                     form="share-settings-form"
                     type="submit"
                     disabled={isPending}
-                    className="gap-x-2 bg-violet-600 hover:bg-violet-700 text-white shadow-sm"
+                    className="gap-x-2 bg-violet-600 text-white shadow-sm"
                 >
                     <RiSave3Fill size={18} />
                     Save Settings
