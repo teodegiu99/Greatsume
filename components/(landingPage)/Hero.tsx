@@ -4,72 +4,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
+import dynamic from "next/dynamic";
 
-import { templateRegistry } from "@/components/template/templateRegistry";
-import { CvData, VisibilityOptions } from "@/types/template";
+const HeroMockup = dynamic(() => import("./HeroMockup"), { ssr: false });
 
-const mockResumeData: CvData = {
-  name: "Matteo",
-  surname: "Rossi",
-  address: "Via Roma 12, Milano",
-  dateOfBirth: "15/06/1995",
-  relocation: "Disponibile",
-  phone: "+39 333 123 4567",
-  email: "m.rossi@example.com",
-  linkedin: "linkedin.com/in/mrossi",
-  github: "github.com/mrossi",
-  dribble: "",
-  website: "mrossi.dev",
-  bio: "Sviluppatore Full Stack con forte passione per il design e le interfacce reattive. Oltre 5 anni di esperienza nella creazione di applicazioni web moderne e performanti, focalizzate sull'esperienza utente.",
-  desiredJob: "Senior Frontend Engineer",
-  ral: "50k",
-  experience: [
-    { 
-      years: "2021 - Oggi", 
-      title: "Senior Dev @ TechFlow", 
-      exps: "Sviluppo di applicazioni Next.js scalabili. Coordinamento del team tecnico per il lancio della nuova piattaforma cloud, aumentando le performance del 40%." 
-    },
-    { 
-      years: "2018 - 2021", 
-      title: "Web Dev @ AgencyX", 
-      exps: "Creazione di interfacce utente interattive per clienti internazionali B2B. Ottimizzazione delle conversioni tramite A/B testing continui." 
-    }
-  ],
-  education: [
-    { 
-      eyears: "2014 - 2017", 
-      etitle: "Informatica", 
-      edu: "Università degli Studi di Milano - Voto 110L." 
-    }
-  ],
-  skillss: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-  softSkillss: ["Problem Solving", "Team Leadership"],
-  langSkillss: ["Italiano", "Inglese (C1)"],
-  image: "" 
-};
-
-const mockShowHide: VisibilityOptions = {
-  showImage: false,
-  showAddress: true,
-  showDateOfBirth: false,
-  showBio: true,
-};
+// Mock data and state moved to HeroMockup.tsx
 
 export function Hero() {
   const router = useRouter();
   const heroRef = useRef(null);
-  const templateContainerRef = useRef(null);
-  
-  // Stato per gestire l'idratazione
-  const [isMounted, setIsMounted] = useState(false);
-  
-  const templateKeys = Object.keys(templateRegistry);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Effetto per segnalare che il componente è montato sul client
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -83,29 +26,6 @@ export function Hero() {
     }, heroRef);
     return () => ctx.revert();
   }, []);
-
-  useEffect(() => {
-    if (templateKeys.length === 0 || !isMounted) return;
-    const interval = setInterval(() => {
-      gsap.to(templateContainerRef.current, {
-        opacity: 0,
-        scale: 0.98,
-        duration: 0.4,
-        onComplete: () => {
-          setCurrentIndex((prev) => (prev + 1) % templateKeys.length);
-          gsap.to(templateContainerRef.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            ease: "power2.out"
-          });
-        }
-      });
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [templateKeys.length, isMounted]);
-
-  const CurrentTemplate = templateRegistry[templateKeys[currentIndex]];
 
   const words = [
     { text: "Crea" }, { text: "il" }, { text: "tuo" }, { text: "CV" }, { text: "in" },
@@ -155,20 +75,7 @@ export function Hero() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-violet-500/20 blur-[100px] rounded-full pointer-events-none" />
 
           <div className="relative w-[318px] h-[449px] sm:w-[397px] sm:h-[561px] bg-white rounded-xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border border-neutral-200 transform rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden">
-            
-            <div ref={templateContainerRef} className="absolute inset-0 w-full h-full bg-white">
-              {/* Rendering condizionale per evitare Hydration Error[cite: 1] */}
-              {isMounted && CurrentTemplate ? (
-                <div className="absolute top-0 left-0 w-[794px] h-[1123px] origin-top-left scale-[0.40] sm:scale-50 pointer-events-none text-black">
-                  <CurrentTemplate data={mockResumeData} showHide={mockShowHide} />
-                </div>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-neutral-400 font-medium">
-                  Caricamento...
-                </div>
-              )}
-            </div>
-            
+            <HeroMockup />
             <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.015)]" />
           </div>
         </div>
